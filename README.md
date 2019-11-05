@@ -14,22 +14,22 @@ The project consists of the following high level modules which each have their o
 
 The following default values are used to determine the project settings:
 
-Target SDK Version:     29
-Minimum SDK Version:    24
-Gradle Build Version:   3.5.1
-Google Services:        4.3.2
+1. Target SDK Version:     29
+2. Minimum SDK Version:    24
+3. Gradle Build Version:   3.5.1
+4. Google Services:        4.3.2
 
 
 
 Color values are to be set as:
-    <color name="colorPrimary">#182027</color>
-    <color name="colorPrimaryDark">#293542</color>
-    <color name="colorAccent">#59FF00</color>
-    <color name="Background">#F3EEEE</color>
-    <color name="TextColor">#302E2E</color>
-    <color name="ButtonTextColor">#F3EEEE</color>
-    <color name="ButtonColor">#00D4B4</color>
-    <color name="ActionBarColor">#182027</color>
+1. name="colorPrimary">#182027
+2. name="colorPrimaryDark">#293542
+3. name="colorAccent">#59FF00
+4. name="Background">#F3EEEE
+5. name="TextColor">#302E2E
+6. name="ButtonTextColor">#F3EEEE
+7. name="ButtonColor">#00D4B4
+8. name="ActionBarColor">#182027
     
 These files and values are also included in the project.
 
@@ -40,12 +40,12 @@ These files and values are also included in the project.
 2. Use camelCase to name the variables, Object IDs and database fields.
 3. When naming Objects in activities kindly use the following format for ease of use and understanding: <ActivityName_objectType#>
 4. Generic Names for the frequently objects can be as following:
-    i.    Button = btn
-    ii.   RecyclerView = rcv
-    iii.  TextView = txtview
-    iv.   Containers = ctn
-    v.    Fragment = frag
-    vi.   ImageView = Img
+    1.   Button = btn
+    2.   RecyclerView = rcv
+    3.   TextView = txtview
+    4.   Containers = ctn
+    5.   Fragment = frag
+    6.   ImageView = Img
 5. Maintain a list of the dependicies that you are using in your projects independantly as well so we can match and update them during final integration testings.
 
 :)
