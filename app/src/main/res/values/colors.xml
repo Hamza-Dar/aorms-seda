@@ -3,5 +3,10 @@
     <color name="colorPrimary">#182027</color>
     <color name="colorPrimaryDark">#293542</color>
     <color name="colorAccent">#59FF00</color>
+    <color name="Background">#F3EEEE</color>
+    <color name="TextColor">#302E2E</color>
+    <color name="ButtonTextColor">#F3EEEE</color>
+    <color name="ButtonColor">#00D4B4</color>
+    <color name="ActionBarColor">#182027</color>
 
 </resources>
