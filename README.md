@@ -47,6 +47,7 @@ These files and values are also included in the project.
     5.   Fragment = frag
     6.   ImageView = Img
 5. Maintain a list of the dependicies that you are using in your projects independantly as well so we can match and update them during final integration testings.
+6. We are using Firestore (not to be confused with firebase) due to its superior technology and cooler name.
 
 :)
 
