@@ -1,7 +1,6 @@
-package com.demotxt.myapp.recyclerview;
-
+package com.example.aorms_seda;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +21,7 @@ public class ItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.ingredient);
 
         this.IngredientList = getDummyData();
         Log.e("onCreate: ", "size: " + this.IngredientList.size());

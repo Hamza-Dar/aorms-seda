@@ -25,7 +25,7 @@
             android:alpha="0.9"
 
             android:scaleType="centerCrop"
-            android:src="@drawable/food" />
+            android:src="@drawable/desi" />
     </androidx.cardview.widget.CardView>
 
 

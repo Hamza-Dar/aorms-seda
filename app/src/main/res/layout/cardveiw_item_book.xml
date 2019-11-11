@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cardview_id"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
@@ -17,14 +17,14 @@
 
         <ImageView
             
-            android:id="@+id/book_img_id"
+            android:id="@+id/FoodOrderMainMenu_foodTypeImg"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:scaleType="centerCrop"
             android:background="#2d2d2d"/>
 
         <TextView
-            android:id="@+id/book_title_id"
+            android:id="@+id/FoodOrderMainMenu_foodTypeName"
             android:textColor="#2d2d2d"
             android:textSize="13sp"
             android:gravity="center"
@@ -34,4 +34,4 @@
         
     </LinearLayout>
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

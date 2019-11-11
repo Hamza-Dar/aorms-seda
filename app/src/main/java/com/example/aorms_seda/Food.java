@@ -1,16 +1,16 @@
-package com.demotxt.myapp.recyclerview;
+package com.example.aorms_seda;
 
-public class Book {
+public class Food {
 
     private String Title;
     private String Category ;
     private String Description ;
     private int Thumbnail ;
 
-    public Book() {
+    public Food() {
     }
 
-    public Book(String title, String category, String description, int thumbnail) {
+    public Food(String title, String category, String description, int thumbnail) {
         Title = title;
         Category = category;
         Description = description;

@@ -1,4 +1,5 @@
-package com.demotxt.myapp.recyclerview;
+package com.example.aorms_seda;
+
 
 public class Ingredient {
     public String name;

@@ -1,24 +1,29 @@
-package com.demotxt.myapp.recyclerview;
+package com.example.aorms_seda;
+
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.aorms_seda.R;
+
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     private Context mContext ;
-    private List<Book> mData ;
+    private List<Food> mData ;
 
 
-    public RecyclerViewAdapter(Context mContext, List<Book> mData) {
+    public RecyclerViewAdapter(Context mContext, List<Food> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -41,7 +46,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(mContext,Book_Activity.class);
+                Intent intent = new Intent(mContext,FoodOrderSecondScreen.class);
 
                 // passing data to the book activity
                 intent.putExtra("Title",mData.get(position).getTitle());
@@ -68,8 +73,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            tv_book_title = (TextView) itemView.findViewById(R.id.book_title_id) ;
-            img_book_thumbnail = (ImageView) itemView.findViewById(R.id.book_img_id);
+            tv_book_title = (TextView) itemView.findViewById(R.id.FoodOrderMainMenu_foodTypeName) ;
+            img_book_thumbnail = (ImageView) itemView.findViewById(R.id.FoodOrderMainMenu_foodTypeImg);
             cardView = (CardView) itemView.findViewById(R.id.cardview_id);
 
 

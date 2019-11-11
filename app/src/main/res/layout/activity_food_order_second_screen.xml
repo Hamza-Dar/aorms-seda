@@ -20,7 +20,7 @@
 
 
         <LinearLayout
-            android:id="@+id/lin1"
+            android:id="@+id/FoodOrderSecondScreen_lin1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
@@ -31,7 +31,7 @@
 
 
             <TextView
-                android:id="@+id/userName"
+                android:id="@+id/FoodOrderSecondScreen_fType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -67,7 +67,7 @@
                     android:src="@drawable/kabab" />
 
                 <TextView
-                    android:id="@+id/email"
+                    android:id="@+id/food1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -97,7 +97,7 @@
 
 
                 <TextView
-                    android:id="@+id/phone"
+                    android:id="@+id/food2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -128,7 +128,7 @@
 
 
                 <TextView
-                    android:id="@+id/fb"
+                    android:id="@+id/food3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
