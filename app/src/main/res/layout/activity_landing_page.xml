@@ -72,6 +72,7 @@
                 android:layout_marginTop="50dp"
                 android:background="@color/colorPrimary"
                 android:drawableTop="@drawable/ic_report_foreground"
+                android:onClick="openReports"
                 android:paddingLeft="5sp"
                 android:paddingRight="5sp"
                 android:paddingBottom="15sp"
