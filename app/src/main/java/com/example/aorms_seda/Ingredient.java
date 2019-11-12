@@ -2,7 +2,16 @@ package com.example.aorms_seda;
 
 
 public class Ingredient {
-    public String name;
+
+    String name, id;
+    int quantity, threshold;
+
+    public Ingredient(String name, String id, int quantity, int threshold) {
+        this.name = name;
+        this.id = id;
+        this.quantity = quantity;
+        this.threshold = threshold;
+    }
 
     public String getName() {
         return name;

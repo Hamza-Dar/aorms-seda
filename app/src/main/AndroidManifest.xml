@@ -26,10 +26,16 @@
         <activity android:name=".FoodOrderMainMenu">
 
         </activity>
+        <activity android:name=".FoodItemDetails"/>
+        <activity android:name=".InventoryManager"/>
+        <activity android:name=".AdminOptions"/>
+        <activity android:name=".EmployeeDetails"/>
+        <activity android:name=".ItemActivity"/>
+        <activity android:name=".MenuOption"/>
+        <activity android:name=".EmployeeOption"/>
+        <activity android:name=".TableOption"/>
+        <activity android:name=".TabletOption"/>
 
-        <activity android:name=".ItemActivity">
-
-        </activity>
 
     </application>
 

@@ -25,5 +25,16 @@ public class LandingPage extends AppCompatActivity {
         Intent i = new Intent(this, FoodOrderMainMenu.class);
         startActivity(i);
     }
+    public void openAdmin(View v){
+
+        Intent i = new Intent(this, AdminOptions.class);
+        startActivity(i);
+    }
+
+    public void openInventory(View v){
+
+        Intent i = new Intent(this, InventoryManager.class);
+        startActivity(i);
+    }
 
 }

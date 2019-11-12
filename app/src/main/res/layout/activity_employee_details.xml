@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Background"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:paddingLeft="20sp"
+        android:paddingTop="40sp"
+        android:paddingRight="20sp"
+
+        android:paddingBottom="20sp"
+        android:text="Employee Details"
+        android:textColor="@color/TextColor"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        />
+
+    <TextView
+        android:id="@+id/employee_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:paddingLeft="20sp"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
+        android:paddingRight="20sp"
+
+        android:textColor="@color/TextColor"
+        android:text="Name: Tayyab"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/employee_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingLeft="20sp"
+
+        android:textColor="@color/TextColor"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
+        android:paddingRight="20sp"
+        android:text="ID: 001"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/employee_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingLeft="20sp"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
+        android:paddingRight="20sp"
+
+        android:textColor="@color/TextColor"
+        android:text="Address"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/employee_age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingLeft="20sp"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
+        android:paddingRight="20sp"
+        android:text="Age"
+
+        android:textColor="@color/TextColor"
+        android:textSize="16dp"/>
+
+    <TextView
+        android:id="@+id/employee_salary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingLeft="20sp"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
+        android:paddingRight="20sp"
+
+        android:textColor="@color/TextColor"
+        android:text="Salary"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/employee_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingLeft="20sp"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
+        android:paddingRight="20sp"
+        android:textColor="@color/TextColor"
+        android:text="Employment Date:"
+        android:textSize="16dp"/>
+
+    <TextView
+        android:id="@+id/employee_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingLeft="20sp"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
+        android:paddingRight="20sp"
+        android:textColor="@color/TextColor"
+        android:text="Employee Type:"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/employee_Speciality"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingLeft="20sp"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
+        android:paddingRight="20sp"
+        android:textColor="@color/TextColor"
+        android:text="Speciality:"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/menuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="62dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/roundededgesbtn"
+        android:layout_gravity="center_horizontal"
+        android:text="   Update   "
+        android:textColor="@color/ButtonTextColor"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+</LinearLayout>
