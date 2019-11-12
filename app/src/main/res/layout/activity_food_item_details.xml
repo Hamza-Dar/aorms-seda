@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Background"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/itemTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:paddingLeft="20sp"
+        android:paddingTop="40sp"
+        android:paddingRight="20sp"
+
+        android:paddingBottom="20sp"
+        android:text="FoodItem Details: Stuffed Chicken"
+        android:textColor="@color/TextColor"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        />
+
+    <TextView
+        android:id="@+id/employee_name"
+        android:layout_width="match_parent"
+        android:layout_height="512dp"
+        android:paddingLeft="20sp"
+        android:paddingTop="20sp"
+        android:paddingRight="20sp"
+        android:paddingBottom="15sp"
+        android:text="Ingredient ID: 0001\nIngredient Name: Bread\nQuantity: 1
+\n\nIngredient ID: 0002\nIngredient Name: Cheese\nQuantity: 5
+\n\nIngredient ID: 0002\nIngredient Name: Chicken\nQuantity: 1
+\n\nIngredient ID: 0002\nIngredient Name: Potato\nQuantity: 2
+\n\nIngredient ID: 0002\nIngredient Name: Mushroom\nQuantity: 10"
+        android:textColor="@color/TextColor"
+
+        android:textSize="16dp" />
+
+
+    <Button
+        android:id="@+id/menuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="62dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/roundededgesbtn"
+        android:text="   Add/Remove Ingredient   "
+        android:textColor="@color/ButtonTextColor"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+</LinearLayout>

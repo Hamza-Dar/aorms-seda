@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fast.tiffan_project">
+    package="com.example.aorms_seda">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,15 +11,56 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".cartaroms"></activity>
-        <activity android:name=".menuaroms" />
-        <activity android:name=".Restaurant">
+        <activity android:name=".LandingPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+        <activity
+            android:name=".kitchenActivity"
+            android:label="Kitchen Management"
+            android:theme="@style/AppTheme">
+
+        </activity>
+        <activity
+            android:name=".ReportsActivity"
+            android:label="@string/title_activity_reports"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".FoodOrderSecondScreen"/>
+        <activity android:name=".FoodOrderMainMenu">
+
+        </activity>
+        <activity android:name=".FoodItemDetails"/>
+        <activity android:name=".InventoryManager"/>
+        <activity android:name=".AdminOptions"/>
+        <activity android:name=".EmployeeDetails"/>
+        <activity android:name=".ItemActivity"/>
+        <activity android:name=".MenuOption"/>
+        <activity android:name=".EmployeeOption"/>
+        <activity android:name=".TableOption"/>
+        <activity android:name=".TabletOption"/>
+
+
+        <activity
+            android:name=".RequestChangeActivity"
+            android:label="Kitchen Management"
+            android:theme="@style/AppTheme">
+
+        </activity>
+        <activity
+            android:name=".OrderDetailsActivity"
+            android:label="Kitchen Management"
+            android:theme="@style/AppTheme">
+
+        </activity>
+
+
     </application>
 
 </manifest>

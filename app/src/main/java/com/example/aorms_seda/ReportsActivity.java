@@ -21,9 +21,9 @@ public class ReportsActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-        sectionsPagerAdapter.addFragment(new TodaysReports(), "Today's Reports");
-        sectionsPagerAdapter.addFragment(new MonthlyReports(), "Monthly Reports");
-        sectionsPagerAdapter.addFragment(new CustomReports(), "Custom Reports");
+        sectionsPagerAdapter.addFragment(new TodaysReports(), "Today");
+        sectionsPagerAdapter.addFragment(new MonthlyReports(), "Monthly");
+        sectionsPagerAdapter.addFragment(new CustomReports(), "Custom");
 
 
         sectionsPagerAdapter.notifyDataSetChanged();
