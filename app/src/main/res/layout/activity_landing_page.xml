@@ -38,6 +38,7 @@
                 android:layout_marginEnd="50dp"
                 android:background="@color/colorPrimary"
                 android:drawableTop="@drawable/ic_menuw_foreground"
+                android:onClick="openOrders"
                 android:paddingLeft="5sp"
                 android:paddingRight="5sp"
                 android:paddingBottom="15sp"

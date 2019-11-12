@@ -2,6 +2,7 @@
     <string name="app_name">aorms-seda</string>
     <string name="title_activity_reports">Sales Report</string>
 
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -11,4 +12,11 @@
         <item>February</item>
         <item>Others</item>
     </string-array>
+    <string name="item_name">Item Name</string>
+    <string name="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut semper arcu. Quisque condimentum ultrices tortor, feugiat venenatis neque interdum ut.</string>
+    <string name="order_item">Order item</string>
+    <string name="ingredient_name">Ingredient Name</string>
+    <string name="item_price">500</string>
+    <string name="rupees">Rs.</string>
+    <string name="ingredients">Ingredients</string>
 </resources>

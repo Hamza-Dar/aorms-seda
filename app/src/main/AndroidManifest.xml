@@ -20,9 +20,17 @@
         <activity
             android:name=".ReportsActivity"
             android:label="@string/title_activity_reports"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".FoodOrderSecondScreen"/>
+        <activity android:name=".FoodOrderMainMenu">
 
         </activity>
+
+        <activity android:name=".ItemActivity">
+
+        </activity>
+
     </application>
 
 </manifest>

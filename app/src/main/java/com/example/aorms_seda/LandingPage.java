@@ -20,4 +20,10 @@ public class LandingPage extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void openOrders(View v){
+
+        Intent i = new Intent(this, FoodOrderMainMenu.class);
+        startActivity(i);
+    }
+
 }
