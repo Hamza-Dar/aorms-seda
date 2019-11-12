@@ -20,4 +20,13 @@
     <string name="item_price">500</string>
     <string name="rupees">Rs.</string>
     <string name="ingredients">Ingredients</string>
+    <string name="title_activity_gui_demo_l164348">GuiDemoL164348</string>
+    <string name="tab_text_1">New Orders</string>
+    <string name="tab_text_2">Show Orders</string>
+    <string name="tab_text_3">Modify Threshold</string>
+    <string name="tab_text_4">Show Alerts</string>
+    <string name="Email">Hall Manager Email</string>
+    <string name="Password">Password</string>
+    <string name="Login">Login</string>
+    <string name="affiliated">Order ID: 1234</string>
 </resources>

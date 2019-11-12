@@ -46,4 +46,10 @@ public class LandingPage extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void openHallManager(View v){
+
+        Intent i = new Intent(this, activity_SignUp.class);
+        startActivity(i);
+    }
+
 }
