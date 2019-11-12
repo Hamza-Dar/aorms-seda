@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.firebase.FirebaseApp;
+
 public class LandingPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page);
+        FirebaseApp.initializeApp(this);
     }
 
     public void openReports(View v){
@@ -34,6 +37,12 @@ public class LandingPage extends AppCompatActivity {
     public void openInventory(View v){
 
         Intent i = new Intent(this, InventoryManager.class);
+        startActivity(i);
+    }
+
+    public void openKitchen(View v){
+
+        Intent i = new Intent(this, kitchenActivity.class);
         startActivity(i);
     }
 
