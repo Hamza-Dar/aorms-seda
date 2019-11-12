@@ -14,20 +14,20 @@ import java.util.List;
 public class ItemActivity extends AppCompatActivity {
 
     private RecyclerView ingredientRecyclerView;
-    private List<Ingredient> IngredientList;
+    private List<Ingredient> ItemActivity_IngredientsList;
     private IngredientAdapter adapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ingredient);
+        setContentView(R.layout.activity_item);
 
-        this.IngredientList = getDummyData();
-        Log.e("onCreate: ", "size: " + this.IngredientList.size());
-        ingredientRecyclerView = (RecyclerView) findViewById(R.id.IngredientsList);
+        this.ItemActivity_IngredientsList = getDummyData();
+        Log.e("onCreate: ", "size: " + this.ItemActivity_IngredientsList.size());
+        ingredientRecyclerView = (RecyclerView) findViewById(R.id.ItemActivity_IngredientsList);
         ingredientRecyclerView.addItemDecoration(new DividerItemDecoration(ItemActivity.this, LinearLayoutManager.HORIZONTAL));
-        adapter = new IngredientAdapter(this, this.IngredientList);
+        adapter = new IngredientAdapter(this, this.ItemActivity_IngredientsList);
         Log.e("onCreate: ", "size: " + adapter.getItemCount() );
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(ItemActivity.this, LinearLayoutManager.HORIZONTAL, false);
         ingredientRecyclerView.setLayoutManager(horizontalLayoutManager);
