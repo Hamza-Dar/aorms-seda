@@ -44,7 +44,6 @@ public class NotifyFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root= inflater.inflate(R.layout.notify,container,false);
 
-
         //load orders here;
 
         db= FirebaseFirestore.getInstance();
