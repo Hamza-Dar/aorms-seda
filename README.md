@@ -37,17 +37,23 @@ These files and values are also included in the project.
 
 1. ALWAYS and ONLY push in your own module branch. DO NOT PUSH IN THE MASTER BRANCH :)
 2. Kindly add a description of 2-3 during each commit and push so it is easy to identify the difference between the pushes.
-2. Use camelCase to name the variables, Object IDs and database fields.
-3. When naming Objects in activities kindly use the following format for ease of use and understanding: <ActivityName_objectType#>
-4. Generic Names for the frequently objects can be as following:
+3. When working on your module, only edit the files in your module only. If you need to edit something in some other module, CONTACT the team responsible for that module and ask THEM to make the EDIT. If YOU edit the module and push in YOUR branch and they push their work in THEIR own Branch, during MERGE we will accept THEIR code and YOUR module will be at FAULT. :)
+4. Do NOT use folders and extra directories for divisions. Why would you do that.
+5. No hardcoded layout values please. Kindly use dynamic values so that it works generically on all screens (not eveyrone has a note10+)
+6. Use camelCase to name the variables, Object IDs and database fields.
+7. When naming Objects in activities kindly use the following format for ease of use and understanding: <ActivityName_objectType#>
+8. Generic Names for the frequently objects can be as following:
     1.   Button = btn
     2.   RecyclerView = rcv
     3.   TextView = txtview
     4.   Containers = ctn
     5.   Fragment = frag
     6.   ImageView = Img
-5. Maintain a list of the dependicies that you are using in your projects independantly as well so we can match and update them during final integration testings.
-6. We are using Firestore (not to be confused with firebase) due to its superior technology and cooler name.
+9. Maintain a list of the dependicies that you are using in your projects independantly as well so we can match and update them during final integration testings.
+10. We are using Firestore (not to be confused with firebase) due to its superior technology and cooler name.
+11. Stackoverflow and the ingeration team is your friend.
+12. Please leave the Master and Integration Branch alone.
+13. Please don't make us copypasta the files to "merge" them thank you.
 
 :)
 
