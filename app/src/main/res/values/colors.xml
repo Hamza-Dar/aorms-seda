@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#182027</color>
-    <color name="colorPrimaryDark">#293542</color>
-    <color name="colorAccent">#59FF00</color>
-
-    <color name="Background">#F3EEEE</color>
-    <color name="TextColor">#302E2E</color>
-    <color name="ButtonTextColor">#F3EEEE</color>
-    <color name="ButtonColor">#00D4B4</color>
-    <color name="ActionBarColor">#182027</color>
-
-
-
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#97EF99</color>
+    <color name="red">#F32727</color>
 </resources>
