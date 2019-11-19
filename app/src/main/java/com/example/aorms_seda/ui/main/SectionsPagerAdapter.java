@@ -1,4 +1,4 @@
-package com.example.assignment2_gui.ui.main;
+package com.example.aorms_seda.ui.main;
 
 import android.content.Context;
 import android.view.View;

@@ -13,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.assignment2_gui.ui.main.SectionsPagerAdapter;
+import com.example.aorms_seda.ui.main.SectionsPagerAdapter;
 
 public class GuiDemoL164348 extends AppCompatActivity {
 
