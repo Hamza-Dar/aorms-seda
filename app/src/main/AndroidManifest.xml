@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LandingPage">
+        <activity android:name="com.example.aorms_seda.LandingPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -20,7 +20,9 @@
             </intent-filter>
 
         </activity>
-
+        <activity android:name=".menuaroms"/>
+        <activity android:name=".cartaroms"/>
+        <activity android:name=".Restaurant"/>
         <activity
             android:name=".kitchenActivity"
             android:label="Kitchen Management"
@@ -36,6 +38,7 @@
         <activity android:name=".FoodOrderMainMenu">
 
         </activity>
+
         <activity android:name=".FoodItemDetails"/>
         <activity android:name=".InventoryManager"/>
         <activity android:name=".AdminOptions"/>
@@ -65,8 +68,8 @@
             android:parentActivityName=".activity_SignUp"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.assignment2_gui.activity_SignUp" />
+                android:name="android.support.PARENT_ACTIVITY"/>
+                //android:value="com.example.assignment2_gui.activity_SignUp" />
         </activity>
         <activity android:name=".activity_SignUp">
         </activity>
