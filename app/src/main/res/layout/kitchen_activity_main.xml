@@ -4,39 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Background"
-    >
+    android:background="@color/Background">
 
     <FrameLayout
-        android:id="@+id/frame_container"
-        android:layout_width="403dp"
-        android:layout_height="579dp"
-        android:layout_above="@+id/bottom_nav"
+        android:id="@+id/kitchenFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/kitchenBottomnav"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+        android:layout_marginBottom="?actionBarSize"
+        app:layout_constraintBottom_toTopOf="@+id/kitchenBottomnav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.0">
 
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav"
-        android:layout_width="358dp"
-        android:layout_height="72dp"
+        android:id="@+id/kitchenBottomnav"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
         android:layout_alignParentBottom="true"
-        app:itemTextColor="@color/TextColor"
+        android:background="@color/ActionBarColor"
+        app:itemTextColor="@color/Background"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottomnav"
-        tools:ignore="MissingConstraints" />
+        app:menu="@menu/kitchen_bottom_nav" />
 </androidx.constraintlayout.widget.ConstraintLayout>

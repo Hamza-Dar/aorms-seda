@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ParentAdapter extends RecyclerView.Adapter<ParentHolder> {
+public class QueueParentAdapter extends RecyclerView.Adapter<ParentHolder> {
 
     Context context;
     ArrayList<VerticalModel> arrayList;
 
 
-    public ParentAdapter(Context context, ArrayList<VerticalModel> data)
+    public QueueParentAdapter(Context context, ArrayList<VerticalModel> data)
     {   this.context=context;
         this.arrayList=data;
     }
@@ -25,7 +25,7 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentHolder> {
     @Override
     public ParentHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View V= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.parent_queue,viewGroup, false);
+        View V= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.kitchen_parent_queue,viewGroup, false);
         return new ParentHolder(V);
     }
 

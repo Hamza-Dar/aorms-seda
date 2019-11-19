@@ -18,23 +18,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Map;
 
-public class NotifyFragment extends Fragment {
+public class OrdersFragment extends Fragment {
 
 
     RecyclerView orders;
     GestureDetector orderDetector;
     OrderAdapter orderAdapter;
     ArrayList<Order> orderList;
-    ArrayList<Dish> dishes;
-    ArrayList<Order>ordersFb;
-    Order simpleOrder;
-
 
     private FirebaseFirestore db;
 
@@ -42,74 +43,64 @@ public class NotifyFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root= inflater.inflate(R.layout.notify,container,false);
-
-        //load orders here;
-
+        View root= inflater.inflate(R.layout.kitchen_orders_fragment,container,false);
         db= FirebaseFirestore.getInstance();
+        orders = (RecyclerView) root.findViewById(R.id.ordersrcv);
+        kitchenActivity = (kitchenActivity) getActivity();
+        orderList=new ArrayList<>();
         CollectionReference dbOrders=db.collection("Orders");
-        ordersFb=new ArrayList<>();
-        simpleOrder=new Order(0,null,null,null);
+        dbOrders.addSnapshotListener(new EventListener<QuerySnapshot>() {
 
-        //load chefs and their specialities
 
-        dbOrders.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                orderList.clear();
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    final Order order;
+                    int serveTime=(Math.toIntExact((Long)documentSnapshot.get("Time")));
+                    String orderStatus=((String)documentSnapshot.get("Status"));
+                    int orderID=(Math.toIntExact((Long) documentSnapshot.get("Table")));
+                    ArrayList<Object>dishItems= (ArrayList<Object>) documentSnapshot.getData().get("Items"); //array of dishes and status for one order
+                    order=new Order(documentSnapshot.getId(),serveTime,null,orderStatus,orderID);
+                    for ( final Object dishitem: dishItems)
+                    {
+                        Map<String, Object> myMap = (Map<String, Object>) dishitem;
+                        final String itemStatus=((String) myMap.get("itemStatus"));
+                        final DocumentReference dbDish = (DocumentReference) myMap.get("foodItem"); //get document reference
+                        Log.i("document id",dbDish.getId());
+                        Log.i("path id",dbDish.getPath());
+                        dbDish.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                String  dishName=documentSnapshot.getString("Name");
+                                String   dishType=documentSnapshot.getString("type");
+                                int  dishTime=Math.toIntExact(documentSnapshot.getLong("Time"));
+                                order.addDish(new Dish(null,dbDish.getPath(),dishName,dishTime,0,itemStatus,dishType));
+                                Log.i("Dishname",dishName);
+                            }
+                        });
 
-
-                    simpleOrder.setOrderId(0);   //get orderid
-                  //  simpleOrder.setStatus((String) documentSnapshot.getData().get("Status"));
-                   //  simpleOrder.setServeTime((String) documentSnapshot.getData().get("Time"));
-                    ArrayList<String>dishes= (ArrayList<String>) documentSnapshot.getData().get("Items");
-                //    Log.i("TAG",dishes.get(0));
-
-                   /* Map<String, Object> map = (Map<String, Object>) documentSnapshot.getData().get("Items");
-                    for (Map.Entry<String, Object> entry : map.entrySet()) {
-                        if (entry.getKey().equals("Items")) {     //get all dishes
-                            Log.d("TAG", entry.getValue().toString());
-                        }
-
-                    }*/
+                    }
+                    if(order.getStatus().compareTo("Ready")!=0)
+                    {
+                        orderList.add(order);
+                        orderAdapter.notifyDataSetChanged();}
                 }
             }
         });
-
-        orders = (RecyclerView) root.findViewById(R.id.ordersrcv);
-
-        kitchenActivity = (kitchenActivity) getActivity();
-
-        dishes=new ArrayList<Dish>();
-        dishes.add(new Dish('1',"Pasta","12:00","12","Waiting","Italian"));
-        dishes.add(new Dish('1',"Pizza","12:00","12","Waiting","Italian "));
-
-
-
-
-
-        orderList=new ArrayList<Order>();
-        orderList.add(new Order(123,"50",dishes,"InProgress"));
-        orderList.add(new Order(124,"50",dishes,"InProgress"));
-
-         setorders();
-
+        setorders();
         return root;
 
     }
 
     public void setorders()
     {
-
-
-
-
+        orderAdapter = new OrderAdapter(orderList,R.layout.kitchen_order_holder);
         orderDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener()
         {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 //      Toast.makeText(c,"onSingleTap",Toast.LENGTH_SHORT).show();
-
                 int index=0;
                 View child = orders.findChildViewUnder(e.getX(), e.getY());
                 if(child != null)
@@ -124,13 +115,7 @@ public class NotifyFragment extends Fragment {
                 return true;
             }
         }
-
         );
-
-
-
-
-        orderAdapter = new OrderAdapter(orderList,R.layout.order_holder);
         orders.setLayoutManager(new GridLayoutManager(getContext(),2, GridLayoutManager.VERTICAL,false));
         //orders.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.GRID,false));
         orders.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
@@ -151,9 +136,9 @@ public class NotifyFragment extends Fragment {
             }
         });
         orders.setItemAnimator(new DefaultItemAnimator());
-
-       orders.setAdapter(orderAdapter);
+        orders.setAdapter(orderAdapter);
     }
-
-
 }
+
+
+
