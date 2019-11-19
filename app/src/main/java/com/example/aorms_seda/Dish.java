@@ -27,20 +27,11 @@ public class Dish implements Serializable {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    public Dish(int dishId, String name, int cookingTime, String status, String category, int dishTime) {
-    }
 
     public String getDishId() {
         return dishId;
     }
 
-    public void setDishId(String dishId) {
-        this.dishId = dishId;
-    }
 
     public String getName() {
         return name;
@@ -50,17 +41,6 @@ public class Dish implements Serializable {
         this.name = name;
     }
 
-    public int getCookingTime() {
-        return cookingTime;
-    }
-
-    public void setCookingTime(int cookingTime) {
-        this.cookingTime = cookingTime;
-    }
-
-    public int getCookId() {
-        return cookId;
-    }
 
     public void setCookId(int cookId) {
         this.cookId = cookId;
@@ -78,7 +58,5 @@ public class Dish implements Serializable {
         return category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
+
 }

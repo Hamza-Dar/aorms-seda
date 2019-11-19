@@ -22,6 +22,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -41,68 +42,79 @@ public class OrderRequestFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root= inflater.inflate(R.layout.kitchen_orders_fragment,container,false);
+        db=FirebaseFirestore.getInstance();
 
         orders = (RecyclerView) root.findViewById(R.id.ordersrcv);
         kitchenActivity = (kitchenActivity) getActivity();
         orderList=new ArrayList<Order>();
         dishes=new ArrayList<>();
 
-        db=FirebaseFirestore.getInstance();
-        db.collection("OrderRequest")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot snapshots,
-                                        @Nullable FirebaseFirestoreException e) {
-                        for (DocumentChange dc : snapshots.getDocumentChanges()) {
-                            if (dc.getType() == DocumentChange.Type.ADDED) {
 
-                                //added a request then get it in the list
-                                DocumentSnapshot documentSnapshot = dc.getDocument();
-                                final ArrayList<Object>Requests= (ArrayList<Object>) documentSnapshot.get("Requests");
-                                DocumentReference orderRef=documentSnapshot.getDocumentReference("orderID");
-                                orderRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                                        final String orderID=documentSnapshot.getId();
-                                        String Status=documentSnapshot.getString("Status");
-                                        int serveTime=Math.toIntExact(documentSnapshot.getLong("Time"));
-                                        Order order=new Order(orderID,serveTime,null,Status,0);
-                                        if(isContain(orderList,orderID)==false)
-                                        {
-                                            orderList.add(order);
-                                            orderAdapter.notifyDataSetChanged();
+        db.collection("OrderRequest").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+
+                orderList.clear();
+                dishes.clear();
+                orderAdapter.notifyDataSetChanged();
+                for (final QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    final ArrayList<Object>Requests= (ArrayList<Object>) documentSnapshot.get("Requests");
+                    if(Requests!=null && Requests.size()>0) {
+                        DocumentReference orderRef = documentSnapshot.getDocumentReference("orderID");
+                        final String requestID = documentSnapshot.getId();
+                        orderRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                final String orderID = documentSnapshot.getId();
+                                String Status = documentSnapshot.getString("Status");
+                                int serveTime = Math.toIntExact(documentSnapshot.getLong("Time"));
+                                Order order = new Order(orderID, serveTime, null, Status, 0);
+                                if (isContain(orderList, orderID) == false) {
+                                    orderList.add(order);
+                                    orderAdapter.notifyDataSetChanged();
+                                }
+                                for (Object request : Requests) {
+                                    Map<String, Object> map = (Map<String, Object>) request;
+                                    final String itemStatus = (String) map.get("itemStatus");
+                                    final String requestType = (String) map.get("type");
+                                    final DocumentReference foodRef = (DocumentReference) map.get("foodItem");
+                                    foodRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                            String name = documentSnapshot.getString("Name");
+                                            String id = documentSnapshot.getId();
+                                            dishes.add(new RequestsChange(name, requestType, null, orderID, itemStatus, id, requestID));
                                         }
-                                        for (Object request:Requests)
-                                        {
-                                            Map<String,Object> map= (Map<String, Object>) request;
-                                            final String itemStatus= (String) map.get("itemStatus");
-                                            final String requestType= (String) map.get("type");
-                                            DocumentReference foodRef= (DocumentReference) map.get("foodItem");
-                                            foodRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                @Override
-                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                    String name=documentSnapshot.getString("Name");
-                                                    dishes.add(new RequestsChange(name,requestType,null,orderID,itemStatus));
-                                                }
-                                            });
-                                        }
-
-                                    }
-                                });
-
+                                    });
+                                }
 
                             }
-                        }
-
+                        });
                     }
-                });
+                    else if(Requests==null || Requests.size()==0)
+                    {
+                        final DocumentReference orderRef= (DocumentReference) documentSnapshot.get("orderID");
+                        final String orderID=orderRef.getId();
+                        db.collection("OrderRequest").document(documentSnapshot.getId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
 
-
-
-
+                                for(int i=0;i<orderList.size();i++)
+                                {
+                                    if(orderList.get(i).orderId.compareTo(orderID)==0)
+                                    {
+                                        orderList.remove(i);
+                                        orderAdapter.notifyDataSetChanged();
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
         setorders();
-
         return root;
 
     }
@@ -110,15 +122,11 @@ public class OrderRequestFragment extends Fragment {
     public void setorders()
     {
 
-
-
-
         orderDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener()
         {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 //      Toast.makeText(c,"onSingleTap",Toast.LENGTH_SHORT).show();
-
                 int index=0;
                 View child = orders.findChildViewUnder(e.getX(), e.getY());
                 if(child != null)
@@ -146,10 +154,6 @@ public class OrderRequestFragment extends Fragment {
         }
 
         );
-
-
-
-
         orderAdapter = new OrderAdapter(orderList,R.layout.kitchen_order_holder);
         orders.setLayoutManager(new GridLayoutManager(getContext(),2, GridLayoutManager.VERTICAL,false));
         //orders.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.GRID,false));

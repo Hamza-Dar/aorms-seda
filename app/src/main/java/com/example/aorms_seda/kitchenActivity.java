@@ -38,7 +38,6 @@ public class kitchenActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
     ArrayList<Cook>chefList;
-    String address;
     String chefName;
     int chefId;
     int currentFragment;
@@ -58,33 +57,26 @@ public class kitchenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.kitchen_activity_main);
 
-        orderIDs=new ArrayList<>();
-        currentFragment=0;
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("DishInfo"));
+        orderIDs=new ArrayList<>();
+        currentFragment=0;
         sizeOfCooks=5;
         dishes = new ArrayList<>();
         bundle=  new Bundle();
-
         intent=new Intent();
         BottomNavigationView bottomNav=findViewById(R.id.kitchenBottomnav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-
         db=FirebaseFirestore.getInstance();
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(false)
                 .build();
         db.setFirestoreSettings(settings);
-
         CollectionReference dbChefs=db.collection("Employee");
         chefList=new ArrayList<>();
         orderList=new ArrayList<>();
 
-        //load chefs and their specialities
-
-
-
-        //replace admin by chef/cook
+        //get chefs from firebase;
         dbChefs.whereEqualTo("Job","Cook").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -103,58 +95,12 @@ public class kitchenActivity extends AppCompatActivity {
             }
         });
 
-        //add firebase real time listener for orders;
+
+        //default fragment
         getSupportFragmentManager().beginTransaction().replace(R.id.kitchenFrame,new KitchenHomeFragment()).commit();
 
 
-        //real time listener here; when an order comes it is set into the queue;
-
-      /*  CollectionReference dbOrders=db.collection("Orders");
-
-        dbOrders.addSnapshotListener(new EventListener<QuerySnapshot>() {
-
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                //orderList.clear();
-                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-
-                    final Order order;
-                    int serveTime=(Math.toIntExact((Long)documentSnapshot.get("Time")));
-                    String orderStatus=((String)documentSnapshot.get("Status"));
-                    if(orderStatus.compareTo("Ready")!=0) {
-                        int orderID = (Math.toIntExact((Long) documentSnapshot.get("Table")));
-                        ArrayList<Object> dishItems = (ArrayList<Object>) documentSnapshot.getData().get("Items"); //array of dishes and status for one order
-                        order = new Order(documentSnapshot.getId(), serveTime, null, orderStatus, orderID);
-                        for (final Object dishitem : dishItems) {
-                            Map<String, Object> myMap = (Map<String, Object>) dishitem;
-                            final String itemStatus = ((String) myMap.get("itemStatus"));
-                            if (itemStatus.compareTo("done") != 0) {
-                                final DocumentReference dbDish = (DocumentReference) myMap.get("foodItem"); //get document reference
-                                Log.i("document id", dbDish.getId());
-                                Log.i("path id", dbDish.getPath());
-                                dbDish.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                        String dishName = documentSnapshot.getString("Name");
-                                        String dishType = documentSnapshot.getString("type");
-                                        int dishTime = Math.toIntExact(documentSnapshot.getLong("Time"));
-                                        order.addDish(new Dish(null, dbDish.getPath(), dishName, dishTime, 0, itemStatus, dishType));
-                                        Log.i("Dishname", dishName);
-                                        EnqueueDish(order, order.dishes.size() - 1);
-                                        //enqueue here
-                                    }
-                                });
-                            }
-                        }
-                        //check if order already exists in the
-                        orderList.add(order);
-                    }
-                }
-            }
-        });*/
-
-
-
+        //add firebase real time listener for orders;
         db.collection("Orders")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -254,6 +200,8 @@ public class kitchenActivity extends AppCompatActivity {
 
     }
 
+    //bottom navigation menu
+
     private BottomNavigationView.OnNavigationItemSelectedListener navListener=new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -287,6 +235,7 @@ public class kitchenActivity extends AppCompatActivity {
     };
 
 
+    //enqueue dishes
     public void EnqueueDish(Order order, int k)
     {
 
@@ -339,6 +288,10 @@ public class kitchenActivity extends AppCompatActivity {
 
         }
     }
+
+
+
+    //receive broadcast message
 
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override

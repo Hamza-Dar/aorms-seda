@@ -24,34 +24,17 @@ public class Order implements Serializable {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
 
-    public int getTable() {
-        return table;
-    }
-
-    public void setTable(int table) {
-        this.table = table;
-    }
 
     public int getServeTime() {
         return serveTime;
     }
 
-    public void setServeTime(int serveTime) {
-        this.serveTime = serveTime;
-    }
 
     public ArrayList<Dish> getDishes() {
         return dishes;
     }
 
-    public void setDishes(ArrayList<Dish> dishes)
-    {
-        this.dishes=dishes;
-    }
     public void addDish(Dish dish)
     {
         if (this.dishes==null)

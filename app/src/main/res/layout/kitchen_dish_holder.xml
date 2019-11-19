@@ -26,9 +26,28 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/dishOrdertxtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:text="OrderID"
+                android:textColor="@color/TextColor"
+                android:textSize="16sp"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
                 android:id="@+id/dishNametxtview"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
@@ -39,10 +58,11 @@
                 android:text="DishName"
                 android:textColor="@color/TextColor"
                 android:textSize="16sp"
+                android:maxLines="1"
                 app:autoSizeTextType="uniform"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/dishOrdertxtview" />
 
             <TextView
                 android:id="@+id/dishStatustxtview"
@@ -58,6 +78,7 @@
                 android:text="Status "
                 android:textColor="@color/TextColor"
                 android:textSize="16sp"
+                app:autoSizeTextType="uniform"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dishNametxtview" />

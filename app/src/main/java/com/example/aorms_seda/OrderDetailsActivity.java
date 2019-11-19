@@ -40,45 +40,28 @@ public class OrderDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.kitchen_activity_order_details);
+        db=FirebaseFirestore.getInstance();
         orderInfo= (Order)getIntent().getSerializableExtra("Order");
         dishes = (RecyclerView) findViewById(R.id.dishesrcv);
         dishList=orderInfo.getDishes();
-        db=FirebaseFirestore.getInstance();
-
         dropdown = findViewById(R.id.statusSpinner);
-
         orderStatus=findViewById(R.id.orderStatustxtview);
-
         updateBtn=findViewById(R.id.proceedbtn);
         doneBtn=findViewById(R.id.doneOrderbtn);
-
         doneBtn.setVisibility(View.GONE);
-
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 orderStatus.setText(dropdown.getSelectedItem().toString());
-
-
                 db.collection("Orders").document(orderInfo.getOrderId()).update("Status",dropdown.getSelectedItem().toString());
-
-
-
-
-                //update in firebase on the basic of orderId;
-
             }
         });
 
 
         String[] items = new String[]{"Waiting", "InProgress", "Ready"};
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
-//set the spinners adapter to the previously created one.
+        //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
-
-
         ordertxt=findViewById(R.id.orderIdtxtview);
         statustxt=findViewById(R.id.serveTimetxtview);
         ordertxt.setText(String.valueOf(orderInfo.getOrderId()));
@@ -137,7 +120,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
             }
         });
         dishes.setItemAnimator(new DefaultItemAnimator());
-
         dishes.setAdapter(dishAdapter);
     }
 

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class ChangeDishAdapter extends RecyclerView.Adapter<ChangeDishHolder> {
 
 
-
     private ArrayList<RequestsChange> data;
     private int itemLayout;
 

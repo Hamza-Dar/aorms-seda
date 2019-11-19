@@ -26,19 +26,12 @@ public class QueuesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root= inflater.inflate(R.layout.kitchen_queues,container,false);
-
-
         parentRV=root.findViewById(R.id.MainRV);
         dishes=new ArrayList<Dish>();
         chefList=new ArrayList<>();
         dishes= (ArrayList<Dish>) getArguments().getSerializable("dishes");
         chefList= (ArrayList<Cook>) getArguments().getSerializable("chefList");
-
-
-
-
         setData();
-
         return root;
     }
 
@@ -59,13 +52,6 @@ public class QueuesFragment extends Fragment {
             }
             arrayList.add(new VerticalModel(String.valueOf(chefList.get(i).cookId),chefDishes));
         }
-
-
-
-
-        // arrayList.add(new VerticalModel("Cook1",dishes));
-        //arrayList.add(new VerticalModel("Cook2",dishes));
-
         parentRV.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false));
         parentAdapter=new QueueParentAdapter(getActivity(),arrayList);
         parentRV.setAdapter((parentAdapter));

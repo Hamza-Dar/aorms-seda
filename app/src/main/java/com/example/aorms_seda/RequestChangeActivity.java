@@ -11,9 +11,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -32,6 +36,7 @@ public class RequestChangeActivity extends AppCompatActivity {
     Button cancelbtn;
     Button doneOrderbtn;
     TextView dishesOrder;
+    FirebaseFirestore db;
 
 
     @Override
@@ -50,10 +55,6 @@ public class RequestChangeActivity extends AppCompatActivity {
         orderStatus=findViewById(R.id.orderStatustxtview);
         ordertxt.setText(String.valueOf(orderInfo.getOrderId()));
         statustxt.setText(String.valueOf(orderInfo.getServeTime()));
-
-
-
-
         orderStatus.setText(orderInfo.getStatus());
         dropdown = findViewById(R.id.statusSpinner);
         Updatebtn=findViewById(R.id.proceedbtn);
@@ -67,7 +68,8 @@ public class RequestChangeActivity extends AppCompatActivity {
         dishesOrder.setText("Requests");
 
 
-        dishList=null;
+        db=FirebaseFirestore.getInstance();
+
         if(dishList==null || dishList.isEmpty())
         {
 
@@ -76,11 +78,25 @@ public class RequestChangeActivity extends AppCompatActivity {
             cancelbtn.setText("Cancel Order");
             doneOrderbtn.setVisibility(View.VISIBLE);
 
-            //cancelbtn order status in firebase
+            cancelbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //cancel order...
+                    DocumentReference orderRef= db.collection("Orders").document(orderInfo.getOrderId());
+                    orderRef.delete();
+                }
+            });
         }
         else
         {
-            cancelbtn.setText("DONE");
+            cancelbtn.setVisibility(View.GONE);
+            doneOrderbtn.setVisibility(View.VISIBLE);
+            doneOrderbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //finish();
+                }
+            });
             setdishes();
 
         }
@@ -112,8 +128,6 @@ public class RequestChangeActivity extends AppCompatActivity {
         }
 
         );
-
-
         dishAdapter=new ChangeDishAdapter(dishList,R.layout.kitchen_change_dish_holder);
         dishes.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,false));
         dishes.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
@@ -134,7 +148,6 @@ public class RequestChangeActivity extends AppCompatActivity {
             }
         });
         dishes.setItemAnimator(new DefaultItemAnimator());
-
         dishes.setAdapter(dishAdapter);
     }
 

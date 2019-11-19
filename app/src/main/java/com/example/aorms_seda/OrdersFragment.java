@@ -44,27 +44,18 @@ public class OrdersFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root= inflater.inflate(R.layout.kitchen_orders_fragment,container,false);
-
-
-        //load orders here;
         db= FirebaseFirestore.getInstance();
-
-
-
         orders = (RecyclerView) root.findViewById(R.id.ordersrcv);
         kitchenActivity = (kitchenActivity) getActivity();
         orderList=new ArrayList<>();
-
         CollectionReference dbOrders=db.collection("Orders");
         dbOrders.addSnapshotListener(new EventListener<QuerySnapshot>() {
 
 
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-
                 orderList.clear();
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-
                     final Order order;
                     int serveTime=(Math.toIntExact((Long)documentSnapshot.get("Time")));
                     String orderStatus=((String)documentSnapshot.get("Status"));
@@ -97,27 +88,19 @@ public class OrdersFragment extends Fragment {
                 }
             }
         });
-
-
-
         setorders();
-
         return root;
 
     }
 
     public void setorders()
     {
-
-
-
         orderAdapter = new OrderAdapter(orderList,R.layout.kitchen_order_holder);
         orderDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener()
         {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 //      Toast.makeText(c,"onSingleTap",Toast.LENGTH_SHORT).show();
-
                 int index=0;
                 View child = orders.findChildViewUnder(e.getX(), e.getY());
                 if(child != null)
@@ -132,13 +115,7 @@ public class OrdersFragment extends Fragment {
                 return true;
             }
         }
-
         );
-
-
-
-
-
         orders.setLayoutManager(new GridLayoutManager(getContext(),2, GridLayoutManager.VERTICAL,false));
         //orders.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.GRID,false));
         orders.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
@@ -160,7 +137,6 @@ public class OrdersFragment extends Fragment {
         });
         orders.setItemAnimator(new DefaultItemAnimator());
         orders.setAdapter(orderAdapter);
-
     }
 }
 
