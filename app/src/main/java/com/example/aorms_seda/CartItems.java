@@ -5,7 +5,7 @@ public class CartItems {
 
     private ArrayList<DataListForCart> CartItems;
 
-    private static CartItems single_instance = null;
+    public static CartItems single_instance = null;
 
     private CartItems() {
 

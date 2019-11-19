@@ -71,7 +71,7 @@ public class kitchenActivity extends AppCompatActivity {
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(false)
                 .build();
-        db.setFirestoreSettings(settings);
+//        db.setFirestoreSettings(settings);
         CollectionReference dbChefs=db.collection("Employee");
         chefList=new ArrayList<>();
         orderList=new ArrayList<>();
@@ -97,7 +97,7 @@ public class kitchenActivity extends AppCompatActivity {
 
 
         //default fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.kitchenFrame,new KitchenHomeFragment()).commit();
+       // getSupportFragmentManager().beginTransaction().replace(R.id.kitchenFrame,new KitchenHomeFragment()).commit();
 
 
         //add firebase real time listener for orders;
