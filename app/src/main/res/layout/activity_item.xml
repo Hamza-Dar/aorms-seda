@@ -29,7 +29,7 @@
         android:text="@string/item_name"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
-        android:textSize="36sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textStyle="bold"
         android:gravity="center"
         android:layout_weight="1"
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/description"
-        android:textSize="18sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:layout_weight="1"
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark"
@@ -62,7 +62,7 @@
         android:layout_gravity="center"
         android:textColor="@color/colorPrimary"
         android:gravity="center"
-        android:textSize="22sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         />
 
 
@@ -79,6 +79,41 @@
         style="@style/Divider" />
 
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/quantity_decrease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:text="-" />
+
+        <EditText
+            android:id="@+id/quantity_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:text="0"/>
+
+        <Button
+            android:id="@+id/quantity_increase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:text="+"/>
+    </LinearLayout>
+
+
     <TextView
         android:id="@+id/ItemActivity_item_price"
         android:layout_width="match_parent"
@@ -86,7 +121,7 @@
         android:text="@string/item_price"
         android:textAlignment="center"
         android:textColor="@color/TextColor"
-        android:textSize="30sp"
+       android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:layout_weight="1"
         android:layout_marginTop="15dp"
         android:gravity="center"
@@ -96,7 +131,7 @@
 
 
     <Button
-        android:id="@+id/ItemActivity_button"
+        android:id="@+id/addOrderItemBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
@@ -108,5 +143,6 @@
         android:layout_weight="1"
         android:paddingHorizontal="10dp"
         android:paddingVertical="5dp"
+
         android:textColor="@color/ButtonTextColor" />
 </LinearLayout>
