@@ -46,7 +46,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(mContext,FoodOrderSecondScreen.class);
+                Intent intent = new Intent(mContext,Order_placement_screen2.class);
 
                 // passing data to the book activity
                 intent.putExtra("Title",mData.get(position).getTitle());

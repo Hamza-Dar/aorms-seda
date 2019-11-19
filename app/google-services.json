@@ -15,11 +15,56 @@
       },
       "oauth_client": [
         {
+          "client_id": "781860182015-ji3avf3r2e20neeoncl9virfornc0d58.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.aorms_seda",
+            "certificate_hash": "d2d5c62a0b4e3e8f275ac5353e4b59a0dd6fb2e2"
+          }
+        },
+        {
           "client_id": "781860182015-jnhon6cfj61t0jf7p5dj15u61p24scnm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.aorms_seda",
             "certificate_hash": "b0ead99f63defc954871b4f3b888a5f610c06742"
+          }
+        },
+        {
+          "client_id": "781860182015-2mt5e99u2h2v2mskq92vptudtll676ho.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCay-meOUe9V4VhiMffnaL_9yXVzT2Lew8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "781860182015-2mt5e99u2h2v2mskq92vptudtll676ho.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781860182015:android:74d0840f9736416be3b9ca",
+        "android_client_info": {
+          "package_name": "com.example.assignment2_gui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "781860182015-lcblei8bt3ojh02tusode0sj1ntq1b40.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.assignment2_gui",
+            "certificate_hash": "edb2f6d9b92a169c6da78dde09097f175c7abd7f"
           }
         },
         {
