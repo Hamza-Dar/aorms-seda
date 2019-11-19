@@ -1,7 +1,11 @@
 package com.example.aorms_seda;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.io.Serializable;
 
 public class Ingredient implements Serializable {
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     String name, id;
     int quantity, threshold;

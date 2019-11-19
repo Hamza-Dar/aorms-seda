@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AdminOptions extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,11 +26,6 @@ public class AdminOptions extends AppCompatActivity {
 
     void TabletButton(View view){
         Intent i = new Intent(this, TabletOption.class);
-        startActivity(i);
-    }
-
-    void TableButton(View view){
-        Intent i = new Intent(this, TableOption.class);
         startActivity(i);
     }
 
