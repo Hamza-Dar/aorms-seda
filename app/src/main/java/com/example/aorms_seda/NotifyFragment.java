@@ -63,7 +63,7 @@ public class NotifyFragment extends Fragment {
                   //  simpleOrder.setStatus((String) documentSnapshot.getData().get("Status"));
                    //  simpleOrder.setServeTime((String) documentSnapshot.getData().get("Time"));
                     ArrayList<String>dishes= (ArrayList<String>) documentSnapshot.getData().get("Items");
-                    Log.i("TAG",dishes.get(0));
+                //    Log.i("TAG",dishes.get(0));
 
                    /* Map<String, Object> map = (Map<String, Object>) documentSnapshot.getData().get("Items");
                     for (Map.Entry<String, Object> entry : map.entrySet()) {
