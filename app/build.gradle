@@ -41,6 +41,7 @@ dependencies {
     implementation 'com.android.support:design:29.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+    implementation "com.firebaseui:firebase-ui-firestore:6.0.2"
 
 
 }
