@@ -5,7 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.io.Serializable;
 
 public class FoodItem implements Serializable {
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //FirebaseFirestore db = FirebaseFirestore.getInstance();
     String id, name, available;
     int time, price;
 
