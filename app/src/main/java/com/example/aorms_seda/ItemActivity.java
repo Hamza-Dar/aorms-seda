@@ -45,7 +45,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         Log.e("onCreate: ", "size: " + this.ItemActivity_IngredientsList.size());
         ingredientRecyclerView = (RecyclerView) findViewById(R.id.ItemActivity_IngredientsList);
         ingredientRecyclerView.addItemDecoration(new DividerItemDecoration(ItemActivity.this, LinearLayoutManager.HORIZONTAL));
-        adapter = new IngredientAdapter(this, this.ItemActivity_IngredientsList);
+        adapter = new IngredientAdapter( this.ItemActivity_IngredientsList);
         Log.e("onCreate: ", "size: " + adapter.getItemCount() );
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(ItemActivity.this, LinearLayoutManager.HORIZONTAL, false);
         ingredientRecyclerView.setLayoutManager(horizontalLayoutManager);
@@ -69,7 +69,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         String name;
         for (int i=0; i<7; i++){
             name = "Ingredient " + (i+1);
-            ingredient = new Ingredient(name);
+            ingredient = new Ingredient(name,"12321",1321,23);
             temp.add(ingredient);
             Log.e("DATA", "getDummyData: "+ name);
         }

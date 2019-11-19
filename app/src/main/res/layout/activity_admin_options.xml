@@ -36,7 +36,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/roundededgesbtn"
-        android:onClick="TableButton"
+        android:onClick="TabletButton"
         android:text="   Tables   "
         android:textColor="@color/ButtonTextColor"
         android:textSize="16sp"

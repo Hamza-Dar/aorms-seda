@@ -1,7 +1,11 @@
 package com.example.aorms_seda;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.Serializable;
 
-public class Ingredient {
+public class Ingredient implements Serializable {
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     String name, id;
     int quantity, threshold;
@@ -11,17 +15,5 @@ public class Ingredient {
         this.id = id;
         this.quantity = quantity;
         this.threshold = threshold;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Ingredient(String name) {
-        this.name = name;
     }
 }
