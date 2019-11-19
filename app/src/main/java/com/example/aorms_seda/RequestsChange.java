@@ -4,23 +4,25 @@ import java.io.Serializable;
 
 public class RequestsChange implements Serializable {
 
-    Dish dishInfo;
+    String dishInfo;
+    String status;
     String request;
     String decision;
-    int orderId;
+    String orderId;
 
-    public RequestsChange(Dish dishInfo, String request, String decision, int orderId) {
+    public RequestsChange(String dishInfo, String request, String decision, String orderId,String status) {
         this.dishInfo = dishInfo;
         this.request = request;
         this.decision = decision;
         this.orderId = orderId;
+        this.status=status;
     }
 
-    public Dish getDishInfo() {
+    public String getDishInfo() {
         return dishInfo;
     }
 
-    public void setDishInfo(Dish dishInfo) {
+    public void setDishInfo(String dishInfo) {
         this.dishInfo = dishInfo;
     }
 
@@ -40,11 +42,11 @@ public class RequestsChange implements Serializable {
         this.decision = decision;
     }
 
-    public int getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 }

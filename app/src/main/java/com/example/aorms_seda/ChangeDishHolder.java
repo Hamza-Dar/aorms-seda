@@ -33,8 +33,8 @@ public class ChangeDishHolder extends RecyclerView.ViewHolder {
 
     public void setValues(RequestsChange Request)
     {
-        dishName.setText(Request.dishInfo.getName());
-        dishStatus.setText(Request.dishInfo.getStatus());
+        dishName.setText(Request.dishInfo);
+        dishStatus.setText(Request.status);
         requestType.setText(Request.getRequest());
         acceptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +48,7 @@ public class ChangeDishHolder extends RecyclerView.ViewHolder {
             }
         });
 
-                rejectBtn.setOnClickListener(new View.OnClickListener() {
+        rejectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
