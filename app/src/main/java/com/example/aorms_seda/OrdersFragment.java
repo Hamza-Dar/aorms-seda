@@ -73,8 +73,7 @@ public class OrdersFragment extends Fragment {
                             Map<String, Object> myMap = (Map<String, Object>) dishitem;
                             final String itemStatus=((String) myMap.get("itemStatus"));
                             final DocumentReference dbDish = (DocumentReference) myMap.get("foodItem"); //get document reference
-                            Log.i("document id",dbDish.getId());
-                            Log.i("path id",dbDish.getPath());
+
                             dbDish.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -84,7 +83,7 @@ public class OrdersFragment extends Fragment {
                                     if(documentSnapshot.getLong("Time")!=null)
                                     {  dishTime=Math.toIntExact(documentSnapshot.getLong("Time"));}
                                     order.addDish(new Dish(null,dbDish.getPath(),dishName,dishTime,0,itemStatus,dishType));
-                                    //Log.i("Dishname",dishName);
+
                                 }
                             });
 

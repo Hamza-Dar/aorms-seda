@@ -146,8 +146,7 @@ public class kitchenActivity extends AppCompatActivity {
                                         Map<String, Object> myMap = (Map<String, Object>) dishitem;
                                         final String itemStatus=((String) myMap.get("itemStatus"));
                                         final DocumentReference dbDish = (DocumentReference) myMap.get("foodItem"); //get document reference
-                                        Log.i("document id",dbDish.getId());
-                                        Log.i("path id",dbDish.getPath());
+
                                         dbDish.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                             @Override
                                             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -157,7 +156,7 @@ public class kitchenActivity extends AppCompatActivity {
                                                 if(documentSnapshot.getLong("Time")!=null)
                                                 { dishTime=Math.toIntExact(documentSnapshot.getLong("Time"));}
                                                 order.addDish(new Dish(null,dbDish.getPath(),dishName,dishTime,0,itemStatus,dishType));
-                                                //Log.i("Dishname",dishName);
+
                                                 EnqueueDish(order,order.dishes.size()-1);
                                             }
                                         });
@@ -187,8 +186,7 @@ public class kitchenActivity extends AppCompatActivity {
                                             final String itemStatus = ((String) myMap.get("itemStatus"));
                                             if (itemStatus.compareTo("done") != 0) {
                                                 final DocumentReference dbDish = (DocumentReference) myMap.get("foodItem"); //get document reference
-                                                Log.i("document id", dbDish.getId());
-                                                Log.i("path id", dbDish.getPath());
+
                                                 dbDish.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                                     @Override
                                                     public void onSuccess(DocumentSnapshot documentSnapshot) {
