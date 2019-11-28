@@ -25,7 +25,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     Button increaseQuantityBtn;
     Button decreaseQuantityBtn;
     Button addOrderItemBtn;
-    EditText quantity_edit_txt;
+    TextView quantity_edit_txt;
     int quantity = 0;
 
 
@@ -41,17 +41,8 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         iprice.setText(Integer.toString(foodItem.price));
 
         iname.setText(foodItem.name);
-        this.ItemActivity_IngredientsList = getDummyData();
-        Log.e("onCreate: ", "size: " + this.ItemActivity_IngredientsList.size());
-        ingredientRecyclerView = (RecyclerView) findViewById(R.id.ItemActivity_IngredientsList);
-        ingredientRecyclerView.addItemDecoration(new DividerItemDecoration(ItemActivity.this, LinearLayoutManager.HORIZONTAL));
-        adapter = new IngredientAdapter( this.ItemActivity_IngredientsList);
-        Log.e("onCreate: ", "size: " + adapter.getItemCount() );
-        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(ItemActivity.this, LinearLayoutManager.HORIZONTAL, false);
-        ingredientRecyclerView.setLayoutManager(horizontalLayoutManager);
-        ingredientRecyclerView.setAdapter(adapter);
 
-        quantity_edit_txt = (EditText) findViewById(R.id.quantity_value);
+        quantity_edit_txt = (TextView) findViewById(R.id.quantity_value);
 
         increaseQuantityBtn = (Button) findViewById(R.id.quantity_increase);
         decreaseQuantityBtn = (Button) findViewById(R.id.quantity_decrease);
@@ -69,7 +60,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         String name;
         for (int i=0; i<7; i++){
             name = "Ingredient " + (i+1);
-            ingredient = new Ingredient(name,"12321",1321,23);
+            ingredient = new Ingredient(name, "1", 2, 2);
             temp.add(ingredient);
             Log.e("DATA", "getDummyData: "+ name);
         }
@@ -93,12 +84,14 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.addOrderItemBtn: {
                 FoodItem currentItem = (FoodItem) getIntent().getSerializableExtra("item");
-                OrderItem orderItem = new OrderItem(currentItem, quantity);
+
+                OrderItem orderItem = new OrderItem(currentItem, quantity );
+
                 OrderedItemsQueue queue = OrderedItemsQueue.Singleton();
                 queue.addOrderItem(orderItem);
                 Intent x = getIntent();
                 String name = x.getExtras().getString("Title");
-                Intent intent = new Intent(ItemActivity.this, Order_placement_screen2.class);
+                Intent intent = new Intent(ItemActivity.this, FoodOrderMainMenu.class);
                 intent.putExtra("Title", name);
                 startActivity(intent);
                 break;

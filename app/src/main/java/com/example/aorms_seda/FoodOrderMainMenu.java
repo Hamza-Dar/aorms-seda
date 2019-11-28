@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +36,7 @@ public class FoodOrderMainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_food_order_main_menu);
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         lst_food = new ArrayList<>();
+        final Map<String, String> types = new HashMap<String,String>();
         firestore.collection("Fooditem").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -41,8 +44,11 @@ public class FoodOrderMainMenu extends AppCompatActivity {
                     List<String> list = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         //lst_food.add(new Food(document.get("Type").toString(), document.get("Type").toString(), document.get("Type").toString(), R.drawable.fast));
-                        String title = document.get("type").toString();
-                        lst_food.add(new Food(title, title, title, R.drawable.fast));
+                        String title = document.get("Type").toString();
+                        if (!types.containsKey(title)) {
+                            types.put(title, title);
+                            lst_food.add(new Food(title, title, title, R.drawable.fast));
+                        }
                     }
                     initializeRcv();
                 }

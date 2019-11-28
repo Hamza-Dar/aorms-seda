@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="323dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="14dp">
@@ -33,27 +33,38 @@
                 android:layout_height="wrap_content"
                 android:text="x3"
                 style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:textColor="@color/colorAccent"
+
                 android:layout_marginBottom="5dp"/>
 
+            <TextView
+                android:id="@+id/queue_item_price"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="500"
 
 
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:textColor="@color/colorPrimaryDark"
 
+                />
+
+            <Button
+                android:id="@+id/UpdateCartOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/roundededgesbtn"
+                android:gravity="center"
+
+
+                android:text="Update Order"
+                android:textAlignment="center"
+                android:textColor="@color/ButtonTextColor" />
 
 
         </LinearLayout>
 
-     <TextView
-         android:id="@+id/queue_item_price"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:text="500"
-         android:textAlignment="center"
-         android:gravity="center"
-         style="@style/TextAppearance.MaterialComponents.Headline5"
-         android:textColor="@color/colorPrimaryDark"
 
-         />
 
 
     </LinearLayout>

@@ -73,6 +73,7 @@
         <activity android:name=".menuaroms"/>
         <activity android:name=".cartaroms"/>
         <activity android:name=".Order_placement_screen2"/>
+        <activity android:name=".cartOrderPlacement"/>s
     </application>
 
 </manifest>
