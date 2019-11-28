@@ -95,19 +95,6 @@
         android:textSize="16dp" />
 
     <TextView
-        android:id="@+id/employee_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:paddingLeft="20sp"
-        android:paddingTop="10sp"
-        android:paddingBottom="10sp"
-        android:paddingRight="20sp"
-        android:textColor="@color/TextColor"
-        android:text="Employment Date:"
-        android:textSize="16dp"/>
-
-    <TextView
         android:id="@+id/employee_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -130,7 +117,7 @@
         android:paddingBottom="10sp"
         android:paddingRight="20sp"
         android:textColor="@color/TextColor"
-        android:text="Speciality:"
+        android:text=""
         android:textSize="16dp" />
 
     <Button
@@ -144,6 +131,7 @@
         android:background="@drawable/roundededgesbtn"
         android:layout_gravity="center_horizontal"
         android:text="   Update   "
+        android:onClick="UpdateEmployee"
         android:textColor="@color/ButtonTextColor"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
