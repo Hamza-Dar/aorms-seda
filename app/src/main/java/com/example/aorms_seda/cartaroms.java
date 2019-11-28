@@ -71,16 +71,6 @@ public class cartaroms extends AppCompatActivity {
         Toast.makeText(context, "OrderPlaced Successfully", Toast.LENGTH_LONG).show();
         MyCart.EmptyCart();
         this.finish();
-        /*
-        SharedPreferences prefs = context.getSharedPreferences(MainActivity.SharePrefernce, MODE_PRIVATE);
-        String phone = prefs.getString("phone", "notsaved");//"No name defined" is the default value.
-        if (!phone.equals("notsaved")) {
-            myDatabaseReference = FirebaseDatabase.getInstance().getReference("Users").child(phone).child("Order").push();
-            myDatabaseReference.setValue(MyCart);
-            myDatabaseReference.child("Status").setValue("Pending");
-            MyCart.EmptyCart();
-            adapter.notifyDataSetChanged();
-        }*/
     }
     private void settingTheRecyclerView() {
         adapter = new AdapterForCart(MyCart.getCartItems(), context);
