@@ -1,13 +1,17 @@
 package com.example.aorms_seda;
 
+import android.content.ClipData;
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -43,7 +47,7 @@ public class ChangeDishHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void setValues(final RequestsChange Request)
+    public void setValues(final Context context, final RequestsChange Request)
     {
         dishName.setText(Request.dishInfo);
         dishStatus.setText(Request.status);
@@ -58,6 +62,7 @@ public class ChangeDishHolder extends RecyclerView.ViewHolder {
             public void onClick(View view) {
 
                 //firebase update dish request status
+
 
                 if(Request.request.compareTo("Add")==0)
                 {
@@ -74,9 +79,20 @@ public class ChangeDishHolder extends RecyclerView.ViewHolder {
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                             ArrayList<Object> Items= (ArrayList<Object>) documentSnapshot.get("Items");
-                            Items.add(mymap);
-                            orderRef.update("Items",Items);
+                            if (Items!=null) {
+                                Items.add(mymap);
+                                orderRef.update("Items", Items);
+                            }
+                            else
+                            {
+                                Toast.makeText(context,"Items not found",Toast.LENGTH_SHORT);
+                            }
 
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context,"Error loading data",Toast.LENGTH_SHORT);
                         }
                     });
 
@@ -94,29 +110,38 @@ public class ChangeDishHolder extends RecyclerView.ViewHolder {
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                             ArrayList<Object> Items= (ArrayList<Object>) documentSnapshot.get("Requests");
-                            boolean check=false;
-                            for(int i=0;i<Items.size()&& check!=true;i++)
-                            {
-                                Map<String,Object>map= (Map<String, Object>) Items.get(i);
-                                String status= (String) map.get("itemStatus");
-                                String decision= (String) map.get("decision");
-                                String type= (String) map.get("type");
-                                DocumentReference foodItem= (DocumentReference) map.get("foodItem");
-                                String id=foodItem.getId();
-                                //////////
-                                String status2= (String) mymap2.get("itemStatus");
-                                String decision2= (String) mymap2.get("decision");
-                                String type2= (String) mymap2.get("type");
-                                DocumentReference foodItem2= (DocumentReference) mymap2.get("foodItem");
-                                String id2=foodItem2.getId();
-                                if(status.compareTo(status2) ==0&& decision.compareTo(decision2)==0&&type.compareTo(type2)==0&&id.compareTo(id2)==0)
-                                {
+                            if(Items!=null && Items.size()>0) {
+                                boolean check = false;
+                                for (int i = 0; i < Items.size() && check != true; i++) {
+                                    Map<String, Object> map = (Map<String, Object>) Items.get(i);
+                                    String status = (String) map.get("itemStatus");
+                                    String decision = (String) map.get("decision");
+                                    String type = (String) map.get("type");
+                                    DocumentReference foodItem = (DocumentReference) map.get("foodItem");
+                                    String id = foodItem.getId();
+                                    //////////
+                                    String status2 = (String) mymap2.get("itemStatus");
+                                    String decision2 = (String) mymap2.get("decision");
+                                    String type2 = (String) mymap2.get("type");
+                                    DocumentReference foodItem2 = (DocumentReference) mymap2.get("foodItem");
+                                    String id2 = foodItem2.getId();
+                                    if (status.compareTo(status2) == 0 && type.compareTo(type2) == 0 && id.compareTo(id2) == 0) {
 
-                                    Items.remove(i);
-                                    check=true;
+                                        Items.remove(i);
+                                        check = true;
+                                    }
                                 }
+                                db.collection("OrderRequest").document(Request.requestID).update("Requests", Items);
                             }
-                            db.collection("OrderRequest").document(Request.requestID).update("Requests",Items);
+                            else
+                            {
+                                Toast.makeText(context,"Requests not found",Toast.LENGTH_SHORT);
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context,"Error loading data",Toast.LENGTH_SHORT);
                         }
                     });
                 }
@@ -127,31 +152,45 @@ public class ChangeDishHolder extends RecyclerView.ViewHolder {
                     final Map<String,Object> mymap=new HashMap<>();
                     mymap.put("foodItem",foodRef);
                     mymap.put("itemStatus",Request.status);
-                    orderRef.update("Items",FieldValue.arrayRemove(mymap)); //remove from orders;
+                    orderRef.update("Items",FieldValue.arrayRemove(mymap)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(context,"Updated Data successfully",Toast.LENGTH_SHORT);
+                        }
+                    }); //remove from orders;
                     orderRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                             ArrayList<Object> Items= (ArrayList<Object>) documentSnapshot.get("Items");
-                            boolean check=false;
-                            for(int i=0;i<Items.size()&& check!=true;i++)
-                            {
-                                Map<String,Object>map= (Map<String, Object>) Items.get(i);
-                                String status= (String) map.get("itemStatus");
-                                DocumentReference foodItem= (DocumentReference) map.get("foodItem");
-                                String id=foodItem.getId();
+                            if(Items!=null && Items.size()>0) {
+                                boolean check = false;
+                                for (int i = 0; i < Items.size() && check != true; i++) {
+                                    Map<String, Object> map = (Map<String, Object>) Items.get(i);
+                                    String status = (String) map.get("itemStatus");
+                                    DocumentReference foodItem = (DocumentReference) map.get("foodItem");
+                                    String id = foodItem.getId();
 
-                                String status2= (String) mymap.get("itemStatus");
-                                DocumentReference foodItem2= (DocumentReference) mymap.get("foodItem");
-                                String id2=foodItem.getId();
+                                    String status2 = (String) mymap.get("itemStatus");
+                                    DocumentReference foodItem2 = (DocumentReference) mymap.get("foodItem");
+                                    String id2 = foodItem.getId();
 
-                                if(status.compareTo(status2)==0 && id.compareTo(id2)==0)
-                                {
-                                    Items.remove(i);
-                                    check=true;
+                                    if (status.compareTo(status2) == 0 && id.compareTo(id2) == 0) {
+                                        Items.remove(i);
+                                        check = true;
+                                    }
                                 }
+                                db.collection("Orders").document(Request.orderId).update("Items", Items);
                             }
-                            db.collection("Orders").document(Request.orderId).update("Items",Items);
+                            else
+                            {
+                                Toast.makeText(context,"No dishes found",Toast.LENGTH_SHORT);
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context,"Error loading data",Toast.LENGTH_SHORT);
                         }
                     });
 
@@ -169,29 +208,38 @@ public class ChangeDishHolder extends RecyclerView.ViewHolder {
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                             ArrayList<Object> Items= (ArrayList<Object>) documentSnapshot.get("Requests");
-                            boolean check=false;
-                            for(int i=0;i<Items.size()&& check!=true;i++)
-                            {
-                                Map<String,Object>map= (Map<String, Object>) Items.get(i);
-                                String status= (String) map.get("itemStatus");
-                                String decision= (String) map.get("decision");
-                                String type= (String) map.get("type");
-                                DocumentReference foodItem= (DocumentReference) map.get("foodItem");
-                                String id=foodItem.getId();
-                                //////////
-                                String status2= (String) mymap2.get("itemStatus");
-                                String decision2= (String) mymap2.get("decision");
-                                String type2= (String) mymap2.get("type");
-                                DocumentReference foodItem2= (DocumentReference) mymap2.get("foodItem");
-                                String id2=foodItem2.getId();
-                                if(status.compareTo(status2) ==0&& decision.compareTo(decision2)==0&&type.compareTo(type2)==0&&id.compareTo(id2)==0)
-                                {
+                            if(Items!=null && Items.size()>0) {
+                                boolean check = false;
+                                for (int i = 0; i < Items.size() && check != true; i++) {
+                                    Map<String, Object> map = (Map<String, Object>) Items.get(i);
+                                    String status = (String) map.get("itemStatus");
+                                    String decision = (String) map.get("decision");
+                                    String type = (String) map.get("type");
+                                    DocumentReference foodItem = (DocumentReference) map.get("foodItem");
+                                    String id = foodItem.getId();
+                                    //////////
+                                    String status2 = (String) mymap2.get("itemStatus");
+                                    String decision2 = (String) mymap2.get("decision");
+                                    String type2 = (String) mymap2.get("type");
+                                    DocumentReference foodItem2 = (DocumentReference) mymap2.get("foodItem");
+                                    String id2 = foodItem2.getId();
+                                    if (status.compareTo(status2) == 0  && type.compareTo(type2) == 0 && id.compareTo(id2) == 0) {
 
-                                    Items.remove(i);
-                                    check=true;
+                                        Items.remove(i);
+                                        check = true;
+                                    }
                                 }
+                                db.collection("OrderRequest").document(Request.requestID).update("Requests", Items);
                             }
-                            db.collection("OrderRequest").document(Request.requestID).update("Requests",Items);
+                            else
+                            {
+                                Toast.makeText(context,"No Requests found",Toast.LENGTH_SHORT);
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context,"Error loading data",Toast.LENGTH_SHORT);
                         }
                     });
                 }
@@ -201,6 +249,11 @@ public class ChangeDishHolder extends RecyclerView.ViewHolder {
                 acceptBtn.setVisibility(View.GONE);
             }
         });
+
+
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -229,29 +282,39 @@ public class ChangeDishHolder extends RecyclerView.ViewHolder {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                         ArrayList<Object> Items= (ArrayList<Object>) documentSnapshot.get("Requests");
-                        boolean check=false;
-                        for(int i=0;i<Items.size()&& check!=true;i++)
-                        {
-                            Map<String,Object>map= (Map<String, Object>) Items.get(i);
-                            String status= (String) map.get("itemStatus");
-                            String decision= (String) map.get("decision");
-                            String type= (String) map.get("type");
-                            DocumentReference foodItem= (DocumentReference) map.get("foodItem");
-                            String id=foodItem.getId();
-                            //////////
-                            String status2= (String) mymap2.get("itemStatus");
-                            String decision2= (String) mymap2.get("decision");
-                            String type2= (String) mymap2.get("type");
-                            DocumentReference foodItem2= (DocumentReference) mymap2.get("foodItem");
-                            String id2=foodItem2.getId();
-                            if(status.compareTo(status2) ==0&& decision.compareTo(decision2)==0&&type.compareTo(type2)==0&&id.compareTo(id2)==0)
+                        if(Items!=null && Items.size()>0)
+                        {boolean check=false;
+                            for(int i=0;i<Items.size()&& check!=true;i++)
                             {
-
-                                Items.remove(i);
-                                check=true;
+                                Map<String,Object>map= (Map<String, Object>) Items.get(i);
+                                String status= (String) map.get("itemStatus");
+                                String decision= (String) map.get("decision");
+                                String type= (String) map.get("type");
+                                DocumentReference foodItem= (DocumentReference) map.get("foodItem");
+                                String id=foodItem.getId();
+                                //////////
+                                String status2= (String) mymap2.get("itemStatus");
+                                String decision2= (String) mymap2.get("decision");
+                                String type2= (String) mymap2.get("type");
+                                DocumentReference foodItem2= (DocumentReference) mymap2.get("foodItem");
+                                String id2=foodItem2.getId();
+                                if(status!=null && status2!=null && status.compareTo(status2) ==0)
+                                {
+                                    Items.remove(i);
+                                    check=true;
+                                }
                             }
+                            db.collection("OrderRequest").document(Request.requestID).update("Requests",Items);
                         }
-                        db.collection("OrderRequest").document(Request.requestID).update("Requests",Items);
+                        else
+                        {
+                            Toast.makeText(context,"No requests found",Toast.LENGTH_SHORT);
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context,"Error loading data",Toast.LENGTH_SHORT);
                     }
                 });
 

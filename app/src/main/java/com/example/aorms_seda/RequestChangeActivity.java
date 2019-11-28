@@ -16,8 +16,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -82,8 +85,62 @@ public class RequestChangeActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     //cancel order...
-                    DocumentReference orderRef= db.collection("Orders").document(orderInfo.getOrderId());
+                    final DocumentReference orderRef= db.collection("Orders").document(orderInfo.getOrderId());
                     orderRef.delete();
+
+                    //remove request
+                    db.collection("OrderRequest").whereEqualTo("orderID",orderRef).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                            for(QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots)
+                            {
+
+                                   DocumentReference requestRef=documentSnapshot.getReference();
+                                    requestRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+
+                                            cancelbtn.setText("Cancelled");
+                                            doneOrderbtn.setVisibility(View.GONE);
+                                        }
+                                    });
+
+
+                            }
+                        }
+                    });
+                }
+            });
+
+            doneOrderbtn.setText("Keep Order");
+            doneOrderbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    final DocumentReference orderRef= db.collection("Orders").document(orderInfo.getOrderId());
+                    //remove request
+                    db.collection("OrderRequest").whereEqualTo("orderID",orderRef).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                            for(QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots)
+                            {
+
+                                   DocumentReference requestRef=documentSnapshot.getReference();
+                                    requestRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+
+                                            cancelbtn.setText("Cancel Rejected");
+                                            doneOrderbtn.setVisibility(View.GONE);
+                                        }
+                                    });
+
+                                }
+                            }
+
+                    });
                 }
             });
         }

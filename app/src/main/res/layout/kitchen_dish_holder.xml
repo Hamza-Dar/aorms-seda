@@ -8,7 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:paddingLeft="@dimen/_10sdp"
@@ -27,7 +27,7 @@
 
             <TextView
                 android:id="@+id/dishOrdertxtview"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -39,7 +39,8 @@
                 android:text="OrderID"
                 android:textColor="@color/TextColor"
                 android:textSize="16sp"
-                app:autoSizeTextType="uniform"
+                android:maxLines="2"
+                android:autoSizeTextType="uniform"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -51,6 +52,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:maxLines="1"
                 android:paddingLeft="@dimen/_10sdp"
                 android:paddingTop="@dimen/_10sdp"
                 android:paddingRight="@dimen/_10sdp"
@@ -58,7 +60,6 @@
                 android:text="DishName"
                 android:textColor="@color/TextColor"
                 android:textSize="16sp"
-                android:maxLines="1"
                 app:autoSizeTextType="uniform"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

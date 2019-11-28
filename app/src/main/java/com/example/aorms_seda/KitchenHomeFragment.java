@@ -18,7 +18,7 @@ public class KitchenHomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root= inflater.inflate(R.layout.home_fragment,container,false);
+        View root= inflater.inflate(R.layout.kitchen_home_fragment,container,false);
 
         placeOrder=root.findViewById(R.id.placeOrderbtn);
         placeOrder.setOnClickListener(new View.OnClickListener() {

@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.CollectionReference;
@@ -71,7 +73,7 @@ public class kitchenActivity extends AppCompatActivity {
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(false)
                 .build();
-//        db.setFirestoreSettings(settings);
+        db.setFirestoreSettings(settings);
         CollectionReference dbChefs=db.collection("Employee");
         chefList=new ArrayList<>();
         orderList=new ArrayList<>();
@@ -84,20 +86,26 @@ public class kitchenActivity extends AppCompatActivity {
                 {
 
                     chefName=(String) documentSnapshot.getData().get("Name");
-                    chefId=Math.toIntExact(documentSnapshot.getLong("ID"));
+                    chefId=0;
+                    if(documentSnapshot.getLong("ID")!=null)
+                    {chefId=Math.toIntExact(documentSnapshot.getLong("ID"));}
                     ArrayList<String>speciality= (ArrayList<String>) documentSnapshot.getData().get("speciality");
                     chefList.add(new Cook(chefId,chefName,0,speciality));
-                    Log.i("Name",chefName);
 
                 }
 
                 bundle.putSerializable("chefsList",chefList);
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(),"Error loading data",Toast.LENGTH_SHORT);
+            }
         });
 
 
         //default fragment
-       // getSupportFragmentManager().beginTransaction().replace(R.id.kitchenFrame,new KitchenHomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.kitchenFrame,new KitchenHomeFragment()).commit();
 
 
         //add firebase real time listener for orders;
@@ -112,30 +120,49 @@ public class kitchenActivity extends AppCompatActivity {
                                 DocumentSnapshot documentSnapshot=dc.getDocument();
                                 //new order add it to order list
                                 final Order order;
-                                int serveTime=(Math.toIntExact((Long)documentSnapshot.get("Time")));
+                                int serveTime=0;
+                                if(documentSnapshot.getLong("Time")!=null)
+                                {serveTime=(Math.toIntExact((Long)documentSnapshot.get("Time")));}
                                 String orderStatus=((String)documentSnapshot.get("Status"));
-                                int orderID=(Math.toIntExact((Long) documentSnapshot.get("Table")));
+
+                                int orderID=0;
+                                if(documentSnapshot.getLong("Table")!=null)
+                                {orderID=(Math.toIntExact((Long) documentSnapshot.get("Table")));}
                                 ArrayList<Object>dishItems= (ArrayList<Object>) documentSnapshot.getData().get("Items"); //array of dishes and status for one order
                                 order=new Order(documentSnapshot.getId(),serveTime,null,orderStatus,orderID);
-                                for ( final Object dishitem: dishItems)
-                                {
-                                    Map<String, Object> myMap = (Map<String, Object>) dishitem;
-                                    final String itemStatus=((String) myMap.get("itemStatus"));
-                                    final DocumentReference dbDish = (DocumentReference) myMap.get("foodItem"); //get document reference
-                                    Log.i("document id",dbDish.getId());
-                                    Log.i("path id",dbDish.getPath());
-                                    dbDish.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                            String  dishName=documentSnapshot.getString("Name");
-                                            String   dishType=documentSnapshot.getString("type");
-                                            int  dishTime=Math.toIntExact(documentSnapshot.getLong("Time"));
-                                            order.addDish(new Dish(null,dbDish.getPath(),dishName,dishTime,0,itemStatus,dishType));
-                                            Log.i("Dishname",dishName);
-                                            EnqueueDish(order,order.dishes.size()-1);
-                                        }
-                                    });
 
+                                //
+                                String priority=null;
+                                if(documentSnapshot.getString("Priority")!=null)
+                                {
+                                    priority=documentSnapshot.getString("Priority");
+                                    order.setPriority(priority);
+                                }
+
+                                if(dishItems!=null && dishItems.size()>0)
+                                {
+                                    for ( final Object dishitem: dishItems)
+                                    {
+                                        Map<String, Object> myMap = (Map<String, Object>) dishitem;
+                                        final String itemStatus=((String) myMap.get("itemStatus"));
+                                        final DocumentReference dbDish = (DocumentReference) myMap.get("foodItem"); //get document reference
+                                        Log.i("document id",dbDish.getId());
+                                        Log.i("path id",dbDish.getPath());
+                                        dbDish.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                String  dishName=documentSnapshot.getString("Name");
+                                                String   dishType=documentSnapshot.getString("type");
+                                                int dishTime=0;
+                                                if(documentSnapshot.getLong("Time")!=null)
+                                                { dishTime=Math.toIntExact(documentSnapshot.getLong("Time"));}
+                                                order.addDish(new Dish(null,dbDish.getPath(),dishName,dishTime,0,itemStatus,dishType));
+                                                //Log.i("Dishname",dishName);
+                                                EnqueueDish(order,order.dishes.size()-1);
+                                            }
+                                        });
+
+                                    }
                                 }
                                 orderList.add(order);
                             }
@@ -144,29 +171,37 @@ public class kitchenActivity extends AppCompatActivity {
                                 //modified order;
                                 //check id in order list and replace and remove the done dishes from list;
                                 final Order order;
-                                int serveTime = (Math.toIntExact((Long) documentSnapshot.get("Time")));
+                                int serveTime=0;
+                                if(documentSnapshot.getLong("Time")!=null)
+                                { serveTime = (Math.toIntExact((Long) documentSnapshot.get("Time")));}
                                 String orderStatus = ((String) documentSnapshot.get("Status"));
-                                if (orderStatus.compareTo("Ready") != 0) {
-                                    int orderID = (Math.toIntExact((Long) documentSnapshot.get("Table")));
+                                if (orderStatus.compareTo("ready") != 0) {
+                                    int orderID=0;
+                                    if(documentSnapshot.getLong("Table")!=null)
+                                    {orderID = (Math.toIntExact((Long) documentSnapshot.get("Table")));}
                                     ArrayList<Object> dishItems = (ArrayList<Object>) documentSnapshot.getData().get("Items"); //array of dishes and status for one order
                                     order = new Order(documentSnapshot.getId(), serveTime, null, orderStatus, orderID);
-                                    for (final Object dishitem : dishItems) {
-                                        Map<String, Object> myMap = (Map<String, Object>) dishitem;
-                                        final String itemStatus = ((String) myMap.get("itemStatus"));
-                                        if (itemStatus.compareTo("done") != 0)
-                                        {  final DocumentReference dbDish = (DocumentReference) myMap.get("foodItem"); //get document reference
-                                            Log.i("document id", dbDish.getId());
-                                            Log.i("path id", dbDish.getPath());
-                                            dbDish.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                @Override
-                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                    String dishName = documentSnapshot.getString("Name");
-                                                    String dishType = documentSnapshot.getString("type");
-                                                    int dishTime = Math.toIntExact(documentSnapshot.getLong("Time"));
-                                                    order.addDish(new Dish(null, dbDish.getPath(), dishName, dishTime, 0, itemStatus, dishType));
-                                                    Log.i("Dishname", dishName);
-                                                }
-                                            });
+                                    if(dishItems!=null && dishItems.size()>0) {
+                                        for (final Object dishitem : dishItems) {
+                                            Map<String, Object> myMap = (Map<String, Object>) dishitem;
+                                            final String itemStatus = ((String) myMap.get("itemStatus"));
+                                            if (itemStatus.compareTo("done") != 0) {
+                                                final DocumentReference dbDish = (DocumentReference) myMap.get("foodItem"); //get document reference
+                                                Log.i("document id", dbDish.getId());
+                                                Log.i("path id", dbDish.getPath());
+                                                dbDish.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                        String dishName = documentSnapshot.getString("Name");
+                                                        String dishType = documentSnapshot.getString("type");
+                                                        int dishTime=0;
+                                                        if(documentSnapshot.getLong("Time")!=null)
+                                                        {dishTime = Math.toIntExact(documentSnapshot.getLong("Time"));}
+                                                        order.addDish(new Dish(null, dbDish.getPath(), dishName, dishTime, 0, itemStatus, dishType));
+                                                        //    Log.i("Dishname", dishName);
+                                                    }
+                                                });
+                                            }
                                         }
                                     }
                                     //replace in the orderlist and replace in orderIDs too;
@@ -243,7 +278,7 @@ public class kitchenActivity extends AppCompatActivity {
         int size = chefList.size();
         boolean cookAssigned = false;
 
-        if (order.getDishes() != null) {
+        if (order.getDishes() != null && order.getDishes().get(k)!=null && order.getDishes().get(k).getStatus().compareTo("done")!=0) {
             //for each dish
 
             Dish dish1 = order.getDishes().get(k);
@@ -252,7 +287,7 @@ public class kitchenActivity extends AppCompatActivity {
                 for (int i = 0; i < size && cookAssigned!=true; i++) {   //for no of cooks; check on the basis of speciality
                     boolean check = true;
                     for (int j = 0; (j < chefList.get(i).getSpeciality().size()) && check; j++) {
-                        if (chefList.get(i).getSpeciality().get(j).compareTo( dish1.getCategory())==0) { //if speaciality and workload
+                        if (dish1.category!=null && chefList.get(i).getSpeciality().get(j).compareTo( dish1.getCategory())==0) { //if speaciality and workload
                             check = false;
                             if (chefList.get(i).getWorkload() < workLoad) {
                                 dish1.setCookId(chefList.get(i).getCookId());
@@ -322,17 +357,34 @@ public class kitchenActivity extends AppCompatActivity {
                     //add a dish from waiting to queue
                     if(orderIDs!=null && orderIDs.size()>0)
                     {
-                        Map<String,Object> map=orderIDs.get(0);
+                        boolean found=false;
+                        int foundIndex=0;
+                        for(int m=0;m<orderIDs.size() && found!=true;m++)
+                        {
+                            Map<String,Object> tempMap=orderIDs.get(m);
+                            Order tempOrder= (Order) tempMap.get("order");
+                            if(tempOrder.priority!=null && tempOrder.priority.compareTo("high")==0)
+                            {
+                                foundIndex=m;
+                                found=true;
+                            }
+                        }
+                        if(found==false)
+                        {
+                            foundIndex=0;
+                        }
+
+                        Map<String,Object> map=orderIDs.get(foundIndex);
                         Order order= (Order) map.get("order");
                         int index= (int) map.get("index");
-                        orderIDs.remove(0);
+                        orderIDs.remove(foundIndex);
                         EnqueueDish(order,index);
                     }
                     check=true;
                 }
-                else if(dishinfo.orderId==dishes.get(i).orderId && dishinfo.getDishId()==dishes.get(i).getDishId() && dishinfo.getStatus().compareTo("InProgress")==0)
+                else if(dishinfo.orderId==dishes.get(i).orderId && dishinfo.getDishId()==dishes.get(i).getDishId() && dishinfo.getStatus().compareTo("progress")==0)
                 {
-                    dishes.get(i).setStatus("InProgress");
+                    dishes.get(i).setStatus("progress");
                     check=true;
                 }
             }

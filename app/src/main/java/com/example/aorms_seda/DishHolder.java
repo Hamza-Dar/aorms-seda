@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -80,25 +82,33 @@ public class DishHolder extends RecyclerView.ViewHolder {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                         ArrayList<Object>Items= (ArrayList<Object>) documentSnapshot.get("Items");
-                        boolean check=false;
-                        for (int i=0;i<Items.size()&& check!=true;i++)
-                        {
-                            Map<String,Object>map= (Map<String, Object>) Items.get(i);
-                            DocumentReference foodRef= (DocumentReference) map.get("foodItem");
-                            String itemStatus= (String) map.get("itemStatus");
-                            String id=foodRef.getId();
+                        if(Items!=null && Items.size()>0) {
+                            boolean check = false;
+                            for (int i = 0; i < Items.size() && check != true; i++) {
+                                Map<String, Object> map = (Map<String, Object>) Items.get(i);
+                                DocumentReference foodRef = (DocumentReference) map.get("foodItem");
+                                String itemStatus = (String) map.get("itemStatus");
+                                String id = foodRef.getId();
 
 
-                            DocumentReference foodRef2= (DocumentReference) mymap.get("foodItem");
-                            String itemStatus2= (String) mymap.get("itemStatus");
-                            String id2=foodRef2.getId();
-                            if(id.compareTo(id2)==0&&itemStatus.compareTo(itemStatus2)==0)
-                            {
-                                Items.set(i,mymap2);
-                                check=true;
+                                DocumentReference foodRef2 = (DocumentReference) mymap.get("foodItem");
+                                String itemStatus2 = (String) mymap.get("itemStatus");
+                                String id2 = foodRef2.getId();
+                                if (id.compareTo(id2) == 0 && itemStatus.compareTo(itemStatus2) == 0) {
+                                    Items.set(i, mymap2);
+                                    check = true;
+                                }
                             }
+                            db.collection("Orders").document(DishInfo.getOrderId()).update("Items", Items);
                         }
-                        db.collection("Orders").document(DishInfo.getOrderId()).update("Items",Items);
+                        else {
+                            Toast.makeText(context,"No dishes found",Toast.LENGTH_SHORT);
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context,"Error loading data",Toast.LENGTH_SHORT);
                     }
                 });
 
@@ -131,7 +141,7 @@ public class DishHolder extends RecyclerView.ViewHolder {
 
                 final Map<String,Object> mymap2=new HashMap<>();
                 mymap2.put("foodItem",dbRef);
-                mymap2.put("itemStatus","InProgress");
+                mymap2.put("itemStatus","progress");
 
 
                 db.collection("Orders").document(DishInfo.getOrderId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -139,30 +149,40 @@ public class DishHolder extends RecyclerView.ViewHolder {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                         ArrayList<Object>Items= (ArrayList<Object>) documentSnapshot.get("Items");
-                        boolean check=false;
-                        for (int i=0;i<Items.size()&& check!=true;i++)
-                        {
-                            Map<String,Object>map= (Map<String, Object>) Items.get(i);
-                            DocumentReference foodRef= (DocumentReference) map.get("foodItem");
-                            String itemStatus= (String) map.get("itemStatus");
-                            String id=foodRef.getId();
-
-
-                            DocumentReference foodRef2= (DocumentReference) mymap.get("foodItem");
-                            String itemStatus2= (String) mymap.get("itemStatus");
-                            String id2=foodRef2.getId();
-                            if(id.compareTo(id2)==0&&itemStatus.compareTo(itemStatus2)==0)
+                        if(Items!=null && Items.size()>0)
+                        {boolean check=false;
+                            for (int i=0;i<Items.size()&& check!=true;i++)
                             {
-                                Items.set(i,mymap2);
-                                check=true;
+                                Map<String,Object>map= (Map<String, Object>) Items.get(i);
+                                DocumentReference foodRef= (DocumentReference) map.get("foodItem");
+                                String itemStatus= (String) map.get("itemStatus");
+                                String id=foodRef.getId();
+
+
+                                DocumentReference foodRef2= (DocumentReference) mymap.get("foodItem");
+                                String itemStatus2= (String) mymap.get("itemStatus");
+                                String id2=foodRef2.getId();
+                                if(id.compareTo(id2)==0&&itemStatus.compareTo(itemStatus2)==0)
+                                {
+                                    Items.set(i,mymap2);
+                                    check=true;
+                                }
                             }
+                            db.collection("Orders").document(DishInfo.getOrderId()).update("Items",Items);}
+                        else
+                        {
+                            Toast.makeText(context,"No Dieshes found",Toast.LENGTH_SHORT);
                         }
-                        db.collection("Orders").document(DishInfo.getOrderId()).update("Items",Items);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context,"Error loading data",Toast.LENGTH_SHORT);
                     }
                 });
 
 
-                DishInfo.setStatus("InProgress");
+                DishInfo.setStatus("progress");
                 Intent intent = new Intent("DishInfo");
                 //            intent.putExtra("quantity",Integer.parseInt(quantity.getText().toString()));
                 intent.putExtra("DishInfoStatus",DishInfo);

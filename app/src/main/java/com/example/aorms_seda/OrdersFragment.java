@@ -42,7 +42,7 @@ public class OrdersFragment extends Fragment {
     private kitchenActivity kitchenActivity;
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root= inflater.inflate(R.layout.kitchen_orders_fragment,container,false);
         db= FirebaseFirestore.getInstance();
         orders = (RecyclerView) root.findViewById(R.id.ordersrcv);
@@ -57,31 +57,40 @@ public class OrdersFragment extends Fragment {
                 orderList.clear();
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                     final Order order;
-                    int serveTime=(Math.toIntExact((Long)documentSnapshot.get("Time")));
+                    int serveTime=0;
+                    if(documentSnapshot.getLong("Time")!=null)
+                    {serveTime=(Math.toIntExact((Long)documentSnapshot.get("Time")));}
                     String orderStatus=((String)documentSnapshot.get("Status"));
-                    int orderID=(Math.toIntExact((Long) documentSnapshot.get("Table")));
+                    int orderID=0;
+                    if(documentSnapshot.getLong("Table")!=null)
+                    {orderID=(Math.toIntExact((Long) documentSnapshot.get("Table")));}
                     ArrayList<Object>dishItems= (ArrayList<Object>) documentSnapshot.getData().get("Items"); //array of dishes and status for one order
                     order=new Order(documentSnapshot.getId(),serveTime,null,orderStatus,orderID);
-                    for ( final Object dishitem: dishItems)
+                    if(dishItems!=null && dishItems.size()>0)
                     {
-                        Map<String, Object> myMap = (Map<String, Object>) dishitem;
-                        final String itemStatus=((String) myMap.get("itemStatus"));
-                        final DocumentReference dbDish = (DocumentReference) myMap.get("foodItem"); //get document reference
-                        Log.i("document id",dbDish.getId());
-                        Log.i("path id",dbDish.getPath());
-                        dbDish.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                String  dishName=documentSnapshot.getString("Name");
-                                String   dishType=documentSnapshot.getString("type");
-                                int  dishTime=Math.toIntExact(documentSnapshot.getLong("Time"));
-                                order.addDish(new Dish(null,dbDish.getPath(),dishName,dishTime,0,itemStatus,dishType));
-                                Log.i("Dishname",dishName);
-                            }
-                        });
+                        for ( final Object dishitem: dishItems)
+                        {
+                            Map<String, Object> myMap = (Map<String, Object>) dishitem;
+                            final String itemStatus=((String) myMap.get("itemStatus"));
+                            final DocumentReference dbDish = (DocumentReference) myMap.get("foodItem"); //get document reference
+                            Log.i("document id",dbDish.getId());
+                            Log.i("path id",dbDish.getPath());
+                            dbDish.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    String  dishName=documentSnapshot.getString("Name");
+                                    String   dishType=documentSnapshot.getString("type");
+                                    int dishTime=0;
+                                    if(documentSnapshot.getLong("Time")!=null)
+                                    {  dishTime=Math.toIntExact(documentSnapshot.getLong("Time"));}
+                                    order.addDish(new Dish(null,dbDish.getPath(),dishName,dishTime,0,itemStatus,dishType));
+                                    //Log.i("Dishname",dishName);
+                                }
+                            });
 
+                        }
                     }
-                    if(order.getStatus().compareTo("Ready")!=0)
+                    if(order.getStatus()!=null && order.getStatus().compareTo("ready")!=0)
                     {
                         orderList.add(order);
                         orderAdapter.notifyDataSetChanged();}

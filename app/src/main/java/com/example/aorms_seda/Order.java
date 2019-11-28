@@ -10,6 +10,7 @@ public class Order implements Serializable {
     ArrayList<Dish> dishes;  //list of dishes
     String status;
     int table;
+    String priority;
 
 
     public Order(String orderId, int serveTime, ArrayList<Dish> dishes, String status, int tableNo) {
@@ -18,6 +19,14 @@ public class Order implements Serializable {
         this.dishes = dishes;
         this.status = status;
         this.table = tableNo;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
 
     public String getOrderId() {

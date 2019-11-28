@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 
 public class DishAdapter extends RecyclerView.Adapter<DishHolder> {

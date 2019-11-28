@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
@@ -60,7 +62,7 @@ public class OrderRequestFragment extends Fragment {
                 orderAdapter.notifyDataSetChanged();
                 for (final QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                     final ArrayList<Object>Requests= (ArrayList<Object>) documentSnapshot.get("Requests");
-                    if(Requests!=null && Requests.size()>0) {
+                    final String orderRequest=documentSnapshot.getString("orderRequest");
                         DocumentReference orderRef = documentSnapshot.getDocumentReference("orderID");
                         final String requestID = documentSnapshot.getId();
                         orderRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -68,13 +70,14 @@ public class OrderRequestFragment extends Fragment {
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 final String orderID = documentSnapshot.getId();
                                 String Status = documentSnapshot.getString("Status");
-                                int serveTime = Math.toIntExact(documentSnapshot.getLong("Time"));
+                                int serveTime=0;
+                                if(documentSnapshot.getLong("Time")!=null)
+                                {serveTime = Math.toIntExact(documentSnapshot.getLong("Time"));}
                                 Order order = new Order(orderID, serveTime, null, Status, 0);
-                                if (isContain(orderList, orderID) == false) {
-                                    orderList.add(order);
-                                    orderAdapter.notifyDataSetChanged();
-                                }
-                                for (Object request : Requests) {
+
+                                if(Requests!=null && Requests.size()>0)
+                                {
+                                    for (Object request : Requests) {
                                     Map<String, Object> map = (Map<String, Object>) request;
                                     final String itemStatus = (String) map.get("itemStatus");
                                     final String requestType = (String) map.get("type");
@@ -88,29 +91,49 @@ public class OrderRequestFragment extends Fragment {
                                         }
                                     });
                                 }
-
-                            }
-                        });
-                    }
-                    else if(Requests==null || Requests.size()==0)
-                    {
-                        final DocumentReference orderRef= (DocumentReference) documentSnapshot.get("orderID");
-                        final String orderID=orderRef.getId();
-                        db.collection("OrderRequest").document(documentSnapshot.getId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-
-                                for(int i=0;i<orderList.size();i++)
-                                {
-                                    if(orderList.get(i).orderId.compareTo(orderID)==0)
-                                    {
-                                        orderList.remove(i);
+                                    if (isContain(orderList, orderID) == false) {
+                                        orderList.add(order);
                                         orderAdapter.notifyDataSetChanged();
                                     }
                                 }
+                                else if(Requests==null || Requests.size()==0)
+                                {
+
+                                    if(orderRequest!=null)
+                                    {
+                                        //cancel order request;
+                                        if (isContain(orderList, orderID) == false) {
+                                            orderList.add(order);
+                                            orderAdapter.notifyDataSetChanged();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //db.collection("OrderRequest").document(documentSnapshot.getId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        //@Override
+                                        //public void onSuccess(Void aVoid) {
+
+                                        for(int i=0;i<orderList.size();i++)
+                                        {
+                                            if(orderList.get(i).orderId.compareTo(orderID)==0)
+                                            {
+                                                orderList.remove(i);
+                                                orderAdapter.notifyDataSetChanged();
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getContext(),"Error loading data",Toast.LENGTH_SHORT);
                             }
                         });
-                    }
+
+
+
                 }
             }
         });

@@ -58,7 +58,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         });
 
 
-        String[] items = new String[]{"Waiting", "InProgress", "Ready"};
+        String[] items = new String[]{"waiting", "progress", "ready"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
@@ -66,6 +66,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         statustxt=findViewById(R.id.serveTimetxtview);
         ordertxt.setText(String.valueOf(orderInfo.getOrderId()));
         statustxt.setText(String.valueOf(orderInfo.getServeTime()));
+        orderStatus.setText(orderInfo.status);
         cancelBtn=findViewById(R.id.cancelbtn);
         cancelBtn.setVisibility(View.GONE);
         setdishes();
