@@ -40,7 +40,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
         viewHolder.id.setText(data.get(position).id);
         viewHolder.quantity.setText("" + data.get(position).quantity);
         viewHolder.threshold.setText("" + data.get(position).threshold);
-
+        viewHolder.price.setText("" + data.get(position).price);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
 
     public class ViewHolder extends  RecyclerView.ViewHolder{
 
-        TextView name, id, quantity, threshold;
+        TextView name, id, quantity, threshold, price;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -58,6 +58,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
             id = (TextView)itemView.findViewById(R.id.ingredient_id);
             quantity = (TextView) itemView.findViewById(R.id.ingredient_quantity);
             threshold = (TextView) itemView.findViewById(R.id.ingredient_threshold);
+            price = itemView.findViewById(R.id.ingredient_price);
         }
     }
 }

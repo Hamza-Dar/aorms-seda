@@ -69,7 +69,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         String name;
         for (int i=0; i<7; i++){
             name = "Ingredient " + (i+1);
-            ingredient = new Ingredient(name,"12321",1321,23);
+            ingredient = new Ingredient(name,"5",1321,23, 10);
             temp.add(ingredient);
             Log.e("DATA", "getDummyData: "+ name);
         }

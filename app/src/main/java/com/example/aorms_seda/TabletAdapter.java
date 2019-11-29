@@ -29,7 +29,8 @@ public class TabletAdapter extends RecyclerView.Adapter<TabletAdapter.ViewHolder
 
             viewHolder.id.setText(data.get(position).id);
             viewHolder.model.setText(data.get(position).model);
-            viewHolder.purchaseDate.setText(data.get(position).purchaseDate);
+            //viewHolder.purchaseDate.setText("" + data.get(position).purchaseDate);
+            viewHolder.purchaseDate.setText("23 November 2019");
             viewHolder.regNo.setText("" + data.get(position).regNo);
     }
 
