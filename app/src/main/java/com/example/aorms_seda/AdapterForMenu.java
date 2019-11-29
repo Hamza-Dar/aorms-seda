@@ -43,17 +43,14 @@ public class AdapterForMenu extends RecyclerView.Adapter<AdapterForMenu.MyViewHo
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         if (MenuArray != null && holder != null) {
             final DataListOfMenu Value = MenuArray.get(position);
-            //Glide.with(context)
-            //        .load(Value.getURI())
-            //        .into(holder.image);
-            Picasso.get().load(Value.getURI()).into(holder.image);
-            holder.itemName.setText(Value.getMenu_title());
+
+            Picasso.get()
+                    .load(Value.getUri())
+                    .error(R.drawable.loaderror)
+                    .into(holder.image);
+            holder.itemName.setText(Value.getName());
             holder.amount.setText(""+Value.getPrice()+"");
-            DataListForCart catee = new DataListForCart(Value.getURI() , Value.getMenu_title());
-            /*if(!(MyCart.consists(catee)))
-            {
-                holder.addToCart.setBackgroundColor(R.color.red);
-            }*/
+            DataListForCart catee = new DataListForCart(Value.getId(),Value.getUri() , Value.getName());
             holder.addToCart.setEnabled(true);
             holder.addToCart.setOnClickListener(new View.OnClickListener()
             {
@@ -63,9 +60,10 @@ public class AdapterForMenu extends RecyclerView.Adapter<AdapterForMenu.MyViewHo
                     try {
 
 
-                        String URI = item.getURI();
-                        String title = item.getMenu_title();
-                        DataListForCart cartItem = new DataListForCart(URI , title);
+                        String URI = item.getUri();
+                        String id=item.getId();
+                        String title = item.getName();
+                        DataListForCart cartItem = new DataListForCart(id,URI , title);
                         if(!(MyCart.consists(cartItem))) {
                             Toast.makeText(context, "Item Added To Cart", Toast.LENGTH_LONG).show();
                             holder.addToCart.setBackgroundColor(R.color.red);
