@@ -20,4 +20,6 @@ styles (values XML) and Manifest were also updated (apart from the previous file
 List of files removed (and no longer required):
 1. AdminOption (Java and XML)
 2. MainActivity (Java)
+
+P.S. Ignore the Java directory in the main file
     
