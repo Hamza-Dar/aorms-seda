@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='aorms-seda'
+rootProject.name='aorms_seda'
