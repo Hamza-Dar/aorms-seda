@@ -18,8 +18,6 @@ public class FoodOrderSecondScreen extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_food_order_second_screen);
 
-
-
             img_txt= findViewById(R.id.food1);
             img_txt.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -28,8 +26,6 @@ public class FoodOrderSecondScreen extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-
-
 
         Intent intent = getIntent();
         String Title = intent.getExtras().getString("Title");

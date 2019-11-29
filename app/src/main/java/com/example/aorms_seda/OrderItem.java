@@ -1,12 +1,15 @@
 package com.example.aorms_seda;
 
 public class OrderItem  {
-    private FoodItem item;
+    FoodItem item;
+    int no;
     private int quantity;
+    String status;
 
     public OrderItem(FoodItem item, int quantity) {
         this.item = item;
         this.quantity = quantity;
+        status = "waiting";
     }
 
     public String  getName() {

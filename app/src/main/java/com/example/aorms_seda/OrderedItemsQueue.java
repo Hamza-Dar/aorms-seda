@@ -5,9 +5,9 @@ import java.util.List;
 
 public class OrderedItemsQueue {
     List<OrderItem> orderItemList;
-
+    String orderId;
     private static OrderedItemsQueue single_instance=null;
-
+    int currentno = -1;
 
 
     private OrderedItemsQueue()
@@ -41,5 +41,9 @@ public class OrderedItemsQueue {
 
     public void addOrderItem(OrderItem orderItem){
         this.orderItemList.add(orderItem);
+    }
+
+    public Boolean isEmpty(){
+        return this.orderItemList.size() == 0 ?  true : false;
     }
 }
