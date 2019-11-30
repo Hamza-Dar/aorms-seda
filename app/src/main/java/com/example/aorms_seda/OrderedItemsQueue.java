@@ -6,6 +6,9 @@ import java.util.List;
 public class OrderedItemsQueue {
     List<OrderItem> orderItemList;
     String orderId;
+    String billId;
+    String priority;
+    String stat;
     private static OrderedItemsQueue single_instance=null;
     int currentno = -1;
 
