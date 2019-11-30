@@ -5,40 +5,52 @@ import java.util.ArrayList;
 
 public class Order implements Serializable {
 
-    int orderId;
-    String serveTime;
+    String orderId;
+    int serveTime;
     ArrayList<Dish> dishes;  //list of dishes
     String status;
+    int table;
+    String priority;
 
-    public Order(int orderId, String serveTime, ArrayList<Dish> dishes, String status) {
+
+    public Order(String orderId, int serveTime, ArrayList<Dish> dishes, String status, int tableNo) {
         this.orderId = orderId;
         this.serveTime = serveTime;
         this.dishes = dishes;
         this.status = status;
+        this.table = tableNo;
     }
 
-    public int getOrderId() {
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
 
-    public String getServeTime() {
+
+    public int getServeTime() {
         return serveTime;
     }
 
-    public void setServeTime(String serveTime) {
-        this.serveTime = serveTime;
-    }
 
     public ArrayList<Dish> getDishes() {
         return dishes;
     }
 
-    public void setDishes(ArrayList<Dish> dishes) {
-        this.dishes = dishes;
+    public void addDish(Dish dish)
+    {
+        if (this.dishes==null)
+        {
+            dishes=new ArrayList<>();
+        }
+        dishes.add(new Dish(orderId,dish.dishId,dish.name,dish.cookingTime,dish.cookId,dish.status,dish.category));
     }
 
     public String getStatus() {

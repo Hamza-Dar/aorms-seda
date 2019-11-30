@@ -1,24 +1,637 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--NEW ORDERS FRAGMENT-->
+<!--MODIFY THRESHOLD FRAGMENT-->
 <!-- TODO: Update blank fragment layout -->
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relative"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Background"
-    tools:context=".fragment_relative">
+    tools:context=".fragment_Frame">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/show_threshold"
-        android:layout_width="410dp"
-        android:layout_height="614dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/ButtonTextColor"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Black Pepper Items"
+                android:textColor="@color/TextColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="337dp"
+                android:layout_height="73dp"
+                android:layout_margin="10dp"
+                android:background="@color/Background"
+                android:orientation="horizontal">
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/description"
+                    android:src="@mipmap/ic_launcher" />
+
+                <LinearLayout
+                    android:layout_width="257dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="Item ID: 1234"
+                        android:textColor="@color/TextColor"
+                        android:textSize="15sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="257dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="5dp"
+
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/idMinusICon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/minus_circle" />
+
+                        <TextView
+                            android:id="@+id/idProductQty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="11 Kg "
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            tools:textColor="@android:color/TextColor" />
+
+                        <ImageView
+                            android:id="@+id/idPlusIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/plus_circle" />
+
+                        <Button
+                            android:id="@+id/button"
+                            android:layout_width="123dp"
+                            android:layout_height="22dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@color/ButtonColor"
+                            android:contentDescription="@string/description"
+                            android:text="Save"
+                            android:textColor="@color/ButtonTextColor" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="135dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/ButtonTextColor"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Black Pepper Items"
+                android:textColor="@color/TextColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="337dp"
+                android:layout_height="73dp"
+                android:layout_margin="10dp"
+                android:background="@color/Background"
+                android:orientation="horizontal">
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/description"
+                    android:src="@mipmap/ic_launcher" />
+
+                <LinearLayout
+                    android:layout_width="257dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="Item ID: 1234"
+                        android:textColor="@color/TextColor"
+                        android:textSize="15sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="257dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="5dp"
+
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/idMinusICon1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/minus_circle" />
+
+                        <TextView
+                            android:id="@+id/idProductQty1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="11 Kg "
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            tools:textColor="@android:color/TextColor" />
+
+                        <ImageView
+                            android:id="@+id/idPlusIcon1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/plus_circle" />
+
+                        <Button
+                            android:id="@+id/button1"
+                            android:layout_width="123dp"
+                            android:layout_height="22dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@color/ButtonColor"
+                            android:contentDescription="@string/description"
+                            android:text="Save"
+                            android:textColor="@color/ButtonTextColor" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="262dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/ButtonTextColor"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Black Pepper Items"
+                android:textColor="@color/TextColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="337dp"
+                android:layout_height="73dp"
+                android:layout_margin="10dp"
+                android:background="@color/Background"
+                android:orientation="horizontal">
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/description"
+                    android:src="@mipmap/ic_launcher" />
+
+                <LinearLayout
+                    android:layout_width="257dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="Item ID: 1234"
+                        android:textColor="@color/TextColor"
+                        android:textSize="15sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="257dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="5dp"
+
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/idMinusICon3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/minus_circle" />
+
+                        <TextView
+                            android:id="@+id/idProductQty3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="11 Kg "
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            tools:textColor="@android:color/TextColor" />
+
+                        <ImageView
+                            android:id="@+id/idPlusIcon3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/plus_circle" />
+
+                        <Button
+                            android:id="@+id/button3"
+                            android:layout_width="123dp"
+                            android:layout_height="22dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@color/ButtonColor"
+                            android:contentDescription="@string/description"
+                            android:text="Save"
+                            android:textColor="@color/ButtonTextColor" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="389dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/ButtonTextColor"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Black Pepper Items"
+                android:textColor="@color/TextColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="337dp"
+                android:layout_height="73dp"
+                android:layout_margin="10dp"
+                android:background="@color/Background"
+                android:orientation="horizontal">
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/description"
+                    android:src="@mipmap/ic_launcher" />
+
+                <LinearLayout
+                    android:layout_width="257dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="Item ID: 1234"
+                        android:textColor="@color/TextColor"
+                        android:textSize="15sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="257dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="5dp"
+
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/idMinusICon4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/minus_circle" />
+
+                        <TextView
+                            android:id="@+id/idProductQty4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="11 Kg "
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            tools:textColor="@android:color/TextColor" />
+
+                        <ImageView
+                            android:id="@+id/idPlusIcon4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/plus_circle" />
+
+                        <Button
+                            android:id="@+id/button4"
+                            android:layout_width="123dp"
+                            android:layout_height="22dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@color/ButtonColor"
+                            android:contentDescription="@string/description"
+                            android:text="Save"
+                            android:textColor="@color/ButtonTextColor" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="516dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/ButtonTextColor"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Black Pepper Items"
+                android:textColor="@color/TextColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="337dp"
+                android:layout_height="73dp"
+                android:layout_margin="10dp"
+                android:background="@color/Background"
+                android:orientation="horizontal">
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/description"
+                    android:src="@mipmap/ic_launcher" />
+
+                <LinearLayout
+                    android:layout_width="257dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="Item ID: 1234"
+                        android:textColor="@color/TextColor"
+                        android:textSize="15sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="257dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="5dp"
+
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/idMinusICon5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/minus_circle" />
+
+                        <TextView
+                            android:id="@+id/idProductQty5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="11 Kg "
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            tools:textColor="@android:color/TextColor" />
+
+                        <ImageView
+                            android:id="@+id/idPlusIcon5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/plus_circle" />
+
+                        <Button
+                            android:id="@+id/button5"
+                            android:layout_width="123dp"
+                            android:layout_height="22dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@color/ButtonColor"
+                            android:contentDescription="@string/description"
+                            android:text="Save"
+                            android:textColor="@color/ButtonTextColor" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="643dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/ButtonTextColor"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Black Pepper Items"
+                android:textColor="@color/TextColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="337dp"
+                android:layout_height="73dp"
+                android:layout_margin="10dp"
+                android:background="@color/Background"
+                android:orientation="horizontal">
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/description"
+                    android:src="@mipmap/ic_launcher" />
+
+                <LinearLayout
+                    android:layout_width="257dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="Item ID: 1234"
+                        android:textColor="@color/TextColor"
+                        android:textSize="15sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="257dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="5dp"
+
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/idMinusICon6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/minus_circle" />
+
+                        <TextView
+                            android:id="@+id/idProductQty6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="11 Kg "
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            tools:textColor="@android:color/TextColor" />
+
+                        <ImageView
+                            android:id="@+id/idPlusIcon6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/plus_circle" />
+
+                        <Button
+                            android:id="@+id/button6"
+                            android:layout_width="123dp"
+                            android:layout_height="22dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@color/ButtonColor"
+                            android:contentDescription="@string/description"
+                            android:text="Save"
+                            android:textColor="@color/ButtonTextColor" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

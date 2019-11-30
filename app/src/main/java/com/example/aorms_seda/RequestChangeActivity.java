@@ -1,5 +1,6 @@
 package com.example.aorms_seda;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -10,16 +11,22 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 public class RequestChangeActivity extends AppCompatActivity {
 
     RecyclerView dishes;
-    ArrayList<Dish> dishListInner;
     ArrayList<RequestsChange> dishList;
     GestureDetector dishDetector;
     ChangeDishAdapter dishAdapter;
@@ -32,51 +39,39 @@ public class RequestChangeActivity extends AppCompatActivity {
     Button cancelbtn;
     Button doneOrderbtn;
     TextView dishesOrder;
+    FirebaseFirestore db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_details);
-
+        setContentView(R.layout.kitchen_activity_order_details);
         dishes = (RecyclerView) findViewById(R.id.dishesrcv);
 
-        dishListInner=new ArrayList<Dish>();
-        dishListInner.add(new Dish('1',"Pasta","12:00","12","Waiting","Italian"));
-        dishListInner.add(new Dish('1',"Pizza","12:00","12","Waiting","Italian "));
-
-        orderInfo=new Order(123,"50",dishListInner,"InProgress");
+        Intent i=getIntent();
+        dishList=new ArrayList<>();
+        dishList= (ArrayList<RequestsChange>) i.getSerializableExtra("requests");
+        orderInfo= (Order) i.getSerializableExtra("order");
 
         ordertxt=findViewById(R.id.orderIdtxtview);
         statustxt=findViewById(R.id.serveTimetxtview);
         orderStatus=findViewById(R.id.orderStatustxtview);
-
         ordertxt.setText(String.valueOf(orderInfo.getOrderId()));
-        statustxt.setText(orderInfo.getServeTime());
-
-        dishList=new ArrayList<RequestsChange>();
-
-        dishList.add(new RequestsChange(orderInfo.dishes.get(0),"delete","pending",orderInfo.getOrderId()));
-        dishList.add(new RequestsChange(orderInfo.dishes.get(1),"delete","pending",orderInfo.getOrderId()));
-
+        statustxt.setText(String.valueOf(orderInfo.getServeTime()));
         orderStatus.setText(orderInfo.getStatus());
-
         dropdown = findViewById(R.id.statusSpinner);
-
         Updatebtn=findViewById(R.id.proceedbtn);
         doneOrderbtn=findViewById(R.id.doneOrderbtn);
-
         dropdown.setVisibility(View.GONE);
         cancelbtn=findViewById(R.id.cancelbtn);
         cancelbtn.setVisibility(View.VISIBLE);
         Updatebtn.setVisibility(View.GONE);
         doneOrderbtn.setVisibility(View.GONE);
-
-
         dishesOrder=findViewById(R.id.dishesOrdertxtview);
         dishesOrder.setText("Requests");
 
-        dishList=null;
 
+        db=FirebaseFirestore.getInstance();
 
         if(dishList==null || dishList.isEmpty())
         {
@@ -86,11 +81,79 @@ public class RequestChangeActivity extends AppCompatActivity {
             cancelbtn.setText("Cancel Order");
             doneOrderbtn.setVisibility(View.VISIBLE);
 
-            //cancelbtn order status in firebase
+            cancelbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //cancel order...
+                    final DocumentReference orderRef= db.collection("Orders").document(orderInfo.getOrderId());
+                    orderRef.delete();
+
+                    //remove request
+                    db.collection("OrderRequest").whereEqualTo("orderID",orderRef).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                            for(QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots)
+                            {
+
+                                   DocumentReference requestRef=documentSnapshot.getReference();
+                                    requestRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+
+                                            cancelbtn.setText("Cancelled");
+                                            doneOrderbtn.setVisibility(View.GONE);
+                                        }
+                                    });
+
+
+                            }
+                        }
+                    });
+                }
+            });
+
+            doneOrderbtn.setText("Keep Order");
+            doneOrderbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    final DocumentReference orderRef= db.collection("Orders").document(orderInfo.getOrderId());
+                    //remove request
+                    db.collection("OrderRequest").whereEqualTo("orderID",orderRef).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                            for(QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots)
+                            {
+
+                                   DocumentReference requestRef=documentSnapshot.getReference();
+                                    requestRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+
+                                            cancelbtn.setText("Cancel Rejected");
+                                            doneOrderbtn.setVisibility(View.GONE);
+                                        }
+                                    });
+
+                                }
+                            }
+
+                    });
+                }
+            });
         }
         else
         {
-            cancelbtn.setText("DONE");
+            cancelbtn.setVisibility(View.GONE);
+            doneOrderbtn.setVisibility(View.VISIBLE);
+            doneOrderbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //finish();
+                }
+            });
             setdishes();
 
         }
@@ -122,9 +185,7 @@ public class RequestChangeActivity extends AppCompatActivity {
         }
 
         );
-
-
-        dishAdapter=new ChangeDishAdapter(dishList,R.layout.change_dish_holder);
+        dishAdapter=new ChangeDishAdapter(dishList,R.layout.kitchen_change_dish_holder);
         dishes.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,false));
         dishes.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
@@ -144,7 +205,6 @@ public class RequestChangeActivity extends AppCompatActivity {
             }
         });
         dishes.setItemAnimator(new DefaultItemAnimator());
-
         dishes.setAdapter(dishAdapter);
     }
 

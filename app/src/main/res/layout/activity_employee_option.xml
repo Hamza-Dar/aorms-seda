@@ -5,7 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Background"
-    tools:context=".MainActivity">
+    tools:context=".EmployeeOption">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/employeeBottomnav"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:background="@color/ActionBarColor"
+        app:itemTextColor="@color/Background"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/admin_bottom_nav" />
 
     <TextView
         android:id="@+id/textView"
@@ -26,7 +39,7 @@
 
     <Button
         android:id="@+id/menuButton"
-        android:layout_width="124dp"
+        android:layout_width="wrap_content"
         android:layout_height="62dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -34,6 +47,7 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/roundededgesbtn"
         android:text="Add"
+        android:onClick="AddEmployee"
         android:textColor="@color/ButtonTextColor"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -41,18 +55,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8" />
+        app:layout_constraintVertical_bias="0.75" />
 
     <Button
         android:id="@+id/employeeButton"
-        android:layout_width="124dp"
+        android:layout_width="wrap_content"
         android:layout_height="62dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/roundededgesbtn"
-        android:text="Remove"
+        android:text="   Remove   "
+        android:onClick="RemoveEmployee"
         android:textColor="@color/ButtonTextColor"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -60,11 +75,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.958" />
+        app:layout_constraintVertical_bias="0.88" />
 
-     <androidx.recyclerview.widget.RecyclerView
-
-    android:id="@+id/recycler"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="375dp"
         android:layout_height="233dp"
         android:layout_margin="10dp"
@@ -86,9 +100,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:gravity="center"
-        android:text=" Type"
+        android:text=" Job"
         android:textColor="@color/TextColor"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,10 +119,30 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:gravity="center_vertical"
-        android:text=" Employee"
+        android:gravity="center"
+        android:text=" Name"
         android:textColor="@color/TextColor"
-        android:textSize="18sp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.237" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="101dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text=" Id"
+        android:textColor="@color/TextColor"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -116,5 +150,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.237" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,18 +1,20 @@
 package com.example.aorms_seda;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Dish implements Serializable {
 
-    int dishId;
+    String orderId;
+    String dishId;
     String name;
-    String cookingTime;
-    String cookId;
+    int cookingTime;
+    int cookId;
     String status;
     String category;
 
-
-    public Dish(int dishId, String name, String cookingTime, String cookId, String status, String category) {
+    public Dish(String orderId, String dishId, String name, int cookingTime, int cookId, String status, String category) {
+        this.orderId = orderId;
         this.dishId = dishId;
         this.name = name;
         this.cookingTime = cookingTime;
@@ -21,13 +23,15 @@ public class Dish implements Serializable {
         this.category = category;
     }
 
-    public int getDishId() {
+    public String getOrderId() {
+        return orderId;
+    }
+
+
+    public String getDishId() {
         return dishId;
     }
 
-    public void setDishId(int dishId) {
-        this.dishId = dishId;
-    }
 
     public String getName() {
         return name;
@@ -37,19 +41,8 @@ public class Dish implements Serializable {
         this.name = name;
     }
 
-    public String getCookingTime() {
-        return cookingTime;
-    }
 
-    public void setCookingTime(String cookingTime) {
-        this.cookingTime = cookingTime;
-    }
-
-    public String getCookId() {
-        return cookId;
-    }
-
-    public void setCookId(String cookId) {
+    public void setCookId(int cookId) {
         this.cookId = cookId;
     }
 
@@ -65,7 +58,5 @@ public class Dish implements Serializable {
         return category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
+
 }

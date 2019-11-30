@@ -31,7 +31,8 @@
                 android:src="@drawable/back3"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="5dp" />
 
             <TextView
                 android:id="@+id/textView27"
@@ -99,12 +100,13 @@
         android:layout_marginStart="19dp"
         android:layout_marginTop="39dp"
         android:text="Select Your Table:"
-        android:textColor="#E86898EC"
+        android:textColor="#EB0A49B9"
         android:textColorLink="#161616"
         android:textSize="24sp"
         android:textStyle="normal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        android:layout_marginLeft="19dp" />
 
     <Spinner
         android:id="@+id/spinner2"
@@ -113,7 +115,9 @@
         android:layout_marginStart="87dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView25"
         app:layout_constraintStart_toEndOf="@+id/textView25"
-        app:layout_constraintTop_toTopOf="@+id/textView25" />
+        app:layout_constraintTop_toTopOf="@+id/textView25"
+        android:layout_marginLeft="87dp"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/textView26"
@@ -124,7 +128,7 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="30dp"
         android:text="-> Terms and conditions are applied."
-        android:textColor="#A4D5A1A1"
+        android:textColor="#DCEE0C0C"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonplace"
         app:layout_constraintEnd_toEndOf="parent"

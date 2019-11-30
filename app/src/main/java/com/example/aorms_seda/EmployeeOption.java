@@ -1,45 +1,115 @@
 package com.example.aorms_seda;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 
 public class EmployeeOption extends AppCompatActivity {
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ArrayList<Employee> emps = new ArrayList<>();
+    static ArrayList<String> docId = new ArrayList<>();
+
+    RecyclerView recyclerView;
+    boolean gotList = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_option);
 
-        Employee e1 = new Employee("Tayyab", "0001", "Fast nuces, Lahore", "10/1/2018", "Fast Food", "Chef", 22, 15000.0f);
-        Employee e2 = new Employee("Ali", "0002", "Fast nuces, Lahore", "10/1/2018", "", "Waiter", 22, 15000.0f);
-        Employee e3 = new Employee("Xtylish", "0003", "Fast nuces, Lahore", "10/1/2018", "", "Inventory Manager", 22, 15000.0f);
-        Employee e4 = new Employee("King", "0004", "Fast nuces, Lahore", "10/1/2018", "", "Kitchen Manager", 22, 15000.0f);
-        Employee e5 = new Employee("Hasan", "0005", "Fast nuces, Lahore", "10/1/2018", "", "Hall Manager", 22, 15000.0f);
-        Employee e6 = new Employee("Sarwar", "0006", "Fast nuces, Lahore", "10/1/2018", "", "Waiter", 22, 15000.0f);
+        BottomNavigationView bottomNav = findViewById(R.id.employeeBottomnav);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        ArrayList<Employee> emps = new ArrayList<>();
-        emps.add(e1);
-        emps.add(e2);
-        emps.add(e3);
-        emps.add(e4);
-        emps.add(e5);
-        emps.add(e6);
+        recyclerView = findViewById(R.id.recycler);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, 1);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        recyclerView.setAdapter(new EmployeeAdapter(emps));
+        getData();
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    static ArrayList<String> getIds(){
+        return docId;
+    }
+
+    void getData(){
+        gotList = false;
+        emps.clear();
+        docId.clear();
+        CollectionReference employees = db.collection("Employee");
+        employees.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots)
+                {
+                    String name =(String)documentSnapshot.getData().get("Name");
+                    String job =(String)documentSnapshot.getData().get("Job");
+                    String address =(String)documentSnapshot.getData().get("Address");
+
+                    int age = Math.toIntExact(documentSnapshot.getLong("Age"));
+                    int salary = Math.toIntExact(documentSnapshot.getLong("Salary"));
+
+                    ArrayList<String> speciality = null;
+                    if(job.equalsIgnoreCase("Cook"))
+                        speciality = (ArrayList<String>) documentSnapshot.getData().get("speciality");
+
+                    emps.add(new Employee(name, documentSnapshot.getId(), address, job, age, salary, speciality));
+
+                    docId.add(documentSnapshot.getId());
+                    gotList = true;
+                }
+                recyclerView.setAdapter(new EmployeeAdapter(emps));
+            }
+        });
+    }
+
+    public void AddEmployee(View view){
+        if(gotList) {
+            Intent i = new Intent(this, EmployeeAdd.class);
+            startActivityForResult(i, 1);
+        }
+        else{
+            Toast.makeText(this, "Database not accessed", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        getData();
+    }
+
+    public void RemoveEmployee(View view){
+        if(gotList) {
+            Intent i = new Intent(this, EmployeeRemove.class);
+            startActivityForResult(i, 1);
+        }
+        else{
+            Toast.makeText(this, "Database not accessed", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -48,5 +118,27 @@ public class EmployeeOption extends AppCompatActivity {
         finish();
         return true;
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            switch (menuItem.getItemId()) {
+                case R.id.nav_menu:
+                    startActivity(new Intent(getApplicationContext(), MenuOption.class));
+                    break;
+                case R.id.nav_tablets:
+                    startActivity(new Intent(getApplicationContext(), TabletOption.class));
+                    break;
+                case R.id.nav_employees:
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "You are already in this Activity",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    break;
+
+            }
+            return true;
+        }
+    };
 
 }

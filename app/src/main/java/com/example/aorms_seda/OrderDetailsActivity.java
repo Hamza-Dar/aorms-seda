@@ -39,50 +39,34 @@ public class OrderDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_details);
+        setContentView(R.layout.kitchen_activity_order_details);
+        db=FirebaseFirestore.getInstance();
         orderInfo= (Order)getIntent().getSerializableExtra("Order");
         dishes = (RecyclerView) findViewById(R.id.dishesrcv);
         dishList=orderInfo.getDishes();
-
         dropdown = findViewById(R.id.statusSpinner);
-
         orderStatus=findViewById(R.id.orderStatustxtview);
-
         updateBtn=findViewById(R.id.proceedbtn);
         doneBtn=findViewById(R.id.doneOrderbtn);
-
         doneBtn.setVisibility(View.GONE);
-
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 orderStatus.setText(dropdown.getSelectedItem().toString());
-
-                //firebase work
-
-             /*   DocumentReference dbOrders=db.collection("Orders").document("2345");  //order Id
-                dbOrders.update("Status",dropdown.getSelectedItem().toString());
-            */
-
-                //update in firebase on the basic of orderId;
-
+                db.collection("Orders").document(orderInfo.getOrderId()).update("Status",dropdown.getSelectedItem().toString());
             }
         });
 
 
-        String[] items = new String[]{"Waiting", "InProgress", "Ready"};
-
+        String[] items = new String[]{"waiting", "progress", "ready"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
-//set the spinners adapter to the previously created one.
+        //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
-
-
         ordertxt=findViewById(R.id.orderIdtxtview);
         statustxt=findViewById(R.id.serveTimetxtview);
-
         ordertxt.setText(String.valueOf(orderInfo.getOrderId()));
-        statustxt.setText(orderInfo.getServeTime());
+        statustxt.setText(String.valueOf(orderInfo.getServeTime()));
+        orderStatus.setText(orderInfo.status);
         cancelBtn=findViewById(R.id.cancelbtn);
         cancelBtn.setVisibility(View.GONE);
         setdishes();
@@ -117,12 +101,12 @@ public class OrderDetailsActivity extends AppCompatActivity {
         );
 
 
-        dishAdapter=new DishAdapter(dishList,R.layout.dish_holder,1);
+        dishAdapter=new DishAdapter(dishList,R.layout.kitchen_dish_holder,1);
         dishes.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL,false));
         dishes.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
-               dishDetector.onTouchEvent(motionEvent);
+                dishDetector.onTouchEvent(motionEvent);
                 return false;
             }
 
@@ -136,8 +120,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
             }
         });
-     dishes.setItemAnimator(new DefaultItemAnimator());
-
+        dishes.setItemAnimator(new DefaultItemAnimator());
         dishes.setAdapter(dishAdapter);
     }
 

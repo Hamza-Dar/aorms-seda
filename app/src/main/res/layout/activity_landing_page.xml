@@ -15,7 +15,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/textView10"
@@ -107,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="50dp"
+                android:layout_marginBottom="50dp"
                 android:background="@color/colorPrimary"
                 android:drawableTop="@drawable/ic_inventory_foreground"
                 android:onClick="openInventory"
@@ -115,6 +116,7 @@
                 android:paddingBottom="15sp"
                 android:text="INVENTORY"
                 android:textColor="@color/ButtonTextColor"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button9" />
 
@@ -123,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="50dp"
+                android:layout_marginBottom="50dp"
                 android:background="@color/colorPrimary"
                 android:drawableTop="@drawable/ic_admin_foreground"
                 android:onClick="openAdmin"
@@ -131,6 +134,7 @@
                 android:paddingBottom="15sp"
                 android:text="ADMIN"
                 android:textColor="@color/ButtonTextColor"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button10" />
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.aorms_seda.R;
 import com.example.aorms_seda.fragment_Frame;
-import com.example.aorms_seda.fragment_assign_tablet;
 import com.example.aorms_seda.fragment_constraint;
 import com.example.aorms_seda.fragment_linear;
 import com.example.aorms_seda.fragment_relative;
@@ -43,7 +42,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 fragment =new fragment_relative();
                 break;
             case 1:
-                fragment=new fragment_assign_tablet();
+                fragment=new fragment_constraint();
                 break;
             case 2:
                 fragment= new fragment_Frame();
