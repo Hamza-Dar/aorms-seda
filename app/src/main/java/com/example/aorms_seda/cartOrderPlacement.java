@@ -19,6 +19,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firestore.v1.WriteResult;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -151,6 +152,7 @@ public class cartOrderPlacement extends AppCompatActivity {
 
         newBill.put("Order", db.document("Bills/" + queue.orderId));
         newBill.put("total", total);
+        newBill.put("date", Calendar.getInstance().getTime());
         //queue.orderId = id;
         db.collection("Orders").document(id).set(newOrder).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
