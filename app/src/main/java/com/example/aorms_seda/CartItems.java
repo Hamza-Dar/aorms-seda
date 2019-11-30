@@ -1,15 +1,15 @@
-package com.example.aorms_seda;
-import java.util.ArrayList;
+package com.example.aorms_seda;import java.util.ArrayList;
 
 public class CartItems {
 
-    private ArrayList<DataListForCart> CartItems;
-
+    public ArrayList<DataListForCart> cartItems;
+    public ArrayList<FoodId> ids;
     public static CartItems single_instance = null;
 
     private CartItems() {
 
-        CartItems = new ArrayList<>();
+        cartItems = new ArrayList<>();
+        ids = new ArrayList<>();
     }
     public static CartItems get_Instance() {
         if (single_instance == null)
@@ -17,13 +17,24 @@ public class CartItems {
 
         return single_instance;
     }
+    public String getNID(String name)
+    {
+        for(FoodId f : ids)
+        {
+            if(f.Name.equals(name))
+            {
+                return f.id;
+            }
+        }
+        return name;
+    }
     public ArrayList<DataListForCart> getCartItems() {
-        return CartItems;
+        return cartItems;
     }
 
     public boolean consists(DataListForCart item){
-        for(int i = CartItems.size()-1; i>=0; i--){
-            if(CartItems.get(i).itemName.equals(item.itemName)){
+        for(int i = cartItems.size()-1; i>=0; i--){
+            if(cartItems.get(i).itemName.equals(item.itemName)){
                 return true;
             }
         }
@@ -31,8 +42,8 @@ public class CartItems {
     }
     private int index(DataListForCart item){
         int index = -1;
-        for(int i = CartItems.size()-1; i>=0; i--){
-            if(CartItems.get(i).itemName.equals(item.itemName)){
+        for(int i = cartItems.size()-1; i>=0; i--){
+            if(cartItems.get(i).itemName.equals(item.itemName)){
                 index = i;
                 return index;
             }
@@ -42,39 +53,39 @@ public class CartItems {
     public void removeFromCart(DataListForCart item){
         if(CartItems.this.consists(item)){
             int indexOf = CartItems.this.index(item);
-            CartItems.remove(indexOf);
-            CartItems.notifyAll();
+            cartItems.remove(indexOf);
+            cartItems.notifyAll();
         }
     }
     public void addToCart(DataListForCart item){
         if(CartItems.this.consists(item)){
             int indexOf = CartItems.this.index(item);
-            int quantity = CartItems.get(indexOf).getQuantity() + 1;
-            CartItems.get(indexOf).setQuantity(quantity);
+            int quantity = cartItems.get(indexOf).getQuantity() + 1;
+            cartItems.get(indexOf).setQuantity(quantity);
         }
-        else CartItems.add(item);
+        else cartItems.add(item);
     }
 
     public void EmptyCart(){
-        CartItems.clear();
+        cartItems.clear();
     }
 
     public int getSize() {
-        return CartItems.size();
+        return cartItems.size();
     }
 
     public void decreaseQuantity(DataListForCart item) {
         if(CartItems.this.consists(item)){
             int indexOf = CartItems.this.index(item);
-            int quantity = CartItems.get(indexOf).getQuantity() - 1;
-            CartItems.get(indexOf).setQuantity(quantity);
+            int quantity = cartItems.get(indexOf).getQuantity() - 1;
+            cartItems.get(indexOf).setQuantity(quantity);
         }
     }
     public void increseQuantity(DataListForCart item) {
         if(CartItems.this.consists(item)){
             int indexOf = CartItems.this.index(item);
-            int quantity = CartItems.get(indexOf).getQuantity() + 1;
-            CartItems.get(indexOf).setQuantity(quantity);
+            int quantity = cartItems.get(indexOf).getQuantity() + 1;
+            cartItems.get(indexOf).setQuantity(quantity);
         }
     }
 }

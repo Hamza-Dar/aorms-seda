@@ -4,12 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 //import com.bumptech.glide.Glide;
 //import com.google.firebase.database.DatabaseReference;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,10 @@ public class AdapterForCart  extends RecyclerView.Adapter<AdapterForCart.MyViewH
             //Glide.with(context)
             //        .load(Value.getURI())
             //        .into(holder.image);
+            Picasso.get()
+                    .load(Value.getURI())
+                    .error(R.drawable.loaderror)
+                    .into(holder.image);
 
             holder.itemName.setText(Value.getItemName());
             holder.quantity.setText(String.valueOf(Value.getQuantity()));

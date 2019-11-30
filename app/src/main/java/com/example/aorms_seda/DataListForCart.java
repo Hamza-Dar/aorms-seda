@@ -1,13 +1,14 @@
 package com.example.aorms_seda;
 public class DataListForCart {
-    String URI,itemName;
+    String URI,itemName,id;
     private int Quantity;
 
     public DataListForCart(){
 
     }
-    public DataListForCart(String URI, String itemName) {
+    public DataListForCart(String id,String URI, String itemName) {
         this.URI = URI;
+        this.id=id;
         this.itemName = itemName;
         Quantity = 1;
     }
@@ -36,4 +37,11 @@ public class DataListForCart {
         Quantity = quantity;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

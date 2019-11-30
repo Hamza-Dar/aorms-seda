@@ -1,128 +1,148 @@
 package com.example.aorms_seda;
+
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
+import java.util.List;
+
+//import butterknife.ButterKnife;
 
 public class menuaroms extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private AdapterForMenu adapter;
+    private FirebaseFirestore firestore;
+    private FirestoreRecyclerAdapter adapter;
+    private Context context;
+    //private AdapterForMenu adapter;
+    Source source;
+    LinearLayoutManager linearLayoutManager;
     private CartItems MyCart = CartItems.get_Instance();
     private ArrayList<DataListOfMenu> MenuArray;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menuaroms);
-        //Intent i = getIntent();
-        //MyCart = (CartItems) i.getSerializableExtra("cartObject");
-        //DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("Menu");
-       // mDatabase.keepSynced(true);
-        Context context = getApplicationContext();
-        MenuArray= new ArrayList<DataListOfMenu>();
-        //FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        //ButterKnife.bind(this);
+        firestore =  FirebaseFirestore.getInstance();
+        context = getApplicationContext();
+        MenuArray= new ArrayList<>();
+        recyclerView = findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-       // fetch();
-        fillarray();
-        adapter = new AdapterForMenu(MenuArray,MyCart.getCartItems(), getApplicationContext());
-        recyclerView.setAdapter(adapter);
+        linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        fetch();
     }
-    public void fillarray()
-    {
-        MenuArray.add(new DataListOfMenu("https://www.foodsforbetterhealth.com/wp-content/uploads/2017/01/onion-sandwitch-750x400.jpg","Sandwitch","BBQ Sauces and Grilled chicken",350));
-        MenuArray.add(new DataListOfMenu("https://www.ndtv.com/cooks/images/dum.murg.ki.kacchi.biryani.jpg","Biryani","Chiken piece, Mint Raita",350));
-        MenuArray.add(new DataListOfMenu("https://www.foodsforbetterhealth.com/wp-content/uploads/2017/01/onion-sandwitch-750x400.jpg","Qorma","Achari, Creamy and spicy",350));
-        MenuArray.add(new DataListOfMenu("https://www.foodsforbetterhealth.com/wp-content/uploads/2017/01/onion-sandwitch-750x400.jpg","Seekh Kabaab","With Mayo, sauces and dips",350));
-        MenuArray.add(new DataListOfMenu("https://www.foodsforbetterhealth.com/wp-content/uploads/2017/01/onion-sandwitch-750x400.jpg","Shami Burger","With Mayo, sauces and dips",350));
-        MenuArray.add(new DataListOfMenu("https://www.foodsforbetterhealth.com/wp-content/uploads/2017/01/onion-sandwitch-750x400.jpg","Steak","With Mayo, sauces and dips",350));
-        MenuArray.add(new DataListOfMenu("https://www.foodsforbetterhealth.com/wp-content/uploads/2017/01/onion-sandwitch-750x400.jpg","Molten Lava","With Mayo, sauces and dips",350));
-    }
-   /* private void fetch() {
-        Query query=FirebaseDatabase.getInstance().getReference().child("Menu");
-        FirebaseRecyclerOptions<DataListOfMenu> options = new FirebaseRecyclerOptions.Builder<DataListOfMenu>()
-                .setQuery(query, new SnapshotParser<DataListOfMenu>() {
-                    @NonNull
-                    @Override
-                    public DataListOfMenu parseSnapshot(@NonNull DataSnapshot snapshot) {
-                        return new DataListOfMenu(
-                                Objects.requireNonNull(snapshot.child("URI").getValue()).toString(),
-                                Objects.requireNonNull(snapshot.child("menu_title").getValue()).toString(),
-                                Objects.requireNonNull(snapshot.child("menu_description").getValue()).toString(),
-                                Objects.requireNonNull(snapshot.child("price").getValue()).toString());
-                    }
-                })
-                .build();
-
-        adapter = new FirebaseRecyclerAdapter<DataListOfMenu, menuaroms.MenuViewHolder>
-                (options) {
-            @Override
-            protected void onBindViewHolder(@NonNull MenuViewHolder menuViewHolder, final int i, @NonNull DataListOfMenu dataListOfMenu) {
-                try {
-                    Picasso.get().load(dataListOfMenu.getURI()).into(menuViewHolder.image);
-                    menuViewHolder.menu_title.setText(dataListOfMenu.getMenu_title());
-                    menuViewHolder.menu_description.setText(dataListOfMenu.getMenu_description());
-                    menuViewHolder.price.setText(dataListOfMenu.getPrice());
-
-                    menuViewHolder.addToCart.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            DataListOfMenu item = (DataListOfMenu) adapter.getItem(i);
-                            try {
-
-                                String URI = item.getURI();
-                                String title = item.getMenu_title();
-                                String price = item.getPrice();
-
-                                Toast.makeText(getApplicationContext() , "Item Added To Cart" , Toast.LENGTH_LONG).show();
-                                DataListForCart cartItem = new DataListForCart(URI , title);
-                                MyCart.addToCart(cartItem);
-                            }
-                            catch(Exception A)
+   private void fetch() {
+   Query query = firestore.collection("Fooditem");
+        FirestoreRecyclerOptions<DataListOfMenu> response;
+        try {
+            response = new FirestoreRecyclerOptions.Builder<DataListOfMenu>()
+                    .setQuery(query, DataListOfMenu.class)
+                    .build();
+            adapter = new FirestoreRecyclerAdapter<DataListOfMenu, MenuViewHolder>(response) {
+                @Override
+                public void onBindViewHolder(final MenuViewHolder menuViewHolder,final int i, DataListOfMenu dataListOfMenu) {
+                        try {
+                            Picasso.get()
+                                    .load(dataListOfMenu.getUri())
+                                    .error(R.drawable.loaderror)
+                                    .into(menuViewHolder.image);
+                            menuViewHolder.menu_title.setText(dataListOfMenu.getName());
+                            menuViewHolder.menu_description.setText(dataListOfMenu.getType());
+                            menuViewHolder.price.setText(dataListOfMenu.getPrice().toString());
+                            if (dataListOfMenu.getAvailable().equals("Yes"))
                             {
-                                Toast.makeText(getApplicationContext() , "Product Cannot be added at the moment! "  + A.toString(),
-                                        Toast.LENGTH_LONG).show();
+                                menuViewHolder.addToCart.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        DataListOfMenu item = (DataListOfMenu) adapter.getItem(i);
+                                        try {
+
+                                            String URI = item.getUri();
+                                            String id = item.getId();
+                                            String title = item.getName();
+                                            DataListForCart cartItem = new DataListForCart(id, URI, title);
+                                            if (!(MyCart.consists(cartItem))) {
+                                                Toast.makeText(getApplicationContext(), "Item Added To Cart", Toast.LENGTH_LONG).show();
+                                                MyCart.addToCart(cartItem);
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), "Quantity increased", Toast.LENGTH_LONG).show();
+                                            }
+
+                                        } catch (Exception A) {
+                                            Toast.makeText(getApplicationContext(), "Product Cannot be added at the moment! " + A.toString(),
+                                                    Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
                             }
+                            else
+                            {
+                                menuViewHolder.addToCart.setBackgroundColor(getResources().getColor(R.color.red));
+                                menuViewHolder.addToCart.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Toast.makeText(getApplicationContext(), "Not available yet", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }
+
+                        } catch (Exception Ex) {
+                            Toast.makeText(getApplicationContext(), "OnBindViewHolder  " + Ex.toString(), Toast.LENGTH_LONG).show();
                         }
-                    });
-
                 }
-                catch (Exception Ex)
-                {
-                    Toast.makeText(getApplicationContext() , "OnBindViewHolder  " + Ex.toString() , Toast.LENGTH_LONG).show();
+                @Override
+                public MenuViewHolder onCreateViewHolder(ViewGroup group, int i) {
+                    View view = LayoutInflater.from(group.getContext())
+                            .inflate(R.layout.product, group, false);
+                    return new MenuViewHolder(view);
                 }
-            }
-
-            @NonNull
-            @Override
-            public menuaroms.MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view  = LayoutInflater.from(parent.getContext()).inflate(R.layout.product, parent , false);
-                return new MenuViewHolder(view);
-            }
-        };
-        recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        adapter.stopListening();
+                @Override
+                public void onError(FirebaseFirestoreException e) {
+                    Log.e("error", e.getMessage());
+                }
+            };
+            adapter.notifyDataSetChanged();
+            recyclerView.setAdapter(adapter);
+        }
+        catch(Exception A)
+        {
+            Toast.makeText(getApplicationContext() , "query! "  + A.toString(),
+                    Toast.LENGTH_LONG).show();
+        }
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
+
 
     public static class MenuViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
@@ -135,9 +155,22 @@ public class menuaroms extends AppCompatActivity {
             menu_description = itemView.findViewById(R.id.txt_SEO);
             price = itemView.findViewById(R.id.txt_amount);
             addToCart = itemView.findViewById(R.id.btn_addToCart);
+            //ButterKnife.bind(this, itemView);
 
         }
-    }*/
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
     public void backToManager(View v)
     {
         MyCart.EmptyCart();
@@ -156,4 +189,5 @@ public class menuaroms extends AppCompatActivity {
         }
 
     }
+
 }

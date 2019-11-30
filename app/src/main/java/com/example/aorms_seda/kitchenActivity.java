@@ -31,6 +31,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -119,6 +120,7 @@ public class kitchenActivity extends AppCompatActivity {
                             if (dc.getType() == DocumentChange.Type.ADDED) {
                                 DocumentSnapshot documentSnapshot=dc.getDocument();
                                 //new order add it to order list
+                                Log.i("document id323",documentSnapshot.getId());
                                 final Order order;
                                 int serveTime=0;
                                 if(documentSnapshot.getLong("Time")!=null)
@@ -132,7 +134,7 @@ public class kitchenActivity extends AppCompatActivity {
                                 order=new Order(documentSnapshot.getId(),serveTime,null,orderStatus,orderID);
 
                                 //
-                                String priority=null;
+                                String priority;
                                 if(documentSnapshot.getString("Priority")!=null)
                                 {
                                     priority=documentSnapshot.getString("Priority");
@@ -144,8 +146,10 @@ public class kitchenActivity extends AppCompatActivity {
                                     for ( final Object dishitem: dishItems)
                                     {
                                         Map<String, Object> myMap = (Map<String, Object>) dishitem;
-                                        final String itemStatus=((String) myMap.get("itemStatus"));
-                                        final DocumentReference dbDish = (DocumentReference) myMap.get("foodItem"); //get document reference
+                                        final String itemStatus=String.valueOf(myMap.get("itemStatus"));
+                                        Log.i("document ref213",myMap.get("foodItem").toString()+ "  "+ documentSnapshot.getId());
+
+                                        final DocumentReference dbDish =  (DocumentReference)FirebaseFirestore.getInstance().document( myMap.get("foodItem").toString()); //get document reference
                                         Log.i("document id",dbDish.getId());
                                         Log.i("path id",dbDish.getPath());
                                         dbDish.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {

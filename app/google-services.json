@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "781860182015-4cohrln11h3986h93p2rnmgeafhssqup.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.aorms_seda",
+            "certificate_hash": "087d34031b8d9e7ad602014393d7f6a988f59a26"
+          }
+        },
+        {
           "client_id": "781860182015-ji3avf3r2e20neeoncl9virfornc0d58.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -59,6 +67,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "781860182015-9r6igq87k8assfv07g1se694dak0hb39.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.assignment2_gui",
+            "certificate_hash": "8128bfcbdf25db40c4f10b467f89cdb74d0422d7"
+          }
+        },
         {
           "client_id": "781860182015-lcblei8bt3ojh02tusode0sj1ntq1b40.apps.googleusercontent.com",
           "client_type": 1,
