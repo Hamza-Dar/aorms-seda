@@ -62,7 +62,14 @@ public class cartaroms extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                placeOrderFireBase();
+                if(MyCart.cartItems.size()!=0)
+                {
+                    placeOrderFireBase();
+                }
+                else
+                {
+                    Toast.makeText(context, "Sorry, Add some items in cart", Toast.LENGTH_LONG).show();
+                }
             }
         });
         FirebaseFirestore.getInstance().collection("Tablet")

@@ -40,6 +40,14 @@ public class CartItems {
         }
         return false;
     }
+    public boolean consists(String item){
+        for(int i = cartItems.size()-1; i>=0; i--){
+            if(cartItems.get(i).itemName.equals(item)){
+                return true;
+            }
+        }
+        return false;
+    }
     private int index(DataListForCart item){
         int index = -1;
         for(int i = cartItems.size()-1; i>=0; i--){

@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.recyclerview.widget.RecyclerView;
 //import com.bumptech.glide.Glide;
 //import com.google.firebase.database.DatabaseReference;
@@ -51,11 +53,17 @@ public class AdapterForCart  extends RecyclerView.Adapter<AdapterForCart.MyViewH
                 @Override
                 public void onClick(View view) {
                     int quantity= Value.getQuantity();
-                    quantity=quantity+1;
-                    MyCart.increseQuantity(Value);
-                    Value.setQuantity(quantity);
-                    Array.set(position,Value);
-                    notifyItemChanged(position);// check it out
+                    if(quantity<10) {
+                        quantity = quantity + 1;
+                        MyCart.increseQuantity(Value);
+                        Value.setQuantity(quantity);
+                        Array.set(position, Value);
+                        notifyItemChanged(position);// check it out
+                    }
+                    else
+                    {
+                        Toast.makeText(context, "Sorry,Max value reached.", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
             holder.decreaseQuantity.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +76,14 @@ public class AdapterForCart  extends RecyclerView.Adapter<AdapterForCart.MyViewH
                         Value.setQuantity(quantity);
                         Array.set(position, Value);
                         notifyItemChanged(position);// check it out
+                    }
+                    if(quantity==1)
+                    {
+                        DataListForCart item = Array.get(position);
+                        Array.remove(position);
+                        notifyItemRemoved(position);
+                        MyCart.removeFromCart(item);
+                        notifyDataSetChanged();
                     }
                 }
             });

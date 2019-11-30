@@ -48,7 +48,8 @@ public class menuaroms extends AppCompatActivity {
     private CartItems MyCart = CartItems.get_Instance();
     private ArrayList<DataListOfMenu> MenuArray;
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menuaroms);
         //ButterKnife.bind(this);
@@ -61,8 +62,9 @@ public class menuaroms extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         fetch();
     }
-   private void fetch() {
-   Query query = firestore.collection("Fooditem");
+   private void fetch()
+   {
+        Query query = firestore.collection("Fooditem");
         FirestoreRecyclerOptions<DataListOfMenu> response;
         try {
             response = new FirestoreRecyclerOptions.Builder<DataListOfMenu>()
@@ -95,6 +97,7 @@ public class menuaroms extends AppCompatActivity {
                                                 Toast.makeText(getApplicationContext(), "Item Added To Cart", Toast.LENGTH_LONG).show();
                                                 MyCart.addToCart(cartItem);
                                             } else {
+                                                MyCart.addToCart(cartItem);
                                                 Toast.makeText(getApplicationContext(), "Quantity increased", Toast.LENGTH_LONG).show();
                                             }
 
@@ -140,11 +143,9 @@ public class menuaroms extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }
 
-    }
-
-
-
-    public static class MenuViewHolder extends RecyclerView.ViewHolder {
+   }
+    public static class MenuViewHolder extends RecyclerView.ViewHolder
+    {
         ImageView image;
         TextView menu_title,menu_description,price;
         Button addToCart;
@@ -191,3 +192,4 @@ public class menuaroms extends AppCompatActivity {
     }
 
 }
+
