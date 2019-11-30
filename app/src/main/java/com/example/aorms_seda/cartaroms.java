@@ -40,43 +40,31 @@ public class cartaroms extends AppCompatActivity {
     private FirebaseAuth mAuth;
     Button proceed;
     Spinner spinner;
-    public ArrayList<String> tables = new ArrayList<>();
-
+    ArrayAdapter<String> adaptr;
+    public ArrayList<String> tables = new ArrayList<String>();
     final String[] arr = new String[] { "1", "2",
             "3", "4", "5"};
     @Nullable
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_cartaroms);
-        try {
-            context = getApplicationContext();
-            proceed =findViewById(R.id.buttonplace);
-            recyclerView = (RecyclerView)findViewById(R.id.recyclerC);
-            settingTheRecyclerView();
-            spinner = (Spinner) findViewById(R.id.spinner2);
-            getTables();
-            ArrayAdapter<String> adaptr = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_spinner_item, arr);
-            adaptr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner.setAdapter(adaptr);
-
-        } catch (Exception e) {
-            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
-
-        }
-
+        context = getApplicationContext();
+        proceed =findViewById(R.id.buttonplace);
+        recyclerView = (RecyclerView)findViewById(R.id.recyclerC);
+        settingTheRecyclerView();
+        spinner = (Spinner) findViewById(R.id.spinner2);
+        String[] arr2=new String[(tables.size())];
+         adaptr= new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, tables);
+        adaptr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adaptr);
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 placeOrderFireBase();
             }
         });
-
-    }
-    public void getTables()
-    {
         FirebaseFirestore.getInstance().collection("Tablet")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -86,12 +74,12 @@ public class cartaroms extends AppCompatActivity {
                             task.getResult()) {
                         String id = document.get("Table").toString();
                         tables.add(id);
+                        adaptr.notifyDataSetChanged();
                     }
-
                 }
             }
         });
-            FirebaseFirestore.getInstance().collection("Fooditem")
+        FirebaseFirestore.getInstance().collection("Fooditem")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -106,7 +94,10 @@ public class cartaroms extends AppCompatActivity {
                 }
             }
         });
+        //spinner.setPromptId(0);
+
     }
+
 
     private void placeOrderFireBase() {
         Map<String, Object> newOrder = new HashMap<>();
@@ -119,7 +110,7 @@ public class cartaroms extends AppCompatActivity {
             String id=MyCart.getNID(temp.getItemName());
             Map<String, Object> tempMap = new HashMap<>();
             tempMap.put("foodItem", "Fooditem/"+id);//(MyCart.ids.get(i)));
-            tempMap.put("itemStatus", temp.getQuantity());
+            tempMap.put("itemQuantity", temp.getQuantity());
             tempMap.put("itemName", temp.getItemName());
             listOfMaps.add(tempMap);
         }
