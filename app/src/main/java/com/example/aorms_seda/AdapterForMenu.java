@@ -1,4 +1,5 @@
 package com.example.aorms_seda;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 //import com.bumptech.glide.Glide;
 //import com.google.firebase.database.DatabaseReference;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -38,7 +37,7 @@ public class AdapterForMenu extends RecyclerView.Adapter<AdapterForMenu.MyViewHo
         return new AdapterForMenu.MyViewHolder(view);
     }
 
-    @SuppressLint({"SetTextI18n", "ResourceAsColor"})
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         if (MenuArray != null && holder != null) {
@@ -46,29 +45,21 @@ public class AdapterForMenu extends RecyclerView.Adapter<AdapterForMenu.MyViewHo
             //Glide.with(context)
             //        .load(Value.getURI())
             //        .into(holder.image);
-            Picasso.get().load(Value.getURI()).into(holder.image);
+
             holder.itemName.setText(Value.getMenu_title());
             holder.amount.setText(""+Value.getPrice()+"");
-            DataListForCart catee = new DataListForCart(Value.getURI() , Value.getMenu_title());
-            /*if(!(MyCart.consists(catee)))
-            {
-                holder.addToCart.setBackgroundColor(R.color.red);
-            }*/
-            holder.addToCart.setEnabled(true);
-            holder.addToCart.setOnClickListener(new View.OnClickListener()
-            {
+            holder.addToCart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     DataListOfMenu item = (DataListOfMenu) MenuArray.get(position);
                     try {
-
 
                         String URI = item.getURI();
                         String title = item.getMenu_title();
                         DataListForCart cartItem = new DataListForCart(URI , title);
                         if(!(MyCart.consists(cartItem))) {
                             Toast.makeText(context, "Item Added To Cart", Toast.LENGTH_LONG).show();
-                            holder.addToCart.setBackgroundColor(R.color.red);
+                            holder.addToCart.setBackgroundColor(184);
                             MyCart.addToCart(cartItem);
                         }
                         else
@@ -85,10 +76,7 @@ public class AdapterForMenu extends RecyclerView.Adapter<AdapterForMenu.MyViewHo
                 }
             });
         }
-
     }
-
-
 
     private String toString(int price) {
         return(""+price+"");

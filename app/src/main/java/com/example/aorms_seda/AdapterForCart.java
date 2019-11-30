@@ -91,7 +91,7 @@ public class AdapterForCart  extends RecyclerView.Adapter<AdapterForCart.MyViewH
 
         ImageView image;
         TextView itemName ,quantity;
-        ImageView increaseQuanity,decreaseQuantity,removeItem;
+        Button increaseQuanity,decreaseQuantity,removeItem;
 
 
         public MyViewHolder(View itemView) {

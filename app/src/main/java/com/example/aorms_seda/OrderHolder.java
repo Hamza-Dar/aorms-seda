@@ -5,8 +5,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class
-OrderHolder extends   RecyclerView.ViewHolder {
+public class OrderHolder extends   RecyclerView.ViewHolder {
 
     TextView orderIDtxt;
     TextView orderStatustxt;
@@ -22,6 +21,7 @@ OrderHolder extends   RecyclerView.ViewHolder {
     public void setValues(Order OrderInfo)
     {
         orderIDtxt.setText(String.valueOf(OrderInfo.getOrderId()));
+
         orderStatustxt.setText(OrderInfo.getStatus());
 
 

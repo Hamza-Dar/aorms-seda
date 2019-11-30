@@ -4,26 +4,47 @@ import java.io.Serializable;
 
 public class RequestsChange implements Serializable {
 
-    String requestID;
-    String dishID;
-    String dishInfo;
-    String status;
+    Dish dishInfo;
     String request;
     String decision;
-    String orderId;
+    int orderId;
 
-    public RequestsChange(String dishInfo, String request, String decision, String orderId,String status,String dishID,String requestID) {
+    public RequestsChange(Dish dishInfo, String request, String decision, int orderId) {
         this.dishInfo = dishInfo;
         this.request = request;
         this.decision = decision;
         this.orderId = orderId;
-        this.status=status;
-        this.dishID=dishID;
-        this.requestID=requestID;
+    }
+
+    public Dish getDishInfo() {
+        return dishInfo;
+    }
+
+    public void setDishInfo(Dish dishInfo) {
+        this.dishInfo = dishInfo;
     }
 
     public String getRequest() {
         return request;
     }
 
+    public void setRequest(String request) {
+        this.request = request;
+    }
+
+    public String getDecision() {
+        return decision;
+    }
+
+    public void setDecision(String decision) {
+        this.decision = decision;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
 }

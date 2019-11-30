@@ -1,4 +1,5 @@
 package com.example.aorms_seda;
+
 public class DataListOfMenu {
     public String URI,menu_title,menu_description;
     public int price;

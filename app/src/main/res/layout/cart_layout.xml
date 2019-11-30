@@ -28,43 +28,43 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:layout_editor_absoluteY="211dp">
 
-                <ImageView
-                    android:id="@+id/button_close"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="260dp"
-                    android:layout_marginEnd="5dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView_cart"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/cross" />
+                <Button
+                    android:id="@+id/button_add"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/ic_action_increase"
+                    app:layout_constraintBottom_toBottomOf="@+id/item_size"
+                    app:layout_constraintStart_toEndOf="@+id/item_size"
+                    app:layout_constraintTop_toTopOf="@+id/item_size" />
 
-                <ImageView
+                <Button
                     android:id="@+id/button_subtract"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="34dp"
                     android:layout_marginEnd="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:icon="@drawable/ic_action_decrease"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/item_size"
                     app:layout_constraintStart_toEndOf="@+id/item_name"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.487"
-                    app:srcCompat="@drawable/minus" />
+                    app:layout_constraintVertical_bias="0.487" />
 
-                <ImageView
-                    android:id="@+id/button_add"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/item_size"
-                    app:layout_constraintStart_toEndOf="@+id/item_size"
-                    app:layout_constraintTop_toTopOf="@+id/item_size"
-                    app:srcCompat="@drawable/add" />
-
-
-
+                <Button
+                    android:id="@+id/button_close"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="260dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/ic_action_cancel"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView_cart"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/imageView_cart"
@@ -101,7 +101,7 @@
                     android:text="Size"
                     android:textAlignment="center"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="24sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/button_subtract"
                     app:layout_constraintEnd_toStartOf="@+id/button_add"
                     app:layout_constraintStart_toEndOf="@+id/button_subtract"

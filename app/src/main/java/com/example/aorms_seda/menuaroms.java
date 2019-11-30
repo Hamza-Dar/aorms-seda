@@ -1,9 +1,9 @@
 package com.example.aorms_seda;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -145,15 +145,8 @@ public class menuaroms extends AppCompatActivity {
     }
     public void gotoCart(View v)
     {
-        if(MyCart.getSize()!=0)
-        {
-            Intent i = new Intent(this, cartaroms.class);
-            startActivity(i);
-        }
-        else
-        {
-            Toast.makeText(this, "Sorry, Add some items in cart", Toast.LENGTH_LONG).show();
-        }
-
+        Intent i = new Intent(this, cartaroms.class);
+        this.finish();
+        startActivity(i);
     }
 }

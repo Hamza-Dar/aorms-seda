@@ -9,37 +9,44 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/emp_id"
-            android:layout_width="200dp"
+        <LinearLayout
+            android:layout_width="244dp"
             android:layout_height="wrap_content"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:text="4336"
-            android:textAlignment="textStart"
-            android:textColor="@color/TextColor"
-            android:textSize="16sp" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/emp_name"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:text="Tayyab"
-            android:textAlignment="textStart"
-            android:textColor="@color/TextColor"
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/emp_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:text="Tayyab"
+                android:textAlignment="textStart"
+                android:textColor="@color/TextColor"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/emp_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:text="4336"
+                android:textAlignment="textStart"
+                android:textColor="@color/TextColor"
+                android:textSize="16sp" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/emp_type"
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="Chef"
             android:textColor="@color/TextColor"
-            android:textSize="16sp" />
+            android:gravity="center"
+            android:textSize="16sp"
+            android:text="Chef" />
 
     </LinearLayout>
 

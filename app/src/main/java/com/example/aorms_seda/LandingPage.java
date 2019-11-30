@@ -30,7 +30,7 @@ public class LandingPage extends AppCompatActivity {
     }
     public void openAdmin(View v){
 
-        Intent i = new Intent(this, MenuOption.class);
+        Intent i = new Intent(this, AdminOptions.class);
         startActivity(i);
     }
 

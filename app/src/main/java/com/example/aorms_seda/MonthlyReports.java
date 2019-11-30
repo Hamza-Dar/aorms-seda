@@ -27,40 +27,25 @@ public class MonthlyReports extends Fragment {
         // Required empty public constructor
     }
 
-    Cartesian br;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view=inflater.inflate(R.layout.fragment_monthly_reports, container, false);
 
-        br = AnyChart.column();
+        Cartesian br = AnyChart.bar();
 
         List<DataEntry> data = new ArrayList<>();
-        double i1 ;
-
-        for (int i=1; i<=30; i++) {
-            i1 = Math.random();
-            i1 = i1*2000;
-            data.add(new ValueDataEntry(i, i1));
-        }
-
-//        data.add(new ValueDataEntry("Week 2", 1000));
-//        data.add(new ValueDataEntry("Week 3", 12000));
-//        data.add(new ValueDataEntry("Week 4", 0));
-//        data.add(new ValueDataEntry("Week 5", 1400));
-//        data.add(new ValueDataEntry("Week 1", 1200));
+        data.add(new ValueDataEntry("John", 10000));
+        data.add(new ValueDataEntry("Jake", 12000));
+        data.add(new ValueDataEntry("Peter", 18000));
 
         br.data(data);
 
         AnyChartView anyChartView = (AnyChartView) view.findViewById(R.id.any_chart_view);
         anyChartView.setChart(br);
-        anyChartView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                br.fullScreen();
-            }
-        });
+
         return view;
     }
 

@@ -36,6 +36,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
         viewHolder.name.setText(data.get(position).name);
         viewHolder.id.setText(data.get(position).id);
+        viewHolder.available.setText(data.get(position).available);
+        viewHolder.time.setText("" + data.get(position).time);
+        viewHolder.price.setText("" + data.get(position).price);
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,12 +56,15 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     public class ViewHolder extends  RecyclerView.ViewHolder{
 
-        TextView name, id;
+        TextView name, id, available, time, price;
 
         public ViewHolder(View itemView) {
             super(itemView);
             name = (TextView)itemView.findViewById(R.id.dish_name);
             id = (TextView)itemView.findViewById(R.id.dish_id);
+            available = (TextView) itemView.findViewById(R.id.dish_available);
+            time = (TextView) itemView.findViewById(R.id.dish_time);
+            price = (TextView) itemView.findViewById(R.id.dish_price);
         }
     }
 }

@@ -66,7 +66,7 @@ public class ParentHolder extends RecyclerView.ViewHolder {
 
 
 
-        dishAdapter=new DishAdapter(dishList,R.layout.kitchen_dish_holder,0);
+        dishAdapter=new DishAdapter(dishList,R.layout.dish_holder,0);
         dishes.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false));
         dishes.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override

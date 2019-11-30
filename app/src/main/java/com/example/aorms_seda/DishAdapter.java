@@ -1,6 +1,5 @@
 package com.example.aorms_seda;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.net.ConnectException;
 import java.util.ArrayList;
 
 public class DishAdapter extends RecyclerView.Adapter<DishHolder> {
@@ -17,7 +15,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishHolder> {
     private ArrayList<Dish> data;
     private int itemLayout;
     private int pos;
-    Context context;
 
     public DishAdapter(ArrayList<Dish> data, int itemLayout, int pos)
     {   this.data=data;
@@ -29,7 +26,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishHolder> {
     @Override
     public DishHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View V= LayoutInflater.from(viewGroup.getContext()).inflate(itemLayout, viewGroup, false);
-        context=viewGroup.getContext();
         return new DishHolder(V);
     }
 
@@ -37,7 +33,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishHolder> {
     public void onBindViewHolder(@NonNull DishHolder dishHolder, int i) {
         if(data!=null && dishHolder!=null)
         {
-            dishHolder.setValues(context,data.get(i),pos);
+            dishHolder.setValues(data.get(i),pos);
         }
 
     }

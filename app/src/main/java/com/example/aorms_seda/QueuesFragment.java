@@ -16,44 +16,37 @@ import java.util.ArrayList;
 public class QueuesFragment extends Fragment {
 
     RecyclerView parentRV;
-    QueueParentAdapter parentAdapter;
+    ParentAdapter parentAdapter;
     ArrayList<VerticalModel> arrayList;
     ArrayList<Dish> dishes;
-    ArrayList<Cook> chefList;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root= inflater.inflate(R.layout.kitchen_queues,container,false);
+        View root= inflater.inflate(R.layout.queues,container,false);
+
         parentRV=root.findViewById(R.id.MainRV);
-        dishes=new ArrayList<Dish>();
-        chefList=new ArrayList<>();
-        dishes= (ArrayList<Dish>) getArguments().getSerializable("dishes");
-        chefList= (ArrayList<Cook>) getArguments().getSerializable("chefList");
+
+
+
         setData();
         return root;
     }
 
     public void setData()
     {
-
+        dishes=new ArrayList<Dish>();
+        dishes.add(new Dish('1',"Pasta","12:00","12","Waiting","Italian"));
+        dishes.add(new Dish('1',"Pizza","12:00","12","Waiting","Italian "));
         arrayList=new ArrayList<>();
-        //get chef list and dishes list;
-        for(int i=0;i<chefList.size();i++)
-        {
-            ArrayList<Dish>chefDishes=new ArrayList<>();
-            for(int j=0;j<dishes.size();j++)
-            {
-                if(dishes.get(j).cookId==chefList.get(i).cookId)
-                {
-                    chefDishes.add((dishes.get(j)));
-                }
-            }
-            arrayList.add(new VerticalModel(String.valueOf(chefList.get(i).cookId),chefDishes));
-        }
+
+        arrayList.add(new VerticalModel("Cook1",dishes));
+        arrayList.add(new VerticalModel("Cook2",dishes));
+
         parentRV.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false));
-        parentAdapter=new QueueParentAdapter(getActivity(),arrayList);
+
+        parentAdapter=new ParentAdapter(getActivity(),arrayList);
         parentRV.setAdapter((parentAdapter));
 
     }

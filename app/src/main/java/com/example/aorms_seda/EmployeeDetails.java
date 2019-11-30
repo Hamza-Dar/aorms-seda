@@ -3,19 +3,13 @@ package com.example.aorms_seda;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class EmployeeDetails extends AppCompatActivity {
 
-    static private Employee employee;
-
-    public static void updateEmployee(Employee emp){
-        employee = emp;
-    }
+    private Employee employee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +18,12 @@ public class EmployeeDetails extends AppCompatActivity {
 
         employee = (Employee) getIntent().getSerializableExtra("Employee");
 
-        getData();
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    void getData(){
         TextView name, id, address, age, emp_date, type, specaility, salary;
         name = findViewById(R.id.employee_name);
         id = findViewById(R.id.employee_id);;
         address = findViewById(R.id.employee_address);
         age = findViewById(R.id.employee_age);
+        emp_date = findViewById(R.id.employee_date);
         type = findViewById(R.id.employee_type);
         specaility = findViewById(R.id.employee_Speciality);
         salary = findViewById(R.id.employee_salary);
@@ -43,28 +32,16 @@ public class EmployeeDetails extends AppCompatActivity {
         id.setText("ID: " + employee.id);
         address.setText("Address: " + employee.address);
         age.setText("Age: " + employee.age);
+        emp_date.setText("Employment Date: " + employee.emp_date);
         type.setText("Employee Type: " + employee.emp_type);
         salary.setText("Salary: Rs. " + employee.salary);
 
-        if(employee.speciality == null)
+        if(employee.specialty.equals(""))
             specaility.setText("");
-        else {
-            specaility.setText("Speciality: ");
-            for(int i = 0; i < employee.speciality.size(); i++) {
-                specaility.setText(specaility.getText() + employee.speciality.get(i) + "\n");
-            }
-        }
-    }
+        else
+            specaility.setText("Speciality: " + employee.specialty);
 
-    public void UpdateEmployee(View view){
-        Intent i = new Intent(this, EmployeeUpdate.class);
-        i.putExtra("Employee", employee);
-        startActivityForResult(i, 1);
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        getData();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

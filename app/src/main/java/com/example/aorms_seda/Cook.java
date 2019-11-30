@@ -6,40 +6,22 @@ public class Cook {
 
     int cookId;
     String name;
-    int workload;
     ArrayList<String> speciality;
 
-    public Cook(int cookId, String name, int workload, ArrayList<String> speciality) {
-        this.cookId = cookId;
+
+    public Cook(int cookId, String name, ArrayList<String> Speciality) {
+        cookId = cookId;
         this.name = name;
-        this.workload = workload;
-        this.speciality = speciality;
-    }
-
-    public int getWorkload() {
-        return workload;
-    }
-
-
-    public void incrementWorkLoad()
-    {
-        this.workload++;
-    }
-
-    public void decrementWorkLoad()
-    {
-
-        this.workload--;
-        if(workload<0)
-        {
-            workload=0;
-        }
+        speciality = Speciality;
     }
 
     public int getCookId() {
         return cookId;
     }
 
+    public void setCookId(int cookId) {
+        this.cookId = cookId;
+    }
 
     public String getName() {
         return name;
@@ -53,6 +35,9 @@ public class Cook {
         return speciality;
     }
 
+    public void setSpeciality(ArrayList<String> speciality) {
+        this.speciality = speciality;
+    }
 }
 
 
