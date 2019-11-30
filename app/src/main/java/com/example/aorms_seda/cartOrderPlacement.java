@@ -114,7 +114,7 @@ public class cartOrderPlacement extends AppCompatActivity {
         int total = 0;
         for (OrderItem temp : queue.orderItemList) {
             Map<String, Object> tempMap = new HashMap<>();
-            tempMap.put("foodItem", db.document("Fooditem/" + temp.item.id));
+            tempMap.put("foodItem", "Fooditem/" + temp.item.id);
             tempMap.put("itemStatus", temp.status);
             tempMap.put("itemName", temp.item.name);
             listOfMaps.add(tempMap);
