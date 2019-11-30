@@ -119,7 +119,7 @@ public class cartaroms extends AppCompatActivity {
             String id=MyCart.getNID(temp.getItemName());
             Map<String, Object> tempMap = new HashMap<>();
             tempMap.put("foodItem", "Fooditem/"+id);//(MyCart.ids.get(i)));
-            tempMap.put("itemStatus", temp.getQuantity());
+            tempMap.put("itemStatus", "waiting");
             tempMap.put("itemName", temp.getItemName());
             listOfMaps.add(tempMap);
         }

@@ -125,9 +125,11 @@ public class EmployeeOption extends AppCompatActivity {
             switch (menuItem.getItemId()) {
                 case R.id.nav_menu:
                     startActivity(new Intent(getApplicationContext(), MenuOption.class));
+                    finish();
                     break;
                 case R.id.nav_tablets:
                     startActivity(new Intent(getApplicationContext(), TabletOption.class));
+                    finish();
                     break;
                 case R.id.nav_employees:
                     Toast toast = Toast.makeText(getApplicationContext(),

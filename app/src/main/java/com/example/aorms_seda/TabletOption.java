@@ -113,6 +113,7 @@ public class TabletOption extends AppCompatActivity {
             switch (menuItem.getItemId()) {
                 case R.id.nav_menu:
                     startActivity(new Intent(getApplicationContext(), MenuOption.class));
+                    finish();
                     break;
                 case R.id.nav_tablets:
                     Toast toast = Toast.makeText(getApplicationContext(),
@@ -122,6 +123,7 @@ public class TabletOption extends AppCompatActivity {
                     break;
                 case R.id.nav_employees:
                     startActivity(new Intent(getApplicationContext(), EmployeeOption.class));
+                    finish();
                     break;
             }
             return true;

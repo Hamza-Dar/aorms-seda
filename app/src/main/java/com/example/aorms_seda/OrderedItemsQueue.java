@@ -34,6 +34,10 @@ public class OrderedItemsQueue {
         return single_instance;
     }
 
+    static void  emptycart(){
+        single_instance = null;
+    }
+
     public List<OrderItem> getOrderItemList() {
         return orderItemList;
     }

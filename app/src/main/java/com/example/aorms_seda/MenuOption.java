@@ -127,9 +127,11 @@ public class MenuOption extends AppCompatActivity {
                     break;
                 case R.id.nav_tablets:
                     startActivity(new Intent(getApplicationContext(), TabletOption.class));
+                    finish();
                     break;
                 case R.id.nav_employees:
                     startActivity(new Intent(getApplicationContext(), EmployeeOption.class));
+                    finish();
                     break;
 
             }

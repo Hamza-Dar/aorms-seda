@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -99,13 +100,14 @@ public class cartOrderPlacement extends AppCompatActivity {
         myrv.setAdapter(myAdapter);
 
     }
-
+    Map<String, Object> newOrder = new HashMap<>();
+    Map<String, Object> newBill = new HashMap<>();
+    String oid;
     protected void addToDb() {
         //Intent intent = new Intent(mContext, cartOrderPlacement.class);
         // start the activity
         //mContext.startActivity(intent);
-        Map<String, Object> newOrder = new HashMap<>();
-        Map<String, Object> newBill = new HashMap<>();
+
         @SuppressWarnings("unchecked")
         List<Map<String, Object>> listOfMaps = new ArrayList<Map<String, Object>>();
         OrderedItemsQueue queue = OrderedItemsQueue.Singleton();
@@ -114,7 +116,7 @@ public class cartOrderPlacement extends AppCompatActivity {
         int total = 0;
         for (OrderItem temp : queue.orderItemList) {
             Map<String, Object> tempMap = new HashMap<>();
-            tempMap.put("foodItem", db.document("Fooditem/" + temp.item.id));
+            tempMap.put("foodItem", "Fooditem/" + temp.item.id);
             tempMap.put("itemStatus", temp.status);
             tempMap.put("itemName", temp.item.name);
             listOfMaps.add(tempMap);
@@ -141,7 +143,7 @@ public class cartOrderPlacement extends AppCompatActivity {
         newOrder.put("Priority", p);
 
         String id = db.collection("Orders").document().getId();
-        String oid = db.collection("Bills").document().getId();
+        oid= db.collection("Bills").document().getId();
         if (queue.orderId != null) {
             id = queue.orderId;
             oid = queue.billId;
@@ -150,22 +152,31 @@ public class cartOrderPlacement extends AppCompatActivity {
             queue.billId = oid;
         }
 
-        newBill.put("Order", db.document("Bills/" + queue.orderId));
+        newBill.put("Order", id);
         newBill.put("total", total);
-        newBill.put("date", Calendar.getInstance().getTime());
+        String date = Calendar.getInstance().get(Calendar.DATE)+"-"+Calendar.getInstance().get(Calendar.MONTH)+"-"+Calendar.getInstance().get(Calendar.YEAR);
+        newBill.put("date", date);
+        newBill.put("Month", Calendar.getInstance().get(Calendar.MONTH));
+        newBill.put("Year", Calendar.getInstance().get(Calendar.YEAR));
+        Long DDD = (long) ((Calendar.getInstance().get(Calendar.YEAR)) * 365 +
+                Calendar.getInstance().get(Calendar.MONTH) * 30
+                + Calendar.getInstance().get(Calendar.DATE));
+        newBill.put("DateN", DDD);
         //queue.orderId = id;
         db.collection("Orders").document(id).set(newOrder).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                String a = "";
+                Toast.makeText(getApplicationContext(),"Order placed successfully", Toast.LENGTH_LONG).show();
+                OrderedItemsQueue.emptycart();
+                FirebaseFirestore.getInstance().collection("Bills").document(oid).set(newBill).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        finish();
+                    }
+                });
             }
         });
-        db.collection("Bills").document(oid).set(newBill).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                String a = "";
-            }
-        });
+
     }
 
 }

@@ -72,7 +72,7 @@ public class OrdersFragment extends Fragment {
                         {
                             Map<String, Object> myMap = (Map<String, Object>) dishitem;
                             final String itemStatus=((String) myMap.get("itemStatus"));
-                            final DocumentReference dbDish = (DocumentReference) myMap.get("foodItem"); //get document reference
+                            final DocumentReference dbDish = FirebaseFirestore.getInstance().document( myMap.get("foodItem").toString()); //get document reference
                             Log.i("document id",dbDish.getId());
                             Log.i("path id",dbDish.getPath());
                             dbDish.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {

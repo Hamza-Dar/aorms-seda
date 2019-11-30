@@ -115,7 +115,6 @@ public class kitchenActivity extends AppCompatActivity {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot snapshots,
                                         @Nullable FirebaseFirestoreException e) {
-
                         for (DocumentChange dc : snapshots.getDocumentChanges()) {
                             if (dc.getType() == DocumentChange.Type.ADDED) {
                                 DocumentSnapshot documentSnapshot=dc.getDocument();

@@ -10,7 +10,19 @@
     <string-array name="MonthsArray">
         <item>January</item>
         <item>February</item>
-        <item>Others</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+
+
+
     </string-array>
     <string name="item_name">Item Name</string>
     <string name="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut semper arcu. Quisque condimentum ultrices tortor, feugiat venenatis neque interdum ut.</string>

@@ -89,11 +89,12 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
 
                 OrderedItemsQueue queue = OrderedItemsQueue.Singleton();
                 queue.addOrderItem(orderItem);
-                Intent x = getIntent();
-                String name = x.getExtras().getString("Title");
-                Intent intent = new Intent(ItemActivity.this, FoodOrderMainMenu.class);
-                intent.putExtra("Title", name);
-                startActivity(intent);
+//                Intent x = getIntent();
+//                String name = x.getExtras().getString("Title");
+//                Intent intent = new Intent(ItemActivity.this, FoodOrderMainMenu.class);
+//                intent.putExtra("Title", name);
+//                startActivity(intent);
+                finish();
                 break;
             }
         }

@@ -27,15 +27,18 @@ public class AdminOptions extends AppCompatActivity {
     public void TabletButton(View view){
         Intent i = new Intent(this, TabletOption.class);
         startActivity(i);
+        finish();
     }
 
     public void MenuButton(View view){
         Intent i = new Intent(this, MenuOption.class);
         startActivity(i);
+        finish();
     }
 
     public void EmployeeButton(View view){
         Intent i = new Intent(this, EmployeeOption.class);
         startActivity(i);
+        finish();
     }
 }
