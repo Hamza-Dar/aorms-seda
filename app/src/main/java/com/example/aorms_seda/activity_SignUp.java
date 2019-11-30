@@ -52,9 +52,10 @@ public class activity_SignUp extends AppCompatActivity {
                                 if (documentSnapshot.exists()) {
                                     String title = documentSnapshot.getString(KEY_TITLE);
                                     String description = documentSnapshot.getString(KEY_DESCRIPTION);
-                                   // Toast.makeText(activity_SignUp.this, username +"\n"+ password, Toast.LENGTH_SHORT).show();
+                                   //Toast.makeText(activity_SignUp.this, username +"\n"+ password, Toast.LENGTH_SHORT).show();
                                     if (username.equals(title) && password.equals(description)){
                                         startActivity(new Intent(activity_SignUp.this, GuiDemoL164348.class));
+                                        finish();
                                     } else {
                                         //Map<String, Object> note = documentSnapshot.getData();
                                         Toast.makeText(activity_SignUp.this, "Incorrect Details", Toast.LENGTH_SHORT).show();
@@ -67,13 +68,13 @@ public class activity_SignUp extends AppCompatActivity {
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                //Toast.makeText(activity_SignUp.this, "Error!", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(activity_SignUp.this, GuiDemoL164348.class));
+                                Toast.makeText(activity_SignUp.this, "Error!", Toast.LENGTH_SHORT).show();
+                              // startActivity(new Intent(activity_SignUp.this, GuiDemoL164348.class));
                                 ///Log.d(TAG, e.toString());
                             }
                         });
                 // TODO Auto-generated method stub
-                //startActivity(new Intent(activity_SignUp.this, GuiDemoL164348.class));
+              //  startActivity(new Intent(activity_SignUp.this, GuiDemoL164348.class));
             }
         });
     }

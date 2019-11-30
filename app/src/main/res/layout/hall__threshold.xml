@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/ButtonTextColor"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/ingredientName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="10dp"
+                android:text="Black Pepper Items"
+                android:textColor="@color/TextColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:layout_margin="10dp"
+                android:background="@color/Background"
+                android:orientation="horizontal">
+
+                <ImageView
+
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:contentDescription="@string/description"
+                    android:src="@mipmap/ic_launcher" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/ingredientid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Item ID: 1234"
+                        android:textColor="@color/TextColor"
+                        android:textSize="15sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="5dp"
+
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/idProductQty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="11 Kg "
+                            android:textSize="25dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/TextColor" />
+
+
+                        <Button
+                            android:id="@+id/button"
+                            android:layout_width="123dp"
+                            android:layout_height="22dp"
+                            android:layout_marginLeft="60dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@color/ButtonColor"
+                            android:contentDescription="@string/description"
+                            android:text="Change Threshold"
+                            android:textColor="@color/ButtonTextColor" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
