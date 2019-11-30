@@ -11,8 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EmployeeUpdate"
-            android:theme="@style/AppTheme.PopUp"/>
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".EmployeeUpdate"
+            android:theme="@style/AppTheme.PopUp" />
         <activity
             android:name=".EmployeeRemove"
             android:theme="@style/AppTheme.PopUp" />
@@ -38,12 +47,7 @@
             android:name=".IngredientAdd"
             android:theme="@style/AppTheme.PopUp" />
         <activity android:name=".LandingPage">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".kitchenActivity"
@@ -79,16 +83,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.aorms_seda.activity_SignUp" />
         </activity>
-        <activity android:name=".hall_manager_orderdetail"/>
-        <activity android:name=".activity_SignUp">
-        </activity>
-        <activity android:name=".assignTableToTabletActivity"/>
-        <activity android:name=".hall_manager_items_detail"/>
-        <activity android:name=".menuaroms"/>
-        <activity android:name=".hallthreshold"/>
-        <activity android:name=".cartaroms"/>
-        <activity android:name=".Order_placement_screen2"/>
-        <activity android:name=".cartOrderPlacement"/>
+        <activity android:name=".hall_manager_orderdetail" />
+        <activity android:name=".activity_SignUp"></activity>
+        <activity android:name=".assignTableToTabletActivity" />
+        <activity android:name=".hall_manager_items_detail" />
+        <activity android:name=".menuaroms" />
+        <activity android:name=".hallthreshold" />
+        <activity android:name=".cartaroms" />
+        <activity android:name=".Order_placement_screen2" />
+        <activity android:name=".cartOrderPlacement" />
     </application>
 
 </manifest>
