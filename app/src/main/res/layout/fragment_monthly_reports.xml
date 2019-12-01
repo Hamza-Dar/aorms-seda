@@ -191,7 +191,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <com.anychart.AnyChartView
+                        <com.github.mikephil.charting.charts.BarChart
                             android:id="@+id/any_chart_view"
                             android:layout_width="300dp"
                             android:layout_height="214dp"

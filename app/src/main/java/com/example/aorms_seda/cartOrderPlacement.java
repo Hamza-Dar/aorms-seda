@@ -155,6 +155,7 @@ public class cartOrderPlacement extends AppCompatActivity {
         newBill.put("date", date);
         newBill.put("Month", (Calendar.getInstance().get(Calendar.MONTH)+1));
         newBill.put("Year", Calendar.getInstance().get(Calendar.YEAR));
+        newBill.put("Day", Calendar.getInstance().get(Calendar.DATE));
         Long DDD = (long) ((Calendar.getInstance().get(Calendar.YEAR)) * 365 +
                 (Calendar.getInstance().get(Calendar.MONTH)+1) * 30
                 + Calendar.getInstance().get(Calendar.DATE));

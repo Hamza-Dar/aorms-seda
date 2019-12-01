@@ -21,6 +21,10 @@ import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
 import com.anychart.charts.Pie;
 import com.anychart.core.gauge.pointers.Bar;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -67,10 +71,15 @@ public class MonthlyReports extends Fragment {
     TextView txt;
     Long total = 0L;
 
+    BarChart barChart;
+    BarData barData;
+    BarDataSet barDataSet;
+    ArrayList barEntries;
+
     private void setchart(int month){
 
         total = 0L;
-        br = AnyChart.column();
+//        br = AnyChart.column();
         bill = new HashMap<>();
         FirebaseFirestore.getInstance().collection("Bills")
                 .whereEqualTo("Month",month).whereEqualTo("Year", Calendar.getInstance().get(Calendar.YEAR))
@@ -81,40 +90,45 @@ public class MonthlyReports extends Fragment {
                     List<DocumentSnapshot> docs = task.getResult().getDocuments();
                     txt = view.findViewById(R.id.NumOrderMonthly);
                     txt.setText(String.valueOf(docs.size()));
-                    AnyChartView anyChartView = view.findViewById(R.id.any_chart_view);
+                    barChart = view.findViewById(R.id.any_chart_view);
                      //anyChartView.clear();
                     for(DocumentSnapshot d:docs){
                         Long x = bill.get(d.getLong("Day"));
                         total += d.getLong("total");
                         if(x==null)
                             x = 0L;
-                        bill.put(d.getLong("Day"), x +d.getLong("total"));
+                        x = x+d.getLong("total");
+                        Long y = d.getLong("Day");
+                        if(y!=null)
+                            bill.put(y, x );
                     }
-                    data= new ArrayList<>();
-                    for (Long i=1L; i<=30; i++) {
-                        Long l = bill.get(i);
-                        if(l==null) {
-                            data.add(new ValueDataEntry(i, 0));
-                        }
-                        else
-                            data.add(new ValueDataEntry(i, l));
-                    }
-                    br.data(data);
-                    br.autoRedraw(false);
+                    barEntries = new ArrayList<>();
+                    for (long i=1L; i<=30; i++) {
 
+                        if(bill.get(i)==null) {
+                            barEntries.add(new BarEntry(i, 0));
+                        }
+                        else {
+                            Float l =  Float.valueOf(bill.get(i));
+                            barEntries.add(new BarEntry(i, l));
+                        }
+                    }
+                    barDataSet = new BarDataSet(barEntries, "");
+                    barData = new BarData(barDataSet);
+                    barChart.setData(barData);
                     txt = view.findViewById(R.id.MonthlySales);
                     txt.setText(String.valueOf(total));
 
-                    anyChartView.setChart(br);
-                    br.autoRedraw();
-//                    anyChartView.notify();
-
-                    anyChartView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            br.fullScreen();
-                        }
-                    });
+//                    anyChartView.setChart(br);
+//                    br.autoRedraw();
+////                    anyChartView.notify();
+//
+//                    anyChartView.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            br.fullScreen();
+//                        }
+//                    });
                 }
             }
         });

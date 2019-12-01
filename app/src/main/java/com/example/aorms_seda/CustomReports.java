@@ -114,7 +114,7 @@ public class CustomReports extends Fragment {
         DateEnd.setText(sdf.format(myCalendar.getTime()));
         bills = new ArrayList<>();
         TotalBill = 0L;
-        final BillAdapter adapter = new BillAdapter(bills);
+        final BillAdapter adapter = new BillAdapter(bills, getContext());
         FirebaseFirestore.getInstance().collection("Bills")
                 .whereGreaterThanOrEqualTo("DateN",start)
                 .whereLessThanOrEqualTo("DateN", end)

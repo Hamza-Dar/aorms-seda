@@ -5,13 +5,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
         android:name=".aorms_seda"
+        android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Order_Details_Report"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,9 +48,7 @@
         <activity
             android:name=".IngredientAdd"
             android:theme="@style/AppTheme.PopUp" />
-        <activity android:name=".LandingPage">
-
-        </activity>
+        <activity android:name=".LandingPage"></activity>
         <activity
             android:name=".kitchenActivity"
             android:label="Kitchen Management"
@@ -85,7 +84,7 @@
                 android:value="com.example.aorms_seda.activity_SignUp" />
         </activity>
         <activity android:name=".hall_manager_orderdetail" />
-        <activity android:name=".activity_SignUp"></activity>
+        <activity android:name=".activity_SignUp" />
         <activity android:name=".assignTableToTabletActivity" />
         <activity android:name=".hall_manager_items_detail" />
         <activity android:name=".menuaroms" />
