@@ -97,12 +97,14 @@
                 android:layout_below="@id/txt_SEO"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/btn_background"
+                android:background="@drawable/roundededgesbtn"
+                android:backgroundTint="@color/colorPrimaryDark"
                 android:text="Add to Cart"
                 android:textAllCaps="true"
-                android:textSize="@dimen/_10sdp"
-                android:layout_marginLeft="@dimen/_10sdp" />
+                android:textColor="@color/ButtonTextColor"
+                android:textSize="@dimen/_10sdp" />
 
         </RelativeLayout>
 

@@ -121,9 +121,11 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:background="@drawable/btn_background"
+                        android:background="@drawable/roundededgesbtn"
+                        android:backgroundTint="@color/colorPrimary"
                         android:text="Add to Cart"
                         android:textAllCaps="true"
+                        android:textColor="@color/ButtonTextColor"
                         android:textSize="@dimen/_10sdp" />
 
                 </RelativeLayout>
@@ -236,9 +238,11 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:background="@drawable/btn_background"
+                        android:background="@drawable/roundededgesbtn"
+                        android:backgroundTint="@color/colorPrimary"
                         android:text="Add to Cart"
                         android:textAllCaps="true"
+                        android:textColor="@color/ButtonTextColor"
                         android:textSize="@dimen/_10sdp" />
 
                 </RelativeLayout>
@@ -368,9 +372,12 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="2dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/roundededgesbtn"
         android:text="Button"
-        app:backgroundTint="#94E64949"
+        app:backgroundTint="@color/ButtonColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -8,18 +8,34 @@
         android:id="@+id/OrderDate_bill"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:paddingStart="10sp"
+        android:paddingTop="15sp"
+        android:text="TextView"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/Order_name_bill"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="12sp"
+        android:paddingTop="5sp"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/Price_bill"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="12sp"
+        android:paddingTop="5sp"
         android:text="TextView" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="440dp"
+        android:layout_height="0dp"
+        android:background="?android:attr/listDivider"
+        android:paddingStart="12sp"
+        android:paddingTop="15sp"
+        android:paddingBottom="15sp" />
 
 </LinearLayout>
