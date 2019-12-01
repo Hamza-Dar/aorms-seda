@@ -11,6 +11,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -108,6 +109,13 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                     }
+                    else{
+                        Toast.makeText(getApplicationContext(), "Username Or password Incorrect", Toast.LENGTH_LONG).show();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Username Or password Incorrect", Toast.LENGTH_LONG).show();
                 }
             }
         });
