@@ -57,7 +57,7 @@ public class CustomReports extends Fragment {
                 myCalendar.set(Calendar.YEAR, i);
                 myCalendar.set(Calendar.MONTH, i1);
                 myCalendar.set(Calendar.DAY_OF_MONTH, i2);
-                start = i*365 + i1 * 30 + i2;
+                start = i*365 + (i1+1) * 30 + i2;
                 updateLabel();
             }
         };
@@ -68,7 +68,7 @@ public class CustomReports extends Fragment {
                 myCalendar.set(Calendar.YEAR, i);
                 myCalendar.set(Calendar.MONTH, i1);
                 myCalendar.set(Calendar.DAY_OF_MONTH, i2);
-                end = i*365 + i1 * 30 + i2;
+                end = i*365 + (i1+1) * 30 + i2;
                 updateLabel1();
             }
         };

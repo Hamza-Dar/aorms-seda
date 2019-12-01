@@ -36,6 +36,7 @@ public class FoodOrderMainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_food_order_main_menu);
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         lst_food = new ArrayList<>();
+        OrderedItemsQueue.tableNum = getIntent().getIntExtra("TableNumber", -1);
         final Map<String, String> types = new HashMap<String,String>();
         firestore.collection("Fooditem").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

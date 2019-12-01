@@ -104,9 +104,6 @@ public class cartOrderPlacement extends AppCompatActivity {
     Map<String, Object> newBill = new HashMap<>();
     String oid;
     protected void addToDb() {
-        //Intent intent = new Intent(mContext, cartOrderPlacement.class);
-        // start the activity
-        //mContext.startActivity(intent);
 
         @SuppressWarnings("unchecked")
         List<Map<String, Object>> listOfMaps = new ArrayList<Map<String, Object>>();
@@ -138,7 +135,7 @@ public class cartOrderPlacement extends AppCompatActivity {
         }
         newOrder.put("Items", listOfMaps);
         newOrder.put("Status", s);
-        newOrder.put("Table", -1);
+        newOrder.put("Table", OrderedItemsQueue.tableNum);
         newOrder.put("Time", max);
         newOrder.put("Priority", p);
 
@@ -154,12 +151,12 @@ public class cartOrderPlacement extends AppCompatActivity {
 
         newBill.put("Order", id);
         newBill.put("total", total);
-        String date = Calendar.getInstance().get(Calendar.DATE)+"-"+Calendar.getInstance().get(Calendar.MONTH)+"-"+Calendar.getInstance().get(Calendar.YEAR);
+        String date = Calendar.getInstance().get(Calendar.DATE)+"-"+(Calendar.getInstance().get(Calendar.MONTH)+1)+"-"+Calendar.getInstance().get(Calendar.YEAR);
         newBill.put("date", date);
-        newBill.put("Month", Calendar.getInstance().get(Calendar.MONTH));
+        newBill.put("Month", (Calendar.getInstance().get(Calendar.MONTH)+1));
         newBill.put("Year", Calendar.getInstance().get(Calendar.YEAR));
         Long DDD = (long) ((Calendar.getInstance().get(Calendar.YEAR)) * 365 +
-                Calendar.getInstance().get(Calendar.MONTH) * 30
+                (Calendar.getInstance().get(Calendar.MONTH)+1) * 30
                 + Calendar.getInstance().get(Calendar.DATE));
         newBill.put("DateN", DDD);
         //queue.orderId = id;

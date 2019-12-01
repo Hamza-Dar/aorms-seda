@@ -54,7 +54,7 @@ public class MonthlyReports extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 int i11 = sp.getSelectedItemPosition();
-                setchart(i11);
+                setchart(i11+1);
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {

@@ -11,7 +11,7 @@ public class OrderedItemsQueue {
     String stat;
     private static OrderedItemsQueue single_instance=null;
     int currentno = -1;
-
+    static int tableNum;
 
     private OrderedItemsQueue()
     {

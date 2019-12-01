@@ -49,7 +49,7 @@ public class TodaysReports extends Fragment {
         bills = new ArrayList<>();
         TotalBill = 0L;
         final BillAdapter adapter = new BillAdapter(bills);
-        final String date = Calendar.getInstance().get(Calendar.DATE)+"-"+Calendar.getInstance().get(Calendar.MONTH)+"-"+Calendar.getInstance().get(Calendar.YEAR);
+        final String date = Calendar.getInstance().get(Calendar.DATE)+"-"+(Calendar.getInstance().get(Calendar.MONTH)+1)+"-"+Calendar.getInstance().get(Calendar.YEAR);
         FirebaseFirestore.getInstance().collection("Bills").whereEqualTo("date",date).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
