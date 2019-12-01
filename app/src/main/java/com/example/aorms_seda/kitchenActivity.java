@@ -189,7 +189,7 @@ public class kitchenActivity extends AppCompatActivity {
                                             Map<String, Object> myMap = (Map<String, Object>) dishitem;
                                             final String itemStatus = ((String) myMap.get("itemStatus"));
                                             if (itemStatus.compareTo("done") != 0) {
-                                                final DocumentReference dbDish = (DocumentReference) myMap.get("foodItem"); //get document reference
+                                                final DocumentReference dbDish = (DocumentReference) FirebaseFirestore.getInstance().document( myMap.get("foodItem").toString()); //get document reference
                                                 Log.i("document id", dbDish.getId());
                                                 Log.i("path id", dbDish.getPath());
                                                 dbDish.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -281,7 +281,7 @@ public class kitchenActivity extends AppCompatActivity {
         int size = chefList.size();
         boolean cookAssigned = false;
 
-        if (order.getDishes() != null && order.getDishes().get(k)!=null && order.getDishes().get(k).getStatus().compareTo("done")!=0) {
+        if (order.getDishes() != null && order.getDishes().size()>k && order.getDishes().get(k)!=null && order.getDishes().get(k).getStatus().compareTo("done")!=0) {
             //for each dish
 
             Dish dish1 = order.getDishes().get(k);

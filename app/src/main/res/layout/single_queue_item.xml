@@ -50,13 +50,15 @@
 
             <Button
                 android:id="@+id/UpdateCartOrder"
-                android:layout_width="wrap_content"
+                android:layout_width="291dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/roundededgesbtn"
                 android:gravity="center"
 
 
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
                 android:text="Update Order"
                 android:textAlignment="center"
                 android:textColor="@color/ButtonTextColor" />

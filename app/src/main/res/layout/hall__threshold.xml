@@ -82,11 +82,11 @@
                         <Button
                             android:id="@+id/button"
                             android:layout_width="123dp"
-                            android:layout_height="22dp"
+                            android:layout_height="35dp"
                             android:layout_marginLeft="60dp"
                             android:layout_marginTop="0dp"
                             android:layout_marginRight="5dp"
-                            android:background="@color/ButtonColor"
+                            android:background="@drawable/roundededgesbtn"
                             android:contentDescription="@string/description"
                             android:text="Change Threshold"
                             android:textColor="@color/ButtonTextColor" />

@@ -81,18 +81,21 @@
                 android:layout_gravity="center_vertical|right"
                 android:layout_margin="10dp"
                 android:orientation="vertical">
+
                 <Button
                     android:id="@+id/assign_button"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="35dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="5dp"
-                    android:background="@color/ButtonColor"
+                    android:background="@drawable/roundededgesbtn"
+                    android:clickable="true"
                     android:contentDescription="@string/description"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
                     android:text="Assign Waiter"
-                    android:textColor="@color/ButtonTextColor"
-                    android:clickable="true" />
+                    android:textColor="@color/ButtonTextColor" />
 
 
             </LinearLayout>

@@ -70,10 +70,10 @@ public class DishHolder extends RecyclerView.ViewHolder {
                 String val1=vals[0];
                 String val2=vals[1];
                 DocumentReference dbRef=db.collection(val1).document(val2);
-                mymap.put("foodItem",dbRef);
+                mymap.put("foodItem",dbRef.getPath());
                 mymap.put("itemStatus",DishInfo.getStatus());
                 final Map<String,Object> mymap2=new HashMap<>();
-                mymap2.put("foodItem",dbRef);
+                mymap2.put("foodItem",dbRef.getPath());
                 mymap2.put("itemStatus","done");
 
 
@@ -86,15 +86,15 @@ public class DishHolder extends RecyclerView.ViewHolder {
                             boolean check = false;
                             for (int i = 0; i < Items.size() && check != true; i++) {
                                 Map<String, Object> map = (Map<String, Object>) Items.get(i);
-                                DocumentReference foodRef = (DocumentReference) map.get("foodItem");
+                                DocumentReference foodRef = (DocumentReference) FirebaseFirestore.getInstance().document( map.get("foodItem").toString()); //get document reference
                                 String itemStatus = (String) map.get("itemStatus");
                                 String id = foodRef.getId();
 
 
-                                DocumentReference foodRef2 = (DocumentReference) mymap.get("foodItem");
+                                DocumentReference foodRef2 = (DocumentReference) FirebaseFirestore.getInstance().document( mymap.get("foodItem").toString()); //get document reference
                                 String itemStatus2 = (String) mymap.get("itemStatus");
                                 String id2 = foodRef2.getId();
-                                if (id.compareTo(id2) == 0 && itemStatus.compareTo(itemStatus2) == 0) {
+                                if (itemStatus!=null && id.compareTo(id2) == 0 && itemStatus.compareTo(itemStatus2) == 0) {
                                     Items.set(i, mymap2);
                                     check = true;
                                 }
@@ -136,11 +136,11 @@ public class DishHolder extends RecyclerView.ViewHolder {
                 String val1=vals[0];
                 String val2=vals[1];
                 DocumentReference dbRef=db.collection(val1).document(val2);
-                mymap.put("foodItem",dbRef);
+                mymap.put("foodItem",dbRef.getPath());
                 mymap.put("itemStatus",DishInfo.getStatus());
 
                 final Map<String,Object> mymap2=new HashMap<>();
-                mymap2.put("foodItem",dbRef);
+                mymap2.put("foodItem",dbRef.getPath());
                 mymap2.put("itemStatus","progress");
 
 
@@ -154,15 +154,15 @@ public class DishHolder extends RecyclerView.ViewHolder {
                             for (int i=0;i<Items.size()&& check!=true;i++)
                             {
                                 Map<String,Object>map= (Map<String, Object>) Items.get(i);
-                                DocumentReference foodRef= (DocumentReference) map.get("foodItem");
+                                DocumentReference foodRef= (DocumentReference)FirebaseFirestore.getInstance().document( map.get("foodItem").toString()); //get document reference
                                 String itemStatus= (String) map.get("itemStatus");
                                 String id=foodRef.getId();
 
 
-                                DocumentReference foodRef2= (DocumentReference) mymap.get("foodItem");
+                                DocumentReference foodRef2= (DocumentReference)FirebaseFirestore.getInstance().document( mymap.get("foodItem").toString()); //get document reference
                                 String itemStatus2= (String) mymap.get("itemStatus");
                                 String id2=foodRef2.getId();
-                                if(id.compareTo(id2)==0&&itemStatus.compareTo(itemStatus2)==0)
+                                if(itemStatus!=null &&itemStatus2!=null &&id.compareTo(id2)==0&&itemStatus.compareTo(itemStatus2)==0)
                                 {
                                     Items.set(i,mymap2);
                                     check=true;

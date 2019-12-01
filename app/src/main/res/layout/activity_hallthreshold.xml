@@ -28,10 +28,10 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_marginLeft="5dp"
             android:id="@+id/idMinusICon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginLeft="5dp"
             android:src="@drawable/minus_circle" />
 
         <TextView
@@ -47,8 +47,8 @@
 
         <ImageView
             android:id="@+id/idPlusIcon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:src="@drawable/plus_circle" />
 
         <LinearLayout
@@ -61,14 +61,14 @@
         android:id="@+id/button"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="12dp"
         android:layout_gravity="center"
-        android:background="@color/ButtonColor"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/roundededgesbtn"
         android:contentDescription="@string/description"
-        android:textSize="25dp"
+        android:onClick="update"
         android:text="Save"
         android:textColor="@color/ButtonTextColor"
-        android:onClick="update"/>
+        android:textSize="18sp" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -233,15 +233,16 @@
 
     <Button
         android:id="@+id/billbutton"
-        android:layout_width="124dp"
+        android:layout_width="345dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:background="@color/ButtonColor"
+        android:background="@drawable/roundededgesbtn"
         android:contentDescription="@string/description"
-        android:text="Mark as Paid"
         android:onClick="clicker"
-        android:textColor="@color/ButtonTextColor" />
+        android:text="Mark as Paid"
+        android:textColor="@color/ButtonTextColor"
+        android:textSize="18sp" />
 
 
 

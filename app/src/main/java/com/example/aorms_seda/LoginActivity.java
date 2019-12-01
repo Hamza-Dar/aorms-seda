@@ -27,8 +27,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void Login(View v){
-        Intent i = new Intent(this, LandingPage.class);
-        startActivity(i);
+//        Intent i = new Intent(this, LandingPage.class);
+//        startActivity(i);
+        open();
     }
     Intent i1;
     public void openMenu(View v){
@@ -73,31 +74,38 @@ public class LoginActivity extends AppCompatActivity {
                         String role = d.getString("Role");
                         if(role == null)
                             return;
-                        if(role.equals("Kitchen Manager")){
+                        switch (role) {
+                            case "Kitchen Manager": {
 
-                            Intent i = new Intent(getApplicationContext(), kitchenActivity.class);
-                            startActivity(i);
+                                Intent i = new Intent(getApplicationContext(), kitchenActivity.class);
+                                startActivity(i);
+                                break;
+                            }
+                            case "Sales": {
+                                Intent i = new Intent(getApplicationContext(), ReportsActivity.class);
+                                startActivity(i);
+                                break;
+                            }
+                            case "Hall Manager":
+                                startActivity(new Intent(getApplicationContext(), GuiDemoL164348.class));
+                                finish();
+                                break;
+                            case "Inventory Manager": {
+                                Intent i = new Intent(getApplicationContext(), InventoryManager.class);
+                                startActivity(i);
+                                break;
+                            }
+                            case "Everything": {
+                                Intent i = new Intent(getApplicationContext(), LandingPage.class);
+                                startActivity(i);
+                                break;
+                            }
+                            default: {
+                                Intent i = new Intent(getApplicationContext(), MenuOption.class);
+                                startActivity(i);
+                                break;
+                            }
                         }
-                        else if(role.equals("Sales")){
-                            Intent i = new Intent(getApplicationContext(), ReportsActivity.class);
-                            startActivity(i);
-                        }
-                        else if(role.equals("Hall Manager")){
-                            startActivity(new Intent(getApplicationContext(), GuiDemoL164348.class));
-                            finish();
-                        }
-                        else if(role.equals("Inventory Manager")){
-                            Intent i = new Intent(getApplicationContext(), InventoryManager.class);
-                            startActivity(i);
-                        }
-                        else{
-                            Intent i = new Intent(getApplicationContext(), MenuOption.class);
-                            startActivity(i);
-                        }
-
-
-
-
 
                     }
                 }

@@ -33,13 +33,13 @@
             android:id="@+id/button5"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="250dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:padding="5dp"
-            android:background="@color/ButtonColor"
+            android:background="@drawable/roundededgesbtn"
             android:clickable="true"
             android:contentDescription="@string/description"
+            android:padding="5dp"
             android:text="Assign Waiter"
             android:textColor="@color/ButtonTextColor" />
 
